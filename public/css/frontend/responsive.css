@@ -1,0 +1,12 @@
+@media (max-width: 767.98px) {
+    .custom_caption h1 {font-size: 23px;}
+    .search_sec{width: 100%;}
+    h1{font-size: 30px;}
+    h2{font-size: 25px;}
+    div#work-class2 {margin-left: 0; top: 0;}
+    .blog_headding.mob {display: block;}
+    .blog_headding.web {display: none;}
+    .navbar-dark .navbar-brand{position: relative;}
+    .carousel-item {height: 400px;}
+
+}

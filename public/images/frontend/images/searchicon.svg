@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="77" height="79.111" viewBox="0 0 77 79.111">
+  <defs>
+    <filter id="search_1_" x="0" y="0" width="77" height="79.111" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="searchicon" transform="translate(-645 -310)">
+    <g transform="matrix(1, 0, 0, 1, 645, 310)" filter="url(#search_1_)">
+      <path id="search_1_2" data-name="search (1)" d="M59.087,55.662,44.542,40.535a24.664,24.664,0,1,0-18.885,8.812,24.409,24.409,0,0,0,14.136-4.465L54.448,60.124a3.218,3.218,0,1,0,4.639-4.462ZM25.657,6.437A18.237,18.237,0,1,1,7.421,24.673,18.257,18.257,0,0,1,25.657,6.437Z" transform="translate(8.02 6)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

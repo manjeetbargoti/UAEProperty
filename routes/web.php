@@ -18,7 +18,7 @@
 Route::get('/', 'HomeController@index');
 
 // Admin Login Route
-// Route::match(['get', 'post'], '/admin', 'AdminController@adminLogin');
+Route::match(['get', 'post'], '/admin', 'AdminController@adminLogin');
 
 Auth::routes();
 
@@ -26,8 +26,12 @@ Route::group(['middleware' => 'auth'], function (){
     
     Route::get('/admin/dashboard', 'AdminController@dashboard');
 
-});
+    // Property Type Routes
+    Route::match(['get', 'post'], '/admin/add-property-type', 'PropertyController@addPropertyType');
+    Route::get('/admin/property-type', 'PropertyController@propertyTypes');
+    Route::match(['get','post'], '/admin/ptenable/{id}', 'PropertyController@enablePropertyType');
+    Route::match(['get','post'], '/admin/ptdisable/{id}', 'PropertyController@disablePropertyType');
 
-// Route::get('/admin', 'AdminController@adminLogin');
+});
 
 Route::get('/logout', 'AdminController@logout');

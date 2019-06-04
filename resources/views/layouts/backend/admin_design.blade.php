@@ -129,6 +129,11 @@ desired effect
   <!-- Custom js for Admin -->
   <script src="{{ asset('dist/js/custom.js') }}"></script>
 
+  <script>
+    $('#SystemOption').click(function(){
+      alert('This is Pro functionality.');
+    });
+  </script>
   <!-- Check Current Password -->
   <script>
     $('#new_pwd').click(function() {

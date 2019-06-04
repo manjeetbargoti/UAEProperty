@@ -16,3 +16,18 @@
 // });
 
 Route::get('/', 'HomeController@index');
+
+// Admin Login Route
+// Route::match(['get', 'post'], '/admin', 'AdminController@adminLogin');
+
+Auth::routes();
+
+Route::group(['middleware' => 'auth'], function (){
+    
+    Route::get('/admin/dashboard', 'AdminController@dashboard');
+
+});
+
+// Route::get('/admin', 'AdminController@adminLogin');
+
+Route::get('/logout', 'AdminController@logout');

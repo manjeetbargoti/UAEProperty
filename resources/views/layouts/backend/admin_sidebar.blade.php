@@ -101,7 +101,7 @@
                   <ul class="treeview-menu">
                       <li><a href="{{ url('/admin/properties') }}"><i class="fa fa-building text-yellow"></i>All
                               Properties</a></li>
-                      <li><a href="{{ url('/admin/add-new-property') }}"><i class="fa fa-puzzle-piece text-yellow"></i>Add
+                      <li><a href="{{ url('/admin/add-property') }}"><i class="fa fa-puzzle-piece text-yellow"></i>Add
                               Property</a></li>
                   </ul>
               </li>

@@ -18,10 +18,10 @@ class AdminController extends Controller
     // Admin Login Function
     public function adminLogin(Request $request, $guard = null)
     {
-        $userData = Auth::user();
+        // $userData = Auth::user();
 
-        if (Auth::guard($guard)->check() && $userData->admin == 1) {
-            Session::put('Auth', $userData['email']);
+        if (Auth::guard($guard)->check()) {
+            // Session::put('Auth', $userData['email']);
             return redirect('/admin/dashboard');
         }
 

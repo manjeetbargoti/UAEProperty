@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Image;
 use App\City;
 use App\State;
+use App\Amenity;
 use App\Country;
 use App\Property;
 use App\PropertyType;
@@ -88,6 +89,11 @@ class PropertyController extends Controller
                 $commercial = 0;
             }
 
+            $amenities = $data['amenity'];
+            $amenity = implode(',', $amenities);
+
+            // dd($amenity);
+
             $property = Property::create([
                 'name'                  => $data['property_name'],
                 'url'                   => $data['slug'],
@@ -110,6 +116,7 @@ class PropertyController extends Controller
                 'cafeteria'             => $data['cafeteria'],
                 'property_age'          => $data['property_age'],
                 'commercial'            => $commercial,
+                'amenities'             => $amenity,
                 'plotno'                => $data['plot_no'],
                 'addressline1'          => $data['property_address1'],
                 'addressline2'          => $data['property_address2'],
@@ -159,8 +166,9 @@ class PropertyController extends Controller
 
         $countrylist = Country::where('iso2', 'AE')->get();
         $states = State::where('country', 'AE')->get();
-        $propertytype = PropertyType::orderBy('name', 'asc')->get();
-        return view('admin.property.add_property', compact('propertytype', 'countrylist', 'states'));
+        $propertytype = PropertyType::where('status', 1)->orderBy('name', 'asc')->get();
+        $amenities = Amenity::where('status', 1)->orderBy('name', 'asc')->get();
+        return view('admin.property.add_property', compact('propertytype', 'countrylist', 'states', 'amenities'));
     }
 
     // Creating unique Slug
@@ -177,4 +185,72 @@ class PropertyController extends Controller
         $cities = City::where("state_id", $request->state_id)->pluck("name", "id");
         return response()->json($cities);
     }
+
+    // Add Amenities
+    public function addAmenity(Request $request)
+    {
+        if($request->isMethod('POST')){
+            $data = $request->all();
+            // dd($data);
+            if(!empty($data['status'])){
+                $status = 0;
+            }else {
+                $status = 1;
+            }
+
+            $amenity = Amenity::create([
+                'name'          => $data['amenity_name'],
+                'amenity_code'  => $data['amenity_code'],
+                'description'   => $data['description'],
+                'status'        => $status
+            ]);
+
+            return redirect()->back()->with('flash_message_success', 'Amenity Added Successfully!');
+        }
+        return view('admin.property.add_amenities');
+    }
+
+    // View All Amenities in List
+    public function allAmenity()
+    {
+        $amenities = Amenity::orderBy('name', 'asc')->get();
+
+        return view('admin.property.amenities', compact('amenities'));
+    }
+
+    // Enable Amenity
+    public function enableAmenity($id=null)
+    {
+        if(!empty($id)){
+            Amenity::where('id', $id)->update(['status' => '1']);
+            return redirect()->back()->with('flash_message_success', 'Amenity Enabled Successfully!');
+        }
+    }
+
+    // Disable Amenity
+    public function disableAmenity($id)
+    {
+        if(!empty($id)){
+            Amenity::where('id', $id)->update(['status'=> '0']);
+            return redirect()->back()->with('flash_message_success', 'Amenity Disabled Successfully!');
+        }
+    }
+
+    // View All Property in Dashboard
+    public function allProperty()
+    {
+        $properties = Property::orderBy('created_at', 'desc')->get();
+        $properties = json_decode(json_encode($properties));
+
+        foreach($properties as $key => $val)
+        {
+            $prop_image_count = PropertyImage::where(['property_id' => $val->id])->count();
+            if($prop_image_count > 0){
+            $prop_image = PropertyImage::where(['property_id' => $val->id])->first();
+            $properties[$key]->image_name = $prop_image->image_name;
+            }
+        }
+        return view('admin.property.view_property', compact('properties'));
+    }
+
 }

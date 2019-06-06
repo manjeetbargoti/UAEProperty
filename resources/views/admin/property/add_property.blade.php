@@ -92,7 +92,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="property_heading col-xs-12 col-md-12">
                                             <h4><strong>Property Basic Details</strong></h4>
                                         </div>
-                                        
+
                                         <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label for="Property Name">Property Name</label>
@@ -113,8 +113,8 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Property For">Property For</label>
                                                 <select name="property_for" id="property_for"
-                                                    class="form-control select2"
-                                                    style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                    class="form-control select2" style="width: 100%;" tabindex="-1"
+                                                    aria-hidden="true">
                                                     <option value="" selected>Properties</option>
                                                     <option value="1">Buy</option>
                                                     <option value="2">Rent</option>
@@ -151,7 +151,7 @@ function generate_string($input, $strength = 16) {
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><strong>AED</strong></span>
                                                     <input name="property_price" id="property_price" type="text"
-                                                    class="form-control">
+                                                        class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -204,7 +204,8 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-12 col-md-4">
                                             <div class="form-group">
                                                 <label for="Property Facing">Property Facing</label>
-                                                <select name="property_facing" id="property_facing" class="form-control">
+                                                <select name="property_facing" id="property_facing"
+                                                    class="form-control">
                                                     <option value="" selected>Select Property Facing</option>
                                                     <option value="East">East Facing</option>
                                                     <option value="West">West Facing</option>
@@ -358,7 +359,8 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label for="Plot no.">Plot no.</label>
-                                                <input name="plot_no" id="plot_no" type="text" class="form-control block-level">
+                                                <input name="plot_no" id="plot_no" type="text"
+                                                    class="form-control block-level">
                                             </div>
                                         </div>
 
@@ -372,11 +374,10 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label for="Country">Country</label>
-                                                <select name="country" id="country"
-                                                    class="form-control"
+                                                <select name="country" id="country" class="form-control"
                                                     style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     @foreach($countrylist as $c)
-                                                        <option value="{{ $c->iso2 }}">{{ $c->name }}</option>
+                                                    <option value="{{ $c->iso2 }}">{{ $c->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -390,7 +391,7 @@ function generate_string($input, $strength = 16) {
                                                     aria-hidden="true">
                                                     <option value="" selected>Select State</option>
                                                     @foreach($states as $s)
-                                                        <option value="{{ $s->id }}">{{ $s->name }}</option>
+                                                    <option value="{{ $s->id }}">{{ $s->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -439,123 +440,17 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-12">
+                                        @foreach($amenities as $a)
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="gym" id="gym" class="flat-green"
-                                                        value="1"> Gym
+                                                    <input type="checkbox" name="amenity[]"
+                                                        id="<?php echo preg_replace('/[^a-zA-Z0-9-]/','' ,strtolower($a->name)); ?>"
+                                                        class="flat-green" value="{{ $a->amenity_code }}"> {{ $a->name }}
                                                 </label>
                                             </div>
                                         </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="club_house" id="club_house"
-                                                        class="flat-green" value="1"> Club House
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="play_area" id="play_area"
-                                                        class="flat-green" value="1"> Play Area
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="water_supply" id="water_supply"
-                                                        class="flat-green" value="1"> Water Supply
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="geyser" id="geyser" class="flat-green"
-                                                        value="1"> Hot water / Geyser
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="visitor_arking" id="visitor_arking"
-                                                        class="flat-green" value="1"> Visitor's Parking
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="garden" id="garden" class="flat-green"
-                                                        value="1"> Garden/ Greenery
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="waste_disposal" id="waste_disposal"
-                                                        class="flat-green" value="1"> Waste Disposal
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="power_backup" id="power_backup"
-                                                        class="flat-green" value="1"> Power Backup
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="swimming_pool" id="swimming_pool"
-                                                        class="flat-green" value="1"> Swimming Pool
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="water_storage" id="water_storage"
-                                                        class="custom-control-input" value="1"> Water Storage
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="security_personnel"
-                                                        id="security_personnel" class="custom-control-input" value="1">
-                                                    Security Personnel
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="gated_community" id="gated_community"
-                                                        class="custom-control-input" value="1"> Gated Community
-                                                </label>
-                                            </div>
-                                        </div>
+                                        @endforeach
 
                                         <div class="box-footer">
                                             <input type="submit" class="btn btn-success btn-md btn-block"

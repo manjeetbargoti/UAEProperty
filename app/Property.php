@@ -26,7 +26,7 @@ class Property extends Model
     protected $fillable = [
         'name', 'url', 'property_for', 'property_type', 'description', 'property_code', 'property_price', 'featured',
         'property_area', 'property_facing', 'transection_type', 'construction_status', 'rooms', 'bedrooms', 'bathrooms',
-        'balconies', 'furnish_type', 'p_washrooms', 'cafeteria', 'property_age', 'commercial', 'plotno', 'addressline1',
+        'balconies', 'furnish_type', 'p_washrooms', 'cafeteria', 'property_age', 'commercial', 'amenities', 'plotno', 'addressline1',
         'addressline2', 'locality', 'country', 'state', 'city', 'postalcode', 'add_by'
     ];
 }

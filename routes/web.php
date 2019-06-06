@@ -18,7 +18,7 @@
 Route::get('/', 'HomeController@index');
 
 // Admin Login Route
-Route::match(['get', 'post'], '/admin', 'AdminController@adminLogin');
+Route::match(['get', 'post'], '/admin', 'AdminController@adminLogin')->name('login');
 Route::get('/admin/dashboard', 'AdminController@dashboard');
 
 Auth::routes();
@@ -38,8 +38,13 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/admin/properties', 'PropertyController@allProperty');
     Route::match(['get', 'post'], '/admin/add-property/check_slug', 'PropertyController@checkSlug');
 
-    // Get State, City List
-    // Route::get('/admin/get-state-list', 'PropertyController@getStateList');
+    // Amenities (Add, Edit, Delete, View)
+    Route::match(['get', 'post'], '/admin/add-amenities', 'PropertyController@addAmenity');
+    Route::get('/admin/amenities', 'PropertyController@allAmenity');
+    Route::match(['get','post'], '/admin/amenable/{id}', 'PropertyController@enableAmenity');
+    Route::match(['get','post'], '/admin/amdisable/{id}', 'PropertyController@disableAmenity');
+
+    // Get City List
     Route::get('/admin/get-city-list', 'PropertyController@getCityList');
 
 });

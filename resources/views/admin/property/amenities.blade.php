@@ -5,10 +5,10 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3><a href="{{ url('admin/add-property') }}" class="label label-lg label-success">Add New</a></h3>
+        <h3><a href="{{ url('admin/add-amenities') }}" class="label label-lg label-success">Add New</a></h3>
         <ol class="breadcrumb">
-            <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Property List</li>
+            <li><a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Amenities</li>
         </ol>
     </section>
 
@@ -18,7 +18,7 @@
             <div class="col-xs-12">
                 <div class="box box-info">
                     <div class="box-header">
-                        <h3 class="box-title">List of Properties</h3>
+                        <h3 class="box-title">List of Amenities</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -26,28 +26,33 @@
                             <thead>
                                 <tr>
                                     <th>S.No</th>
-                                    <th>Image</th>
-                                    <th>Title</th>
-                                    <th>Listed For</th>
-                                    <th>Price</th>
-                                    <th>Amenities</th>
-                                    <th>Action</th>
+                                    <th>Name</th>
+                                    <th>Amenity Code</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <?php $i = 0 ?>
-                                    @foreach($properties as $p)
+                                    @foreach($amenities as $am)
                                     <?php $i++ ?>
                                     <td>{{ $i }}</td>
-                                    <td>@if(!empty($p->image_name)) <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}" width="60" alt="{{ $p->name }}"> @endif</td>
-                                    <td><a href="{{ url('/properties/'.$p->url) }}">{{ $p->name}}</a></td>
-                                    <td>@if($p->property_for == 1) Buy @else Sale @endif</td>
-                                    <td>AED {{ $p->property_price }}</td>
-                                    <td>{{ $p->amenities }}</td>
+                                    <td>{{ $am->name }}</td>
+                                    <td>{{ $am->amenity_code}}</td>
+                                    <td>{{ $am->description }}</td>
+                                    <td>{{ date('d M, Y', strtotime($am->created_at)) }}</td>
                                     <td>
                                         <div id="donate">
-                                            <a href="#" title="Edit" class="label label-success label-sm">Edit</a>
+                                            
+                                            @if($am->status == 1)
+                                            <a href="/admin/amdisable/{{ $am->id }}" title="Disable"
+                                                class="label label-success label-sm">Enable</a>
+                                            @else
+                                            <a href="/admin/amenable/{{ $am->id }}" title="Enable"
+                                                class="label label-danger label-sm">Disable</a>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -56,11 +61,10 @@
                             <tfoot>
                                 <tr>
                                     <th>S.No</th>
-                                    <th>Image</th>
-                                    <th>Title</th>
-                                    <th>Listed For</th>
-                                    <th>Price</th>
-                                    <th>Amenities</th>
+                                    <th>Name</th>
+                                    <th>Amenity Code</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
                                     <th>Status</th>
                                 </tr>
                             </tfoot>
@@ -76,7 +80,7 @@
 <!-- /.content-wrapper -->
 
 <script>
-
+    
 </script>
 
 @endsection

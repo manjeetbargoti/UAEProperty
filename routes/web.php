@@ -49,4 +49,7 @@ Route::group(['middleware' => 'auth'], function (){
 
 });
 
+    // View Single Property
+    Route::get('/properties/{url}', 'HomeController@singleProperty');
+
 Route::get('/logout', 'AdminController@logout');

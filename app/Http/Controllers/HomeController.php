@@ -52,4 +52,28 @@ class HomeController extends Controller
 
         return view('homepage', compact('properties'));
     }
+
+    // View Signle Property Detail Page
+    public function singleProperty(Request $request, $url=null)
+    {
+        $property = Property::where('url', $url)->get();
+        $property = json_decode(json_encode($property));
+
+        foreach($property as $key => $val){
+            $city_count = City::where(['id'=> $val->city])->count();
+            if($city_count > 0){
+                $city_name = City::where(['id'=> $val->city])->first();
+                $property[$key]->city_name = $city_name->name;
+            }
+            $state_count = State::where(['id'=> $val->state])->count();
+            if($state_count > 0){
+                $state_name = State::where(['id'=> $val->state])->first();
+                $property[$key]->state_name = $state_name->name;
+            }
+        }
+
+        $property_image = PropertyImage::get();
+
+        return view('frontend.property.single_property', compact('property', 'property_image'));
+    }
 }

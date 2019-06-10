@@ -103,7 +103,7 @@
                                     </li>
                                 </ul>
                                 <h6>@if($p->property_for == 2)
-                                    AED {{ $p->property_price }} <span>Year</span>
+                                    AED {{ $p->property_price }} <span>/Year</span>
                                     @else
                                     AED {{ $p->property_price }}
                                     @endif
@@ -204,7 +204,7 @@
                                 <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}</li>
                             </ul>
                             <h6>@if($p->property_for == 2)
-                                AED {{ $p->property_price }} <span>Year</span>
+                                AED {{ $p->property_price }} <span>/Year</span>
                                 @else
                                 AED {{ $p->property_price }}
                                 @endif

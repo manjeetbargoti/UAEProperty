@@ -24,7 +24,7 @@
 
 <body>
 
-    @include('layouts.frontend.home_header')
+    @include('layouts.frontend.home_header_2')
 
     @yield('content')
 

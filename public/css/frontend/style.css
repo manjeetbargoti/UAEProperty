@@ -244,6 +244,7 @@ section{
 }
 .pro_con p {
     color: #707070;
+    min-height: 3em;
 }
 .pro_con ul {
     margin: 0 0 15px 0;

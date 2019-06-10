@@ -446,7 +446,7 @@ function generate_string($input, $strength = 16) {
                                                 <label>
                                                     <input type="checkbox" name="amenity[]"
                                                         id="<?php echo preg_replace('/[^a-zA-Z0-9-]/','' ,strtolower($a->name)); ?>"
-                                                        class="flat-green" value="{{ $a->amenity_code }}"> {{ $a->name }}
+                                                        class="flat-green" value="{{ $a->name }}"> {{ $a->name }}
                                                 </label>
                                             </div>
                                         </div>

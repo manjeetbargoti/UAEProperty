@@ -76,240 +76,202 @@
                 <h1>Feature <span>Property</span></h1>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <?php $counter = 0; ?>
+                @foreach($properties as $p)
+                @if($p->featured == 1)
+                <?php $counter++ ?>
+                @if($counter <= 3) <div class="col-md-4">
                     <div class="probox">
-                        <a href="#">
+                        <a href="{{ url('/properties/'.$p->url) }}">
+                            <span class="tag_top @if($p->property_for == 2) rent @else buy @endif">
+                                @if($p->property_for == 2) Rent @else Buy @endif
+                            </span>
                             <div class="pro_img">
-                                <img src="{{ url('images/frontend/images/pro1.jpg') }}">
+                                @if(!empty($p->image_name))
+                                <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}">
+                                @else
+                                <img src="{{ url('images/frontend/property_images/large/default.png') }}">
+                                @endif
                             </div>
                             <div class="pro_con">
-                                <h5>Al Khawaneej, Dubai</h5>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
+                                <p>{{ $p->name }}</p>
                                 <ul>
-                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">2</li>
-                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">1</li>
+                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
+                                    </li>
+                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}
+                                    </li>
                                 </ul>
-                                <h6>AED 80,000 <span>Year</span></h6>
+                                <h6>@if($p->property_for == 2)
+                                    AED {{ $p->property_price }} <span>Year</span>
+                                    @else
+                                    AED {{ $p->property_price }}
+                                    @endif
+                                </h6>
                             </div>
                         </a>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="probox">
-                        <a href="#">
-                            <div class="pro_img">
-                                <img src="{{ url('images/frontend/images/pro2.jpg') }}">
-                            </div>
-                            <div class="pro_con">
-                                <h5>Al Khawaneej, Dubai</h5>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                                <ul>
-                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">2</li>
-                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">1</li>
-                                </ul>
-                                <h6>AED 80,000 <span>Year</span></h6>
-                            </div>
-                        </a>
+            </div>
+            @endif
+            @endif
+            @endforeach
+        </div>
+</div>
+</section>
+<section class="country_sec">
+    <div class="d-sm-flex flex-row">
+        <div class="flex-fill">
+            <div class="countrybox">
+                <a href="#">
+                    <span class="count_overlay"></span>
+                    <img src="{{ url('images/frontend/images/city1.jpg') }}">
+                    <div class="count_txt">
+                        <h2>Water Villa</h2>
+                        <p>Check out some of the latest and
+                            best properties published on our website.</p>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="probox">
-                        <a href="#">
-                            <div class="pro_img">
-                                <img src="{{ url('images/frontend/images/pro3.jpg') }}">
-                            </div>
-                            <div class="pro_con">
-                                <h5>Al Khawaneej, Dubai</h5>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                                <ul>
-                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">2</li>
-                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">1</li>
-                                </ul>
-                                <h6>AED 80,000 <span>Year</span></h6>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
-    </section>
-    <section class="country_sec">
-        <div class="d-sm-flex flex-row">
-            <div class="flex-fill">
-                <div class="countrybox">
-                    <a href="#">
-                        <span class="count_overlay"></span>
-                        <img src="{{ url('images/frontend/images/city1.jpg') }}">
-                        <div class="count_txt">
-                            <h2>Water Villa</h2>
-                            <p>Check out some of the latest and
-                                best properties published on our website.</p>
+        <div class="flex-fill">
+            <div class="countrybox">
+                <a href="#">
+                    <span class="count_overlay"></span>
+                    <img src="{{ url('images/frontend/images/city2.jpg') }}">
+                    <div class="count_txt">
+                        <h2>Dubai Marina</h2>
+                        <p>Check out some of the latest and
+                            best properties published on our website.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="flex-fill">
+            <div class="countrybox">
+                <a href="#">
+                    <span class="count_overlay"></span>
+                    <img src="{{ url('images/frontend/images/city3.jpg') }}">
+                    <div class="count_txt">
+                        <h2>Hattan 2</h2>
+                        <p>Check out some of the latest and
+                            best properties published on our website.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="flex-fill">
+            <div class="countrybox">
+                <a href="#">
+                    <span class="count_overlay"></span>
+                    <img src="{{ url('images/frontend/images/city4.jpg') }}">
+                    <div class="count_txt">
+                        <h2>Damac Hills</h2>
+                        <p>Check out some of the latest and
+                            best properties published on our website.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="property_sec">
+    <div class="container">
+        <div class="headding">
+            <h1>Property <span>Listing</span></h1>
+        </div>
+        <div class="row">
+            <?php $counter = 0; ?>
+            @foreach($properties as $p)
+            <?php $counter++ ?>
+            @if($counter <= 3) <div class="col-md-4">
+                <div class="probox">
+                    <a href="{{ url('/properties/'.$p->url) }}">
+                        <span class="tag_top @if($p->property_for == 2) rent @else buy @endif">
+                            @if($p->property_for == 2) Rent @else Buy @endif
+                        </span>
+                        <div class="pro_img">
+                            @if(!empty($p->image_name))
+                            <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}">
+                            @else
+                            <img src="{{ url('images/frontend/property_images/large/default.png') }}">
+                            @endif
+                        </div>
+                        <div class="pro_con">
+                            <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
+                            <p>{{ $p->name }}</p>
+                            <ul>
+                                <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}</li>
+                                <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}</li>
+                            </ul>
+                            <h6>@if($p->property_for == 2)
+                                AED {{ $p->property_price }} <span>Year</span>
+                                @else
+                                AED {{ $p->property_price }}
+                                @endif
+                            </h6>
                         </div>
                     </a>
                 </div>
-            </div>
-            <div class="flex-fill">
-                <div class="countrybox">
-                    <a href="#">
-                        <span class="count_overlay"></span>
-                        <img src="{{ url('images/frontend/images/city2.jpg') }}">
-                        <div class="count_txt">
-                            <h2>Dubai Marina</h2>
-                            <p>Check out some of the latest and
-                                best properties published on our website.</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="flex-fill">
-                <div class="countrybox">
-                    <a href="#">
-                        <span class="count_overlay"></span>
-                        <img src="{{ url('images/frontend/images/city3.jpg') }}">
-                        <div class="count_txt">
-                            <h2>Hattan 2</h2>
-                            <p>Check out some of the latest and
-                                best properties published on our website.</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="flex-fill">
-                <div class="countrybox">
-                    <a href="#">
-                        <span class="count_overlay"></span>
-                        <img src="{{ url('images/frontend/images/city4.jpg') }}">
-                        <div class="count_txt">
-                            <h2>Damac Hills</h2>
-                            <p>Check out some of the latest and
-                                best properties published on our website.</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
         </div>
-    </section>
-    <section class="property_sec">
-        <div class="container">
-            <div class="headding">
-                <h1>Property <span>Listing</span></h1>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="probox">
-                        <a href="#">
-                            <span class="tag_top rent">Rent</span>
-                            <div class="pro_img">
-                                <img src="{{ url('images/frontend/images/pro1.jpg') }}">
-                            </div>
-                            <div class="pro_con">
-                                <h5>Al Khawaneej, Dubai</h5>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                                <ul>
-                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">2</li>
-                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">1</li>
-                                </ul>
-                                <h6>AED 80,000 <span>Year</span></h6>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="probox">
-                        <a href="#">
-                            <span class="tag_top sell">Sell</span>
-                            <div class="pro_img">
-                                <img src="{{ url('images/frontend/images/pro2.jpg') }}">
-                            </div>
-                            <div class="pro_con">
-                                <h5>Al Khawaneej, Dubai</h5>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                                <ul>
-                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">2</li>
-                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">1</li>
-                                </ul>
-                                <h6>AED 80,000 <span>Year</span></h6>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="probox">
-                        <a href="#">
-                            <span class="tag_top buy">Rent</span>
-                            <div class="pro_img">
-                                <img src="{{ url('images/frontend/images/pro3.jpg') }}">
-                            </div>
-                            <div class="pro_con">
-                                <h5>Al Khawaneej, Dubai</h5>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                                <ul>
-                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">2</li>
-                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">1</li>
-                                </ul>
-                                <h6>AED 80,000 <span>Year</span></h6>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+        @endif
+        @endforeach
+    </div>
+    </div>
+</section>
+<section class="blogsec">
+    <div class="container">
+        <div class="blog_headding mob">
+            <h2>Form The <span>Blog</span></h2>
         </div>
-    </section>
-    <section class="blogsec">
-        <div class="container">
-            <div class="blog_headding mob">
-                <h2>Form The <span>Blog</span></h2>
-            </div>
-            <div class="row">
-                <div class="col-xl-10">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="owl-carousel blog-carousel work-class1" id="work-class1">
-                                <div class="item">
-                                    <img src="{{ url('images/frontend/images/blog1.jpg') }}">
-                                </div>
-                                <div class="item">
-                                    <img src="{{ url('images/frontend/images/blog1.jpg') }}">
-                                </div>
-                                <div class="item">
-                                    <img src="{{ url('images/frontend/images/blog1.jpg') }}">
-                                </div>
+        <div class="row">
+            <div class="col-xl-10">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="owl-carousel blog-carousel work-class1" id="work-class1">
+                            <div class="item">
+                                <img src="{{ url('images/frontend/images/blog1.jpg') }}">
+                            </div>
+                            <div class="item">
+                                <img src="{{ url('images/frontend/images/blog1.jpg') }}">
+                            </div>
+                            <div class="item">
+                                <img src="{{ url('images/frontend/images/blog1.jpg') }}">
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="blog_headding web">
-                                <h2>Form The <br /><span>Blog</span></h2>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="blog_headding web">
+                            <h2>Form The <br /><span>Blog</span></h2>
+                        </div>
+                        <div class="owl-carousel work-class2" id="work-class2">
+                            <div class="item">
+                                <div class="blog_txt">
+                                    <h6>May 2,2019</h6>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and
+                                        typesetting industry. </p>
+                                    <a href="#">
+                                        <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="owl-carousel work-class2" id="work-class2">
-                                <div class="item">
-                                    <div class="blog_txt">
-                                        <h6>May 2,2019</h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry. </p>
-                                        <a href="#">
-                                            <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
-                                        </a>
-                                    </div>
+                            <div class="item">
+                                <div class="blog_txt">
+                                    <h6>May 2,2019</h6>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and
+                                        typesetting industry. </p>
+                                    <a href="#">
+                                        <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
+                                    </a>
                                 </div>
-                                <div class="item">
-                                    <div class="blog_txt">
-                                        <h6>May 2,2019</h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry. </p>
-                                        <a href="#">
-                                            <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="blog_txt">
-                                        <h6>May 2,2019</h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry. </p>
-                                        <a href="#">
-                                            <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
-                                        </a>
-                                    </div>
+                            </div>
+                            <div class="item">
+                                <div class="blog_txt">
+                                    <h6>May 2,2019</h6>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and
+                                        typesetting industry. </p>
+                                    <a href="#">
+                                        <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -317,28 +279,29 @@
                 </div>
             </div>
         </div>
-    </section>
-    <section class="subscribe_sec">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="subscribe_text">
-                        <h1>Subscribe Now</h1>
-                        <p>Subscribe to our newsletters and be the first to know about exclusive deals,
-                            property price trends and real estate news in the UAE.</p>
-                    </div>
+    </div>
+</section>
+<section class="subscribe_sec">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="subscribe_text">
+                    <h1>Subscribe Now</h1>
+                    <p>Subscribe to our newsletters and be the first to know about exclusive deals,
+                        property price trends and real estate news in the UAE.</p>
                 </div>
-                <div class="col-md-6">
-                    <div class="subscribe_form">
-                        <form>
-                            <input type="email" placeholder="enter your email">
-                            <button type="submit">Subscribe</button>
-                        </form>
-                    </div>
+            </div>
+            <div class="col-md-6">
+                <div class="subscribe_form">
+                    <form>
+                        <input type="email" placeholder="enter your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 </div>
 
 @endsection

@@ -240,7 +240,15 @@ class PropertyController extends Controller
     public function allProperty()
     {
         $properties = Property::orderBy('created_at', 'desc')->get();
+        
         $properties = json_decode(json_encode($properties));
+
+        // $prop_amenities = Property::select('amenities')->orderBy('created_at', 'desc')->get();
+        // $amnetiy = explode(";",$prop_amenities);
+
+        // $amenity_name = Amenity::where('amenity_code', $amnetiy)->get();
+
+        // dd($amnetiy);
 
         foreach($properties as $key => $val)
         {

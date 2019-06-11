@@ -287,12 +287,12 @@ function generate_string($input, $strength = 16) {
                                             </div>
                                         </div>
 
-                                        <div id="Balconies" class="col-xs-6 col-sm-6 col-md-4">
+                                        <div id="Parkings" class="col-xs-6 col-sm-6 col-md-4">
                                             <div class="form-group">
-                                                <label for="Balconies">Balconies</label>
-                                                <select name="balconies" id="balconies" class="form-control">
-                                                    <option value="" selected>Select Balconies</option>
-                                                    <?php for($i=1; $i<165; $i++) { ?>
+                                                <label for="Parkings">Parkings</label>
+                                                <select name="parking" id="parking" class="form-control">
+                                                    <option value="" selected>Select Parking</option>
+                                                    <?php for($i=1; $i<10; $i++) { ?>
                                                     <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                     <?php } ?>
                                                 </select>
@@ -358,8 +358,8 @@ function generate_string($input, $strength = 16) {
 
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <label for="Plot no.">Plot no.</label>
-                                                <input name="plot_no" id="plot_no" type="text"
+                                                <label for="Unit no.">Unit no.</label>
+                                                <input name="unit_no" id="unit_no" type="text"
                                                     class="form-control block-level">
                                             </div>
                                         </div>
@@ -446,7 +446,7 @@ function generate_string($input, $strength = 16) {
                                                 <label>
                                                     <input type="checkbox" name="amenity[]"
                                                         id="<?php echo preg_replace('/[^a-zA-Z0-9-]/','' ,strtolower($a->name)); ?>"
-                                                        class="flat-green" value="{{ $a->name }}"> {{ $a->name }}
+                                                        class="flat-green" value="{{ $a->amenity_code }}"> {{ $a->name }}
                                                 </label>
                                             </div>
                                         </div>

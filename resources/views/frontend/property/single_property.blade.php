@@ -82,28 +82,18 @@
                                     aria-labelledby="pills-amenities-tab">
                                     <div class="amenties_box">
                                         <ul>
-                                            <li>Gym</li>
-                                            <li>Club House</li>
-                                            <li>Visitor's Parking</li>
-                                            <li>Waste Disposal</li>
-                                            <li>Rain Water Harvesting</li>
-                                            <li>Water Storage</li>
-                                            <li>Security Personnel</li>
-                                            <li>Gated Community</li>
+                                            @foreach(explode(',', $p->amenities) as $am)
+                                                @foreach(\App\Amenity::where('amenity_code', $am)->get() as $amenity)
+                                                <li>{{ $amenity->name }}</li>
+                                                @endforeach
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="pills-specifications" role="tabpanel"
-                                    aria-labelledby="pills-specifications-tab">
+                                    aria-labelledby="pills-specifications-tab" style="overflow:scroll; height: 21em;">
                                     <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to make a type specimen
-                                        book. It has survived not only five centuries, but also the leap into electronic
-                                        typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                                        with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                                        recently with desktop publishing software like Aldus PageMaker including
-                                        versions of Lorem Ipsum.
+                                        {!! $p->description !!}
                                     </p>
                                 </div>
                                 <div class="tab-pane fade" id="pills-contact" role="tabpanel"
@@ -124,7 +114,7 @@
             </div>
             <div class="row">
                 <?php $counter = 0; ?>
-                @foreach(\App\property::where('city', $p->city)->orWhere('state', $p->state)->orderBy('created_at', 'desc')->get() as $prel)
+                @foreach(\App\property::where('city', $p->city)->orWhere('state', $p->state)->inRandomOrder()->get() as $prel)
                 <?php $counter++; ?>
                 @if($counter <= 3) <div class="col-md-4">
                     <div class="probox">

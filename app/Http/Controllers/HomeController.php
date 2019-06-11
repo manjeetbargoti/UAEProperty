@@ -72,6 +72,8 @@ class HomeController extends Controller
             }
         }
 
+        
+
         $property_image = PropertyImage::get();
 
         return view('frontend.property.single_property', compact('property', 'property_image'));

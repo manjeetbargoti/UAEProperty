@@ -110,13 +110,11 @@
                                     aria-labelledby="pills-contact-tab">...</div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </section>
-@endforeach
 
 
     <section class="property_sec">
@@ -126,61 +124,68 @@
             </div>
             <div class="row">
                 <?php $counter = 0; ?>
-                @foreach(\App\property::orderBy('created_at', 'desc')->get() as $p)
+                @foreach(\App\property::where('city', $p->city)->orWhere('state', $p->state)->orderBy('created_at', 'desc')->get() as $prel)
                 <?php $counter++; ?>
-                @if($counter <= 3)
-                <div class="col-md-4">
+                @if($counter <= 3) <div class="col-md-4">
                     <div class="probox">
-                        <a href="#">
-                            <span class="tag_top @if($p->property_for == 2) rent @else buy @endif">
-                                @if($p->property_for == 2) Rent @else Buy @endif
+                        <a href="{{ $prel->url }}">
+                            <span class="tag_top @if($prel->property_for == 2) rent @else buy @endif">
+                                @if($prel->property_for == 2) Rent @else Buy @endif
                             </span>
                             <div class="pro_img">
-                                <img src="{{ url('images/frontend/images/pro1.jpg') }}">
+                                @if(\App\PropertyImage::where('property_id', $prel->id)->count() > 0)
+                                @foreach(\App\PropertyImage::where('property_id', $prel->id)->get()->take(1) as $pim_rel)
+                                    <img src="{{ url('images/frontend/property_images/large/'.$pim_rel->image_name) }}">
+                                @endforeach
+                                @else
+                                    <img src="{{ url('images/frontend/property_images/large/default.png') }}">
+                                @endif
                             </div>
                             <div class="pro_con">
-                                <h5>{{ $p->city }}, {{ $p->state }}</h5>
-                                <p>{{ $p->name }}</p>
+                                <h5>@foreach(\App\City::where('id', $prel->city)->get() as $c) {{ $c->name }}, @endforeach @foreach(\App\State::where('id', $prel->state)->get() as $s) {{ $s->name }} @endforeach</h5>
+                                <p>{{ $prel->name }}</p>
                                 <ul>
-                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}</li>
-                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}</li>
+                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $prel->bedrooms }}
+                                    </li>
+                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $prel->bathrooms }}
+                                    </li>
                                 </ul>
-                                <h6>@if($p->property_for == 2)
-                                    AED {{ $p->property_price }} <span>/Year</span>
+                                <h6>@if($prel->property_for == 2)
+                                    AED {{ $prel->property_price }} <span>/Year</span>
                                     @else
-                                    AED {{ $p->property_price }}
+                                    AED {{ $prel->property_price }}
                                     @endif</h6>
                             </div>
                         </a>
                     </div>
-                </div>
-                @endif
-                @endforeach
             </div>
+            @endif
+            @endforeach
         </div>
-    </section>
-    
+</div>
+</section>
+@endforeach
 
-    <section class="subscribe_sec">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="subscribe_text">
-                        <h1>Subscribe Now</h1>
-                        <p>Subscribe to our newsletters and be the first to know about exclusive deals,
-                            property price trends and real estate news in the UAE.</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="subscribe_form">
-                        <form>
-                            <input type="email" placeholder="enter your email">
-                            <button type="submit">Subscribe</button>
-                        </form>
-                    </div>
+<section class="subscribe_sec">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="subscribe_text">
+                    <h1>Subscribe Now</h1>
+                    <p>Subscribe to our newsletters and be the first to know about exclusive deals,
+                        property price trends and real estate news in the UAE.</p>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="subscribe_form">
+                    <form>
+                        <input type="email" placeholder="enter your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    @endsection
+@endsection

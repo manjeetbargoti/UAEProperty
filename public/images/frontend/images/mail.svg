@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="mail" transform="translate(-857 -464)">
+    <g id="Rectangle_45" data-name="Rectangle 45" transform="translate(857 464)" fill="none" stroke="#df3535" stroke-width="1">
+      <rect width="50" height="50" rx="4" stroke="none"/>
+      <rect x="0.5" y="0.5" width="49" height="49" rx="3.5" fill="none"/>
+    </g>
+    <g id="close-envelope_1_" data-name="close-envelope (1)" transform="translate(865.9 474.929)">
+      <g id="Group_155" data-name="Group 155" transform="translate(0 2)">
+        <path id="Path_58" data-name="Path 58" d="M16.071,11.057,11.989,7.484.316,17.49a2.389,2.389,0,0,0,1.629.639H30.2a2.372,2.372,0,0,0,1.622-.639L20.154,7.484Z" transform="translate(0.429 5.443)" fill="#df3535"/>
+        <path id="Path_59" data-name="Path 59" d="M31.824,2.639A2.374,2.374,0,0,0,30.195,2H1.942a2.364,2.364,0,0,0-1.624.643l15.75,13.5Z" transform="translate(0.432 -2)" fill="#df3535"/>
+        <path id="Path_60" data-name="Path 60" d="M0,2.878V22.461L11.392,12.78Z" transform="translate(0 -0.808)" fill="#df3535"/>
+        <path id="Path_61" data-name="Path 61" d="M9.167,12.784l11.392,9.681V2.875Z" transform="translate(12.441 -0.813)" fill="#df3535"/>
+      </g>
+    </g>
+  </g>
+</svg>

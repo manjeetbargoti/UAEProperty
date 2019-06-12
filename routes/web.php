@@ -52,4 +52,7 @@ Route::group(['middleware' => 'auth'], function (){
     // View Single Property
     Route::get('/properties/{url}', 'HomeController@singleProperty');
 
+    // Property Category Page
+    Route::get('/category/{url}', 'HomeController@propertyCategory');
+
 Route::get('/logout', 'AdminController@logout');

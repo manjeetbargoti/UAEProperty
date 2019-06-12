@@ -23,8 +23,8 @@
                                 <div class="contact_box">
                                     <p>Phone: (305) 555-4446</p>
                                     <p>Contact No: (305) 555-4446</p>
-                                    <p>Email Id: youremails@gmail.com</p>
-                                    <p>Website: https://yoururl.com</p>
+                                    <p>Email Id: info@rapiddeals.com</p>
+                                    <p>Website: https://rapiddeals.com</p>
                                 </div>
                             </div>
                         </div>
@@ -32,11 +32,11 @@
                             <div class="footer_box">
                                 <h6>Listings by category</h6>
                                 <ul class="footer_menu">
-                                    <li><a href="#">Apartments(13)</a></li>
-                                    <li><a href="#">Condos(7)</a></li>
-                                    <li><a href="#">Houses(5)</a></li>
-                                    <li><a href="#">Industrial(1)</a></li>
-                                    <li><a href="#">Land(2)</a></li>
+                                    @foreach(\App\PropertyType::where('status', 1)->orderBy('name', 'asc')->get() as $pt)
+                                    <li>
+                                        <a href="{{ url('/category/'.$pt->url) }}">{{ $pt->name }} ({{ \App\Property::where('property_type', $pt->type_code)->count() }})</a>
+                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                     <div class="copyright">
                         <div class="row">
                             <div class="col-md-6">
-                                <p>Copyright 2019 | dummy text. All Rights Reserved</p>
+                                <p>Copyright &copy; 2019 | Rapid Deals. All Rights Reserved</p>
                             </div>
                             <div class="col-md-6">
                                 <div class="privecy">

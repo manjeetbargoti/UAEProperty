@@ -1,0 +1,144 @@
+@extends('layouts.frontend.home_design_2')
+@section('content')
+
+
+
+<div id="smart_container">
+    <div class="search_mainsec">
+        <div class="properties_catlist">
+            <div class="container">
+                <div class="prop_inn">
+                    <div class="protitle_box">
+                        <h4>Properties for sale</h4>
+                        <h2>In UAE</h2>
+                    </div>
+                    <div class="proplistbox">
+                        <ul>
+                            @foreach(\App\PropertyType::where('status', 1)->orderBy('name', 'asc')->get() as $pt)
+                            <li>
+                                <a href="{{ url('/category/'.$pt->url) }}">{{ $pt->name }}
+                                    ({{ \App\Property::where('property_type', $pt->type_code)->count() }})</a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="property_sec">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="filter_top">
+                            <span>Sort By:</span>
+                            <select>
+                                <option selected>Price (low)</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <strong><?php echo count($properties); ?> results</strong>
+                        </div>
+                        <div class="property_list">
+                            @if(count($properties) == 0)
+                                <div class="pro_con p-3">
+                                    <p style="text-align: center;"><img src="{{ url('/images/frontend/images/error.png') }}" alt=""></p>
+                                    <h5 style="text-align: center;">Sorry, no results found!</h5>
+                                    <h6 style="text-align: center;">Oh Snap! Zero Results found for your search.</h6>
+                                </div>
+                            @endif
+
+                            @foreach($properties as $p)
+                            <div class="proplist">
+                                <div class="proplist_img">
+                                    @if(\App\PropertyImage::where('property_id', $p->id)->count() > 0)
+                                        @foreach(\App\PropertyImage::where('property_id', $p->id)->take(1)->get() as $pim)
+                                            <img src="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}">
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <div class="proplist_item">
+                                    <div class="pro_con">
+                                        <h5>@foreach(\App\City::where('id', $p->city)->get() as $c) {{ $c->name }}, @endforeach @foreach(\App\State::where('id', $p->state)->get() as $s) {{ $s->name }} @endforeach</h5>
+                                        <p>{{ $p->name }}</p>
+                                        <h6>@if($p->property_for == 2)
+                                            AED {{ $p->property_price }} <span>/Year</span>
+                                            @else
+                                            AED {{ $p->property_price }}
+                                            @endif</h6>
+                                        <ul>
+                                            <li>
+                                                <img src="{{ url('/images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
+                                            </li>
+                                            <li>
+                                                <img src="{{ url('/images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="callquiery">
+                                    <p>Posted on {{ date('M d, Y', strtotime($p->created_at)) }}</p>
+                                    <a href="{{ url('/properties/'.$p->url) }}" class="readmore_btn">Read More</a>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="right_sidebar">
+                            <div class="popular_searches">
+                                <h4>Popular Searches</h4>
+                                <ul>
+                                    <li><a href="#">Properties for sale</a></li>
+                                    <li><a href="#">Apartments for sale</a></li>
+                                    <li><a href="#">Villas for sale</a></li>
+                                    <li><a href="#">Townhouses for sale</a></li>
+                                    <li><a href="#">Penthouses for sale</a></li>
+                                    <li><a href="#">Compounds for sale</a></li>
+                                    <li><a href="#">Duplexes for sale</a></li>
+                                    <li><a href="#">Land for sale</a></li>
+                                    <li><a href="#">Bungalows for sale</a></li>
+                                    <li><a href="#">Hotel apartments for sale</a></li>
+                                    <li><a href="#">1 bedroom properties for sale</a></li>
+                                    <li><a href="#">2 bedroom properties for sale</a></li>
+                                    <li><a href="#">3 bedroom properties for sale</a></li>
+                                    <li><a href="#">4 bedroom properties for sale</a></li>
+                                    <li><a href="#">5 bedroom properties for sale</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <section class="nearby_sec pt-1 pb-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="nearby_txtbox">
+                        <h4>Nearby</h4>
+                        <h3>Areas</h3>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="proplistbox nearby_item">
+                        <ul>
+                            <li><a href="#">Buy Properties in Dubai</a></li>
+                            <li><a href="#">Buy Properties in Abu Dhabi</a></li>
+                            <li><a href="#">Buy Properties in Sharjah</a></li>
+                            <li><a href="#">Buy Properties in Ras Al Khaimah</a></li>
+                            <li><a href="#">Buy Properties in Ajman</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <img src="{{ url('/images/frontend/images/dubai.png') }}">
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@endsection

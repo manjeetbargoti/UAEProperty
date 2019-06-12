@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\City;
 use App\State;
 use App\Property;
+use App\PropertyType;
 use App\PropertyImage;
 use Illuminate\Http\Request;
 
@@ -72,10 +73,18 @@ class HomeController extends Controller
             }
         }
 
-        
-
         $property_image = PropertyImage::get();
 
         return view('frontend.property.single_property', compact('property', 'property_image'));
+    }
+
+    // Property Category Page Function
+    public function propertyCategory($url=null)
+    {
+        $property_type_code = PropertyType::where('url', $url)->get();
+        $properties = Property::where('property_type', $property_type_code[0]->type_code)->orderBy('created_at', 'desc')->get();
+        // echo "<pre>"; print_r($properties); die;
+
+        return view('frontend.property.property_category', compact('properties'));
     }
 }

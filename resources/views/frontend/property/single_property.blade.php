@@ -157,8 +157,8 @@
                 <div class="col-md-3">
                     <div class="probox">
                         <a href="{{ url('/properties/'.$prel->url) }}">
-                            <span class="tag_top @if($prel->property_for == 2) rent @else buy @endif">
-                                @if($prel->property_for == 2) Rent @else Buy @endif</span>
+                            <span class="tag_top @if($prel->property_for == 2) rent @elseif($prel->property_for == 1) buy @else sell @endif">
+                                @if($prel->property_for == 2) Rent @elseif($prel->property_for == 1) Buy @else OFF PLAN @endif</span>
                             <div class="pro_img">
                                 @if(\App\PropertyImage::where('property_id', $prel->id)->count() > 0)
                                 @foreach(\App\PropertyImage::where('property_id', $prel->id)->get()->take(1) as

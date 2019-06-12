@@ -52,4 +52,15 @@
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
+  'watson/active' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Watson\\Active\\ActiveServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Active' => 'Watson\\Watson\\Facades\\Active',
+    ),
+  ),
 );

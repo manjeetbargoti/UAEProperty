@@ -118,6 +118,7 @@ function generate_string($input, $strength = 16) {
                                                     <option value="" selected>Properties</option>
                                                     <option value="1">Buy</option>
                                                     <option value="2">Rent</option>
+                                                    <option value="3">Off Plan</option>
                                                 </select>
                                             </div>
                                         </div>

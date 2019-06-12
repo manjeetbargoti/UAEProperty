@@ -53,6 +53,6 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/properties/{url}', 'HomeController@singleProperty');
 
     // Property Category Page
-    Route::get('/category/{url}', 'HomeController@propertyCategory');
+    Route::get('/category/{url}', 'HomeController@propertyCategory')->name('property.category');
 
 Route::get('/logout', 'AdminController@logout');

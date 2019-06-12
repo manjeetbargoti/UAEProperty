@@ -77,7 +77,7 @@ class PropertyController extends Controller
         if ($request->isMethod('POST')) {
             $data = $request->all();
             // dd($data);
-            if (!empty($data['featured'])) {
+            if (!empty($data['feature'])) {
                 $featured = 1;
             } else {
                 $featured = 0;

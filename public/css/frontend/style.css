@@ -854,3 +854,7 @@ a.enquirebtn i {
 .prop_table table {
     background: #fff;
 }
+
+.proplistbox ul li a.active {
+    color: #007bff !important;
+}

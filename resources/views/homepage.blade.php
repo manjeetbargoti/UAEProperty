@@ -78,9 +78,10 @@
             <div class="row">
                 <?php $counter = 0; ?>
                 @foreach($properties as $p)
-                @if($p->featured == 1)
+                @if($p->featured == 1 && $p->property_for == 2)
                 <?php $counter++ ?>
-                @if($counter <= 3) <div class="col-md-4">
+                @if($counter <= 3) 
+                <div class="col-md-4">
                     <div class="probox">
                         <a href="{{ url('/properties/'.$p->url) }}">
                             <span class="tag_top @if($p->property_for == 2) rent @else buy @endif">
@@ -111,11 +112,97 @@
                             </div>
                         </a>
                     </div>
+                </div>
+                @endif
+                @endif
+                @endforeach
             </div>
-            @endif
-            @endif
-            @endforeach
-        </div>
+
+            <div class="row">
+                <?php $counter = 0; ?>
+                @foreach($properties as $p)
+                @if($p->featured == 1 && $p->property_for == 1)
+                <?php $counter++ ?>
+                @if($counter <= 3) 
+                <div class="col-md-4">
+                    <div class="probox">
+                        <a href="{{ url('/properties/'.$p->url) }}">
+                            <span class="tag_top @if($p->property_for == 2) rent @else buy @endif">
+                                @if($p->property_for == 2) Rent @else Buy @endif
+                            </span>
+                            <div class="pro_img">
+                                @if(!empty($p->image_name))
+                                <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}">
+                                @else
+                                <img src="{{ url('images/frontend/property_images/large/default.png') }}">
+                                @endif
+                            </div>
+                            <div class="pro_con">
+                                <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
+                                <p>{{ $p->name }}</p>
+                                <ul>
+                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
+                                    </li>
+                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}
+                                    </li>
+                                </ul>
+                                <h6>@if($p->property_for == 2)
+                                    AED {{ $p->property_price }} <span>/Year</span>
+                                    @else
+                                    AED {{ $p->property_price }}
+                                    @endif
+                                </h6>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                @endif
+                @endif
+                @endforeach
+            </div>
+            <div class="row">
+                <?php $counter = 0; ?>
+                @foreach($properties as $p)
+                @if($p->featured == 1 && $p->property_for == 3)
+                <?php $counter++ ?>
+                @if($counter <= 3) 
+                <div class="col-md-4">
+                    <div class="probox">
+                        <a href="{{ url('/properties/'.$p->url) }}">
+                            <span class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @else sell @endif">
+                                @if($p->property_for == 2) Rent @elseif($p->property_for == 1) Buy @else OFF PLAN @endif
+                            </span>
+                            <div class="pro_img">
+                                @if(!empty($p->image_name))
+                                <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}">
+                                @else
+                                <img src="{{ url('images/frontend/property_images/large/default.png') }}">
+                                @endif
+                            </div>
+                            <div class="pro_con">
+                                <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
+                                <p>{{ $p->name }}</p>
+                                <ul>
+                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
+                                    </li>
+                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}
+                                    </li>
+                                </ul>
+                                <h6>@if($p->property_for == 2)
+                                    AED {{ $p->property_price }} <span>/Year</span>
+                                    @else
+                                    AED {{ $p->property_price }}
+                                    @endif
+                                </h6>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                @endif
+                @endif
+                @endforeach
+            </div>
+</div>
 </div>
 </section>
 <section class="country_sec">
@@ -183,11 +270,11 @@
             <?php $counter = 0; ?>
             @foreach($properties as $p)
             <?php $counter++ ?>
-            @if($counter <= 3) <div class="col-md-4">
+            @if($counter <= 6) <div class="col-md-4">
                 <div class="probox">
                     <a href="{{ url('/properties/'.$p->url) }}">
-                        <span class="tag_top @if($p->property_for == 2) rent @else buy @endif">
-                            @if($p->property_for == 2) Rent @else Buy @endif
+                        <span class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @else sell @endif">
+                            @if($p->property_for == 2) Rent @elseif($p->property_for == 1) Buy @else OFF PLAN @endif
                         </span>
                         <div class="pro_img">
                             @if(!empty($p->image_name))

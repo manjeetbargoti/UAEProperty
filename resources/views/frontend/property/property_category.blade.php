@@ -16,7 +16,7 @@
                         <ul>
                             @foreach(\App\PropertyType::where('status', 1)->orderBy('name', 'asc')->get() as $pt)
                             <li>
-                                <a href="{{ url('/category/'.$pt->url) }}">{{ $pt->name }}
+                                <a href="{{ route('property.category', $pt->url) }}">{{ $pt->name }}
                                     ({{ \App\Property::where('property_type', $pt->type_code)->count() }})</a>
                             </li>
                             @endforeach
@@ -33,10 +33,10 @@
                         <div class="filter_top">
                             <span>Sort By:</span>
                             <select>
-                                <option selected>Price (low)</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option selected>Latest</option>
+                                <option value="1">Price: Low to High</option>
+                                <option value="2">Price: High to Low</option>
+                                <option value="3">Near By</option>
                             </select>
                             <strong><?php echo count($properties); ?> results</strong>
                         </div>

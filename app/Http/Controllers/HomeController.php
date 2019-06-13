@@ -8,6 +8,7 @@ use App\Property;
 use App\PropertyType;
 use App\PropertyImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -57,6 +58,22 @@ class HomeController extends Controller
     // View Signle Property Detail Page
     public function singleProperty(Request $request, $url=null)
     {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            // Property Enquiry Email
+            $to =['manjeet.singh@magicgroupinc.com','hrishabh@isupportcomputer.org'];
+            $email = $to;
+            $messageData = ['email'=>$data['email'], 'phone'=>$data['phone'], 'name'=>$data['full_name'], 'prop_name'=>$data['prop_name'], 'prop_url'=>$data['prop_url'], 'enquiry_message'=>$data['enquiry_message']];
+            Mail::send('emails.enquiry', $messageData, function($message) use($email){
+                $message->to($email)->subject('A User Send an Enquiry about Property');
+            });
+
+            return redirect()->back();
+        }
+
         $property = Property::where('url', $url)->get();
         $property = json_decode(json_encode($property));
 
@@ -92,6 +109,13 @@ class HomeController extends Controller
     public function propertyFor($id=null)
     {
         $properties = Property::where('property_for', $id)->orderBy('created_at', 'desc')->get();
+        return view('frontend.property.property_category', compact('properties'));
+    }
+
+    // Property by State
+    public function stateProperty($id=null)
+    {
+        $properties = Property::where('state', $id)->orderBy('created_at', 'desc')->get();
         return view('frontend.property.property_category', compact('properties'));
     }
 }

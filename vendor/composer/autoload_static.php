@@ -429,6 +429,7 @@ class ComposerStaticInit2b371e3bc9b61cbd2870006a407bc870
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Post' => __DIR__ . '/../..' . '/app/Post.php',
         'App\\Property' => __DIR__ . '/../..' . '/app/Property.php',
         'App\\PropertyFor' => __DIR__ . '/../..' . '/app/PropertyFor.php',
         'App\\PropertyImage' => __DIR__ . '/../..' . '/app/PropertyImage.php',

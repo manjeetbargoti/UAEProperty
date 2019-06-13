@@ -261,4 +261,15 @@ class PropertyController extends Controller
         return view('admin.property.view_property', compact('properties'));
     }
 
+    // Property Enquiry Form
+    public function enquiryForm(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            echo "<pre>"; print_r($data); die;
+        }
+        return redirect()->back();
+    }
+
 }

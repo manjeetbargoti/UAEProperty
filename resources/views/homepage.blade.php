@@ -73,7 +73,7 @@
     <section class="feature_sec">
         <div class="container">
             <div class="headding">
-                <h1>Feature <span>Property</span></h1>
+                <h1>Featured <span>Property</span></h1>
             </div>
             <div class="row">
                 <?php $counter = 0; ?>
@@ -96,6 +96,7 @@
                             </div>
                             <div class="pro_con">
                                 <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
+                                @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a class="badge badge-warning badge-sm" href="{{ url('/properties/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
                                 <p>{{ $p->name }}</p>
                                 <ul>
                                     <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
@@ -139,6 +140,7 @@
                             </div>
                             <div class="pro_con">
                                 <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
+                                @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a class="badge badge-warning badge-sm" href="{{ url('/properties/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
                                 <p>{{ $p->name }}</p>
                                 <ul>
                                     <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
@@ -181,6 +183,7 @@
                             </div>
                             <div class="pro_con">
                                 <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
+                                @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a class="badge badge-warning badge-sm" href="{{ url('/properties/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
                                 <p>{{ $p->name }}</p>
                                 <ul>
                                     <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
@@ -209,7 +212,7 @@
     <div class="d-sm-flex flex-row">
         <div class="flex-fill">
             <div class="countrybox">
-                <a href="#">
+                <a href="{{ url('/property/3704/azman') }}">
                     <span class="count_overlay"></span>
                     <img src="{{ url('images/frontend/images/city1.jpg') }}">
                     <div class="count_txt">
@@ -222,7 +225,7 @@
         </div>
         <div class="flex-fill">
             <div class="countrybox">
-                <a href="#">
+                <a href="{{ url('/property/3705/dubai') }}">
                     <span class="count_overlay"></span>
                     <img src="{{ url('images/frontend/images/city2.jpg') }}">
                     <div class="count_txt">
@@ -235,7 +238,7 @@
         </div>
         <div class="flex-fill">
             <div class="countrybox">
-                <a href="#">
+                <a href="{{ url('/property/3707/sharjah') }}">
                     <span class="count_overlay"></span>
                     <img src="{{ url('images/frontend/images/city3.jpg') }}">
                     <div class="count_txt">
@@ -248,7 +251,7 @@
         </div>
         <div class="flex-fill">
             <div class="countrybox">
-                <a href="#">
+                <a href="{{ url('/property/3703/abu-zabi') }}">
                     <span class="count_overlay"></span>
                     <img src="{{ url('images/frontend/images/city4.jpg') }}">
                     <div class="count_txt">
@@ -264,7 +267,7 @@
 <section class="property_sec">
     <div class="container">
         <div class="headding">
-            <h1>Property <span>Listing</span></h1>
+            <h1><span>Latest</span> Property <span>Listing</span></h1>
         </div>
         <div class="row">
             <?php $counter = 0; ?>
@@ -276,6 +279,7 @@
                         <span class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @else sell @endif">
                             @if($p->property_for == 2) Rent @elseif($p->property_for == 1) Buy @else OFF PLAN @endif
                         </span>
+                        
                         <div class="pro_img">
                             @if(!empty($p->image_name))
                             <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}">
@@ -285,6 +289,7 @@
                         </div>
                         <div class="pro_con">
                             <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
+                            @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a class="badge badge-warning badge-sm" href="{{ url('/properties/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
                             <p>{{ $p->name }}</p>
                             <ul>
                                 <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}</li>

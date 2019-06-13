@@ -50,12 +50,15 @@ Route::group(['middleware' => 'auth'], function (){
 });
 
     // View Single Property
-    Route::get('/properties/{url}', 'HomeController@singleProperty');
+    Route::match(['get', 'post'], '/properties/{url}', 'HomeController@singleProperty');
 
     // Property Category Page
     Route::get('/category/{url}', 'HomeController@propertyCategory')->name('property.category');
 
     // Property for Route (Buy/Rent/OFF Plan)
     Route::get('/property-for/{id}/{url}', 'HomeController@propertyFor');
+
+    // Property Based on state
+    Route::get('/property/{id}/{state}', 'HomeController@stateProperty');
 
 Route::get('/logout', 'AdminController@logout');

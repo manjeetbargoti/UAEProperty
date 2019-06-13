@@ -32,7 +32,8 @@
                                 <a href="#"><img src="{{ url('/images/frontend/images/wp.svg') }}"></a>
                                 <a href="#"><img src="{{ url('/images/frontend/images/call.svg') }}"></a>
                             </div>
-                            <a href="#" class="enquirebtn"><i class="fa fa-info"></i>Enquire Now</a>
+                            <a href="#" class="enquirebtn" data-toggle="modal" data-target="#getQuerymodal"><i
+                                    class="fa fa-info"></i>Enquire Now</a>
                         </div>
                     </div>
                 </div>
@@ -127,18 +128,15 @@
                 <div class="col-md-6">
                     <div class="prop_table">
                         <h5>AMENITIES</h5>
-                        <table class="table-responsive table table-bordered ">
-                            <tbody>
+                        <div class="amenties">
+                            <ul>
                                 @foreach(explode(',', $p->amenities) as $am)
-                                    @foreach(\App\Amenity::where('amenity_code', $am)->get() as $amenity)
-                                    <tr>
-                                        <td scope="row">{{ $amenity->name }}</td>
-                                        <!-- <td scope="row">Test</td> -->
-                                    </tr>
-                                    @endforeach
+                                @foreach(\App\Amenity::where('amenity_code', $am)->get() as $amenity)
+                                <li><a>{{ $amenity->name }}</a></li>
                                 @endforeach
-                            </tbody>
-                        </table>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -153,12 +151,13 @@
                 @foreach(\App\property::where('city', $p->city)->orWhere('state', $p->state)->inRandomOrder()->get() as
                 $prel)
                 <?php $counter++; ?>
-                @if($counter <= 4) 
-                <div class="col-md-3">
+                @if($counter <= 4) <div class="col-md-3">
                     <div class="probox">
                         <a href="{{ url('/properties/'.$prel->url) }}">
-                            <span class="tag_top @if($prel->property_for == 2) rent @elseif($prel->property_for == 1) buy @else sell @endif">
-                                @if($prel->property_for == 2) Rent @elseif($prel->property_for == 1) Buy @else OFF PLAN @endif</span>
+                            <span
+                                class="tag_top @if($prel->property_for == 2) rent @elseif($prel->property_for == 1) buy @else sell @endif">
+                                @if($prel->property_for == 2) Rent @elseif($prel->property_for == 1) Buy @else OFF PLAN
+                                @endif</span>
                             <div class="pro_img">
                                 @if(\App\PropertyImage::where('property_id', $prel->id)->count() > 0)
                                 @foreach(\App\PropertyImage::where('property_id', $prel->id)->get()->take(1) as
@@ -170,7 +169,10 @@
                                 @endif
                             </div>
                             <div class="pro_con">
-                                <h5>@foreach(\App\City::where('id', $prel->city)->get() as $c) {{ $c->name }}, @endforeach @foreach(\App\State::where('id', $prel->state)->get() as $s) {{ $s->name }} @endforeach</h5>
+                                <h5>@foreach(\App\City::where('id', $prel->city)->get() as $c) {{ $c->name }},
+                                    @endforeach @foreach(\App\State::where('id', $prel->state)->get() as $s)
+                                    {{ $s->name }} @endforeach</h5>
+                                    @foreach(\App\PropertyType::where('type_code', $prel->property_type)->get() as $ptn) <a class="badge badge-warning badge-sm" href="{{ url('/properties/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
                                 <p>{{ $prel->name }}</p>
                                 <h6>@if($prel->property_for == 2)
                                     AED {{ $prel->property_price }} <span>/Year</span>
@@ -180,7 +182,8 @@
                                 <ul>
                                     <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $prel->bedrooms }}
                                     </li>
-                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $prel->bathrooms }}
+                                    <li><img
+                                            src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $prel->bathrooms }}
                                     </li>
                                 </ul>
                             </div>
@@ -193,6 +196,56 @@
 </div>
 </section>
 </div>
+
+<!-- Modal Enquire -->
+<div class="modal fade" id="getQuerymodal" tabindex="-1" role="dialog" aria-labelledby="getQuerymodalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="getQuerymodalTitle">Enquire Now</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="enquiry_form" id="EnquiryForm" action="{{ url('/properties/'.$p->url) }}">
+                {{ csrf_field() }}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="Full Name">Full Name</label>
+                            <input type="text" class="form-control" name="full_name" id="full_name"
+                                placeholder="Full Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="Phone Number">Contact Number</label>
+                            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Phone no.">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Email Address">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" name="prop_name" id="prop_name" value="{{ $p->name }}">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" name="prop_url" id="prop_url" value="{{ url('/properties/'.$p->url) }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="Enquiry Details">Enquery Details</label>
+                        <textarea class="form-control" id="enquiry_message" name="enquiry_message" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Enquire End -->
+
 @endforeach
 
 @endsection

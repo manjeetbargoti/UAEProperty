@@ -1,8 +1,6 @@
 @extends('layouts.frontend.home_design_2')
 @section('content')
 
-
-
 <div id="smart_container">
     <div class="search_mainsec">
         <div class="properties_catlist">

@@ -6,9 +6,9 @@
   <!-- Logo -->
   <a href="{{ url('/admin/dashboard') }}" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>I</b>PC</span>
+    <span class="logo-mini">{{{ Auth::user()->name }}}</span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>Rapid</b> Leads</span>
+    <span class="logo-lg">{{{ Auth::user()->name }}}</span>
   </a>
 
   <!-- Header Navbar -->

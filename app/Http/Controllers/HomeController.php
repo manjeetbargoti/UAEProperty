@@ -87,4 +87,11 @@ class HomeController extends Controller
 
         return view('frontend.property.property_category', compact('properties'));
     }
+
+    // Property by Buy/Rent/Off Plan function
+    public function propertyFor($id=null)
+    {
+        $properties = Property::where('property_for', $id)->orderBy('created_at', 'desc')->get();
+        return view('frontend.property.property_category', compact('properties'));
+    }
 }

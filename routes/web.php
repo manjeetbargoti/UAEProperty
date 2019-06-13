@@ -55,4 +55,7 @@ Route::group(['middleware' => 'auth'], function (){
     // Property Category Page
     Route::get('/category/{url}', 'HomeController@propertyCategory')->name('property.category');
 
+    // Property for Route (Buy/Rent/OFF Plan)
+    Route::get('/property-for/{id}/{url}', 'HomeController@propertyFor');
+
 Route::get('/logout', 'AdminController@logout');

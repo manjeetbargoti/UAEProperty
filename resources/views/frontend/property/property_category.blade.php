@@ -60,6 +60,7 @@
                                 </div>
                                 <div class="proplist_item">
                                     <div class="pro_con">
+                                    <label class="badge badge-warning">@foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) {{ $ptn->name }} @endforeach</label> <label class="badge badge-success">@if($p->property_for == 1) Buy @elseif($p->property_for == 2) Rent @elseif($p->property_for == 3) Off Plan @endif</label>
                                         <h5>@foreach(\App\City::where('id', $p->city)->get() as $c) {{ $c->name }}, @endforeach @foreach(\App\State::where('id', $p->state)->get() as $s) {{ $s->name }} @endforeach</h5>
                                         <p>{{ $p->name }}</p>
                                         <h6>@if($p->property_for == 2)

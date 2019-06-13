@@ -16,11 +16,11 @@
                     </li>
                     <li class="nav-item">
                         <a class="tabnav" id="rent-tab" data-toggle="tab" href="#rent" role="tab" aria-controls="rent"
-                            aria-selected="false">Rent</a>
+                            aria-selected="false">RENT</a>
                     </li>
                     <li class="nav-item">
                         <a class="tabnav" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell"
-                            aria-selected="false">Sell</a>
+                            aria-selected="false">OFF PLAN</a>
                     </li>
                 </ul>
                 <div class="tab-content searchbg" id="myTabContent">

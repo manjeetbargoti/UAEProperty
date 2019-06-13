@@ -47,6 +47,9 @@ Route::group(['middleware' => 'auth'], function (){
     // Get City List
     Route::get('/admin/get-city-list', 'PropertyController@getCityList');
 
+    // Post Module Routes
+    Route::match(['get', 'post'], '/new-post', 'PostController@newPost');
+
 });
 
     // View Single Property

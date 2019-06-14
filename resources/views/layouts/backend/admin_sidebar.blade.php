@@ -31,11 +31,29 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i>
-                    <span>Dashboard</span></a></li>
+            <li class="active">
+                <a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i>
+                    <span>Dashboard</span></a>
+            </li>
 
             <li class="treeview">
-                <a href="#"><i class="fa fa-wpexplorer text-red"></i> <span>Property Type</span>
+                <a href="#"><i class="fa fa-file-text-o text-yellow"></i> <span>Post</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ url('/admin/posts') }}"><i class="fa fa-files-o text-aqua"></i>Posts</a></li>
+                    <li><a href="{{ url('/admin/new-post') }}"><i class="fa fa-plus-circle text-aqua"></i>Add
+                        Post</a></li>
+                    <li><a href="{{ url('/admin/categories') }}"><i class="fa fa-code-fork text-green"></i>Categories</a></li>
+                    <li><a href="{{ url('/admin/new-category') }}"><i class="fa fa-plus-square-o text-green"></i>Add
+                        Category</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#"><i class="fa fa-wpexplorer text-aqua"></i> <span>Property Type</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -54,10 +72,26 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ url('/admin/properties') }}"><i class="fa fa-building text-yellow"></i>All Properties</a></li>
-                    <li><a href="{{ url('/admin/add-property') }}"><i class="fa fa-puzzle-piece text-yellow"></i>Add Property</a></li>
+                    <li><a href="{{ url('/admin/properties') }}"><i class="fa fa-building text-yellow"></i>All
+                            Properties</a></li>
+                    <li><a href="{{ url('/admin/add-property') }}"><i class="fa fa-puzzle-piece text-yellow"></i>Add
+                            Property</a></li>
                     <li><a href="{{ url('/admin/amenities') }}"><i class="fa fa-s15 text-yellow"></i>Amenities</a></li>
-                    <li><a href="{{ url('/admin/add-amenities') }}"><i class="fa fa-plus text-yellow"></i>Add Amenities</a></li>
+                    <li><a href="{{ url('/admin/add-amenities') }}"><i class="fa fa-plus text-yellow"></i>Add
+                            Amenities</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#"><i class="fa fa-commenting-o text-orange"></i> <span>Testimonials</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ url('/admin/testimonials') }}"><i class="fa fa-comments text-aqua"></i>Testimonials</a></li>
+                    <li><a href="{{ url('/admin/new-testimonial') }}"><i class="fa fa-plus-square text-aqua"></i>Add
+                    Testimonials</a></li>
                 </ul>
             </li>
         </ul>

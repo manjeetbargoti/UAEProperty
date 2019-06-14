@@ -1,3 +1,11 @@
+// Creating Category URL
+$('#cat_name').keyup(function(){
+  var str = $(this).val();
+  var trims = $.trim(str);
+  var rservice_url = trims.replace(/[^a-z0-9]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+  $('#cat_url').val(rservice_url.toLowerCase());
+});
+
 
 // Country, State, City Ajax Fetch
 $('#country').click(function(){

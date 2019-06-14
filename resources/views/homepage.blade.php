@@ -70,18 +70,19 @@
 </div>
 
 <div id="smart_container">
+    <!-- Featured Property Section Starts -->
     <section class="feature_sec">
         <div class="container">
             <div class="headding">
                 <h1>Featured <span>Property</span></h1>
             </div>
+            <!-- Featured Property for Rent Section Starts -->
             <div class="row">
                 <?php $counter = 0; ?>
                 @foreach($properties as $p)
                 @if($p->featured == 1 && $p->property_for == 2)
                 <?php $counter++ ?>
-                @if($counter <= 3) 
-                <div class="col-md-4">
+                @if($counter <= 3) <div class="col-md-4">
                     <div class="probox">
                         <a href="{{ url('/properties/'.$p->url) }}">
                             <span class="tag_top @if($p->property_for == 2) rent @else buy @endif">
@@ -96,7 +97,9 @@
                             </div>
                             <div class="pro_con">
                                 <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
-                                @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a class="badge badge-warning badge-sm" href="{{ url('/properties/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
+                                @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a
+                                    class="badge badge-warning badge-sm"
+                                    href="{{ url('/category/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
                                 <p>{{ $p->name }}</p>
                                 <ul>
                                     <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
@@ -118,14 +121,15 @@
                 @endif
                 @endforeach
             </div>
+            <!-- /.Featured Property for Rent Section Ends -->
 
+            <!-- Featured Property for Buy Section Starts -->
             <div class="row">
                 <?php $counter = 0; ?>
                 @foreach($properties as $p)
                 @if($p->featured == 1 && $p->property_for == 1)
                 <?php $counter++ ?>
-                @if($counter <= 3) 
-                <div class="col-md-4">
+                @if($counter <= 3) <div class="col-md-4">
                     <div class="probox">
                         <a href="{{ url('/properties/'.$p->url) }}">
                             <span class="tag_top @if($p->property_for == 2) rent @else buy @endif">
@@ -140,7 +144,9 @@
                             </div>
                             <div class="pro_con">
                                 <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
-                                @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a class="badge badge-warning badge-sm" href="{{ url('/properties/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
+                                @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a
+                                    class="badge badge-warning badge-sm"
+                                    href="{{ url('/category/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
                                 <p>{{ $p->name }}</p>
                                 <ul>
                                     <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
@@ -162,16 +168,19 @@
                 @endif
                 @endforeach
             </div>
+            <!-- /.Featured Property for Buy Section Ends -->
+
+            <!-- Featured Property for Off Plan Section Starts -->
             <div class="row">
                 <?php $counter = 0; ?>
                 @foreach($properties as $p)
                 @if($p->featured == 1 && $p->property_for == 3)
                 <?php $counter++ ?>
-                @if($counter <= 3) 
-                <div class="col-md-4">
+                @if($counter <= 3) <div class="col-md-4">
                     <div class="probox">
                         <a href="{{ url('/properties/'.$p->url) }}">
-                            <span class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @else sell @endif">
+                            <span
+                                class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @else sell @endif">
                                 @if($p->property_for == 2) Rent @elseif($p->property_for == 1) Buy @else OFF PLAN @endif
                             </span>
                             <div class="pro_img">
@@ -183,7 +192,9 @@
                             </div>
                             <div class="pro_con">
                                 <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
-                                @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a class="badge badge-warning badge-sm" href="{{ url('/properties/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
+                                @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a
+                                    class="badge badge-warning badge-sm"
+                                    href="{{ url('/category/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
                                 <p>{{ $p->name }}</p>
                                 <ul>
                                     <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
@@ -205,195 +216,240 @@
                 @endif
                 @endforeach
             </div>
-</div>
-</div>
-</section>
-<section class="country_sec">
-    <div class="d-sm-flex flex-row">
-        <div class="flex-fill">
-            <div class="countrybox">
-                <a href="{{ url('/property/3704/azman') }}">
-                    <span class="count_overlay"></span>
-                    <img src="{{ url('images/frontend/images/city1.jpg') }}">
-                    <div class="count_txt">
-                        <h2>Water Villa</h2>
-                        <p>Check out some of the latest and
-                            best properties published on our website.</p>
-                    </div>
-                </a>
-            </div>
+            <!-- /.Featured Property for Offplan Section Ends -->
         </div>
-        <div class="flex-fill">
-            <div class="countrybox">
-                <a href="{{ url('/property/3705/dubai') }}">
-                    <span class="count_overlay"></span>
-                    <img src="{{ url('images/frontend/images/city2.jpg') }}">
-                    <div class="count_txt">
-                        <h2>Dubai Marina</h2>
-                        <p>Check out some of the latest and
-                            best properties published on our website.</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="flex-fill">
-            <div class="countrybox">
-                <a href="{{ url('/property/3707/sharjah') }}">
-                    <span class="count_overlay"></span>
-                    <img src="{{ url('images/frontend/images/city3.jpg') }}">
-                    <div class="count_txt">
-                        <h2>Hattan 2</h2>
-                        <p>Check out some of the latest and
-                            best properties published on our website.</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="flex-fill">
-            <div class="countrybox">
-                <a href="{{ url('/property/3703/abu-zabi') }}">
-                    <span class="count_overlay"></span>
-                    <img src="{{ url('images/frontend/images/city4.jpg') }}">
-                    <div class="count_txt">
-                        <h2>Damac Hills</h2>
-                        <p>Check out some of the latest and
-                            best properties published on our website.</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="property_sec">
-    <div class="container">
-        <div class="headding">
-            <h1><span>Latest</span> Property <span>Listing</span></h1>
-        </div>
-        <div class="row">
-            <?php $counter = 0; ?>
-            @foreach($properties as $p)
-            <?php $counter++ ?>
-            @if($counter <= 6) <div class="col-md-4">
-                <div class="probox">
-                    <a href="{{ url('/properties/'.$p->url) }}">
-                        <span class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @else sell @endif">
-                            @if($p->property_for == 2) Rent @elseif($p->property_for == 1) Buy @else OFF PLAN @endif
-                        </span>
-                        
-                        <div class="pro_img">
-                            @if(!empty($p->image_name))
-                            <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}">
-                            @else
-                            <img src="{{ url('images/frontend/property_images/large/default.png') }}">
-                            @endif
-                        </div>
-                        <div class="pro_con">
-                            <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
-                            @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a class="badge badge-warning badge-sm" href="{{ url('/properties/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
-                            <p>{{ $p->name }}</p>
-                            <ul>
-                                <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}</li>
-                                <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}</li>
-                            </ul>
-                            <h6>@if($p->property_for == 2)
-                                AED {{ $p->property_price }} <span>/Year</span>
-                                @else
-                                AED {{ $p->property_price }}
-                                @endif
-                            </h6>
+    </section>
+    <!-- /.Featured Property Section Ends -->
+
+    <!-- Property By State Starts -->
+    <section class="country_sec">
+        <div class="d-sm-flex flex-row">
+            <div class="flex-fill">
+                <div class="countrybox">
+                    <a href="{{ url('/property/3704/azman') }}">
+                        <span class="count_overlay"></span>
+                        <img src="{{ url('images/frontend/images/city1.jpg') }}">
+                        <div class="count_txt">
+                            <h2>AZMAN</h2>
+                            <p>Check out some of the latest and
+                                best properties in Azman.</p>
                         </div>
                     </a>
                 </div>
+            </div>
+            <div class="flex-fill">
+                <div class="countrybox">
+                    <a href="{{ url('/property/3705/dubai') }}">
+                        <span class="count_overlay"></span>
+                        <img src="{{ url('images/frontend/images/city2.jpg') }}">
+                        <div class="count_txt">
+                            <h2>DUBAI</h2>
+                            <p>Check out some of the latest and
+                                best properties in Dubai.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="flex-fill">
+                <div class="countrybox">
+                    <a href="{{ url('/property/3707/sharjah') }}">
+                        <span class="count_overlay"></span>
+                        <img src="{{ url('images/frontend/images/city3.jpg') }}">
+                        <div class="count_txt">
+                            <h2>SHARJAH</h2>
+                            <p>Check out some of the latest and
+                                best properties in Sharjah.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="flex-fill">
+                <div class="countrybox">
+                    <a href="{{ url('/property/3703/abu-dhabi') }}">
+                        <span class="count_overlay"></span>
+                        <img src="{{ url('images/frontend/images/city4.jpg') }}">
+                        <div class="count_txt">
+                            <h2>ABU DHABI</h2>
+                            <p>Check out some of the latest and
+                                best properties in Abu Dhabi.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
-        @endif
-        @endforeach
-    </div>
-    </div>
-</section>
-<section class="blogsec">
-    <div class="container">
-        <div class="blog_headding mob">
-            <h2>Form The <span>Blog</span></h2>
+    </section>
+    <!-- /.Property By State Ends -->
+
+    <!-- Latest Property Listing Section Starts -->
+    <section class="property_sec">
+        <div class="container">
+            <div class="headding">
+                <h1><span>Latest</span> Property <span>Listing</span></h1>
+            </div>
+            <div class="row">
+                <?php $counter = 0; ?>
+                @foreach($properties as $p)
+                <?php $counter++ ?>
+                @if($counter <= 6) <div class="col-md-4">
+                    <div class="probox">
+                        <a href="{{ url('/properties/'.$p->url) }}">
+                            <span
+                                class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @else sell @endif">
+                                @if($p->property_for == 2) Rent @elseif($p->property_for == 1) Buy @else OFF PLAN @endif
+                            </span>
+
+                            <div class="pro_img">
+                                @if(!empty($p->image_name))
+                                <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}">
+                                @else
+                                <img src="{{ url('images/frontend/property_images/large/default.png') }}">
+                                @endif
+                            </div>
+                            <div class="pro_con">
+                                <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
+                                @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a
+                                    class="badge badge-warning badge-sm"
+                                    href="{{ url('/category/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
+                                <p>{{ $p->name }}</p>
+                                <ul>
+                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}</li>
+                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}</li>
+                                </ul>
+                                <h6>@if($p->property_for == 2)
+                                    AED {{ $p->property_price }} <span>/Year</span>
+                                    @else
+                                    AED {{ $p->property_price }}
+                                    @endif
+                                </h6>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                @endif
+                @endforeach
+            </div>
         </div>
-        <div class="row">
-            <div class="col-xl-10">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="owl-carousel blog-carousel work-class1" id="work-class1">
-                            <div class="item">
-                                <img src="{{ url('images/frontend/images/blog1.jpg') }}">
+    </section>
+    <!-- /.Latest Property Listing Section Ends -->
+
+    <!-- Blog Section Starts -->
+    <section class="blogsec">
+        <div class="container">
+            <div class="blog_headding mob">
+                <h2>Form The <span>Blog</span></h2>
+            </div>
+            <div class="row">
+                <div class="col-xl-10">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="owl-carousel blog-carousel work-class1" id="work-class1">
+                                <div class="item">
+                                    <img src="{{ url('images/frontend/images/blog1.jpg') }}">
+                                </div>
+                                <div class="item">
+                                    <img src="{{ url('images/frontend/images/blog1.jpg') }}">
+                                </div>
+                                <div class="item">
+                                    <img src="{{ url('images/frontend/images/blog1.jpg') }}">
+                                </div>
                             </div>
-                            <div class="item">
-                                <img src="{{ url('images/frontend/images/blog1.jpg') }}">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="blog_headding web">
+                                <h2>Form The <br /><span>Blog</span></h2>
                             </div>
-                            <div class="item">
-                                <img src="{{ url('images/frontend/images/blog1.jpg') }}">
+                            <div class="owl-carousel work-class2" id="work-class2">
+                                <div class="item">
+                                    <div class="blog_txt">
+                                        <h6>May 2,2019</h6>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and
+                                            typesetting industry. </p>
+                                        <a href="#">
+                                            <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="blog_txt">
+                                        <h6>May 2,2019</h6>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and
+                                            typesetting industry. </p>
+                                        <a href="#">
+                                            <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="blog_txt">
+                                        <h6>May 2,2019</h6>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and
+                                            typesetting industry. </p>
+                                        <a href="#">
+                                            <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="blog_headding web">
-                            <h2>Form The <br /><span>Blog</span></h2>
-                        </div>
-                        <div class="owl-carousel work-class2" id="work-class2">
-                            <div class="item">
-                                <div class="blog_txt">
-                                    <h6>May 2,2019</h6>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and
-                                        typesetting industry. </p>
-                                    <a href="#">
-                                        <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
-                                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.Blog Section Ends -->
+
+    <!-- Testtimonial Section Starts -->
+    <section class="testimonials_sec">
+        <div class="container">
+            <div class="headding">
+                <h1>Testimonials</h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 m-auto">
+                    <div class="owl-carousel testimonial-slider">
+                        @foreach(\App\Testimonial::where('status', 1)->orderBy('created_at', 'desc')->get() as $ttm)
+                        <div class="item">
+                            <div class="testimonials_box">
+                                <div class="user_testimonial">
+                                    <img src="{{ url('/images/frontend/testimonial_images/large/'.$ttm->user_image) }}">
                                 </div>
-                            </div>
-                            <div class="item">
-                                <div class="blog_txt">
-                                    <h6>May 2,2019</h6>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and
-                                        typesetting industry. </p>
-                                    <a href="#">
-                                        <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="blog_txt">
-                                    <h6>May 2,2019</h6>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and
-                                        typesetting industry. </p>
-                                    <a href="#">
-                                        <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
-                                    </a>
-                                </div>
+                                <q>
+                                    {{ $ttm->content }}
+                                </q>
+                                <p>{{ $ttm->user_name }}</p>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<section class="subscribe_sec">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <div class="subscribe_text">
-                    <h1>Subscribe Now</h1>
-                    <p>Subscribe to our newsletters and be the first to know about exclusive deals,
-                        property price trends and real estate news in the UAE.</p>
+    </section>
+    <!-- /.Testimonial Section Ends -->
+
+    <!-- Subscribe Section Starts -->
+    <section class="subscribe_sec">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="subscribe_text">
+                        <h1>Subscribe Now</h1>
+                        <p>Subscribe to our newsletters and be the first to know about exclusive deals,
+                            property price trends and real estate news in the UAE.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="subscribe_form">
-                    <form>
-                        <input type="email" placeholder="enter your email">
-                        <button type="submit">Subscribe</button>
-                    </form>
+                <div class="col-md-6">
+                    <div class="subscribe_form">
+                        <form>
+                            <input type="email" placeholder="enter your email">
+                            <button type="submit">Subscribe</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    <!-- /.Subscribe Section Ends -->
 </div>
 
 @endsection

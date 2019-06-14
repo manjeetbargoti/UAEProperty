@@ -453,6 +453,10 @@ div#work-class2 {
     padding-top: 26px;
 }
 
+.subscribe_sec {
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
 .subscribe_text h1:before {
     background: url(../../images/frontend/images/waveblack.png);
     width: 69px;

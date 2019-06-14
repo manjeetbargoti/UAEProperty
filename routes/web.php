@@ -48,7 +48,16 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/admin/get-city-list', 'PropertyController@getCityList');
 
     // Post Module Routes
-    Route::match(['get', 'post'], '/new-post', 'PostController@newPost');
+    Route::match(['get', 'post'], '/admin/new-post', 'PostController@newPost');
+    Route::get('/admin/posts', 'PostController@postsAll');
+
+    // Category Module Routes
+    Route::match(['get', 'post'], '/admin/new-category', 'PostCategoryController@newCategory');
+    Route::get('/admin/categories', 'PostCategoryController@categoryAll');
+
+    // Testimonial Routes
+    Route::match(['get', 'post'], '/admin/new-testimonial', 'TestimonialController@addTestimonial');
+    Route::get('/admin/testimonials', 'TestimonialController@testimonialAll');
 
 });
 

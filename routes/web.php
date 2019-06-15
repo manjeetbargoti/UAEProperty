@@ -70,7 +70,13 @@ Route::group(['middleware' => 'auth'], function (){
     // Property for Route (Buy/Rent/OFF Plan)
     Route::get('/property-for/{id}/{url}', 'HomeController@propertyFor');
 
-    // Property Based on state
-    Route::get('/property/{id}/{state}', 'HomeController@stateProperty');
+    // Property Based on City
+    Route::get('/property/{id}/{city}', 'HomeController@cityProperty');
+
+    // Blog Page
+    Route::get('/blog', 'PostController@blogPage');
+
+    // Single Post Details Page Route
+    Route::get('/blog/{url}', 'PostController@singlePost');
 
 Route::get('/logout', 'AdminController@logout');

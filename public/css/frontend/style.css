@@ -936,3 +936,145 @@ a.enquirebtn i {
 .amenties ul li a{
     color: #000;
 }
+
+.all_blogs{
+    background: #F6F6FF;
+}
+
+.blog_boxed {
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 16px 15px -7px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+.blog_boxed:hover{
+    box-shadow: 0 16px 15px -7px rgba(0,0,0,0.15);
+}
+.blog_boxed a:hover h6{
+    color: #05B3F8;
+}
+
+.blogtxt {
+    padding: 10px;
+}
+.blogtxt h6 {
+    color: #000;
+    font-weight: 700;
+    margin: 0;
+    font-size: 25px;
+    font-family: 'Old Standard TT', serif;
+    text-transform: capitalize;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.btn_read a {
+    color: #05B3F8;
+}
+
+.blogtxt p{
+    margin: 0 0 8px 0;
+    color: #757575;
+    font-size: 15px;
+}
+.blogtxt span{
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #888;
+}
+
+
+.recent_post h2 {
+    font-size: 25px;
+    color: #000;
+}
+
+.recent_post ul {
+    margin: 0;
+    padding: 0;
+}
+
+.recent_post ul li {
+    list-style: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #fff;
+}
+.recent_post ul li:hover {
+    box-shadow: 0 10px 10px -7px rgba(0,0,0,0.10);
+}
+.recent_post ul li:hover h6{
+    color: #05B3F8;
+}
+
+.recent_post ul li a {
+    color: #000;
+    position: relative;
+    padding-left: 90px;
+    width: 100%;
+    display: block;
+}
+
+.reblogs_img {
+    width: 80px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.reblogtxt {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.reblogtxt span {
+    font-size: 11px;
+    margin: 0;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.reblogtxt h6 {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.reblogtxt p {
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.pagination_strip {
+    text-align: center;
+}
+
+
+.singleblogtxt{
+    padding: 15px 0;
+}
+.singleblogtxt h2{
+    color: #000;
+}
+.singleblogtxt h4{
+    color: #000;
+    font-weight: 700;
+}
+
+.blank_space {
+    margin-top: 66px;
+}
+.list_propertybox {
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}

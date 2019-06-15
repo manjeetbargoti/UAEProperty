@@ -226,52 +226,52 @@
         <div class="d-sm-flex flex-row">
             <div class="flex-fill">
                 <div class="countrybox">
-                    <a href="{{ url('/property/3704/azman') }}">
+                    <a href="{{ url('/property/48003/al-quoz') }}">
                         <span class="count_overlay"></span>
                         <img src="{{ url('images/frontend/images/city1.jpg') }}">
                         <div class="count_txt">
-                            <h2>AZMAN</h2>
+                            <h2>AL QUOZ</h2>
                             <p>Check out some of the latest and
-                                best properties in Azman.</p>
+                                best properties in Al Quoz.</p>
                         </div>
                     </a>
                 </div>
             </div>
             <div class="flex-fill">
                 <div class="countrybox">
-                    <a href="{{ url('/property/3705/dubai') }}">
+                    <a href="{{ url('/property/47987/dubai-city') }}">
                         <span class="count_overlay"></span>
                         <img src="{{ url('images/frontend/images/city2.jpg') }}">
                         <div class="count_txt">
-                            <h2>DUBAI</h2>
+                            <h2>DUBAI CITY</h2>
                             <p>Check out some of the latest and
-                                best properties in Dubai.</p>
+                                best properties in Dubai City.</p>
                         </div>
                     </a>
                 </div>
             </div>
             <div class="flex-fill">
                 <div class="countrybox">
-                    <a href="{{ url('/property/3707/sharjah') }}">
+                    <a href="{{ url('/property/48008/hatta') }}">
                         <span class="count_overlay"></span>
                         <img src="{{ url('images/frontend/images/city3.jpg') }}">
                         <div class="count_txt">
-                            <h2>SHARJAH</h2>
+                            <h2>HATTA</h2>
                             <p>Check out some of the latest and
-                                best properties in Sharjah.</p>
+                                best properties in Hatta.</p>
                         </div>
                     </a>
                 </div>
             </div>
             <div class="flex-fill">
                 <div class="countrybox">
-                    <a href="{{ url('/property/3703/abu-dhabi') }}">
+                    <a href="{{ url('/property/48064/arjan') }}">
                         <span class="count_overlay"></span>
                         <img src="{{ url('images/frontend/images/city4.jpg') }}">
                         <div class="count_txt">
-                            <h2>ABU DHABI</h2>
+                            <h2>ARJAN</h2>
                             <p>Check out some of the latest and
-                                best properties in Abu Dhabi.</p>
+                                best properties in Arjan.</p>
                         </div>
                     </a>
                 </div>
@@ -343,15 +343,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="owl-carousel blog-carousel work-class1" id="work-class1">
+                                @foreach(\App\Post::orderBy('created_at', 'desc')->get() as $pim)
                                 <div class="item">
-                                    <img src="{{ url('images/frontend/images/blog1.jpg') }}">
+                                    <img src="{{ url('images/frontend/post_images/small/'.$pim->post_image) }}">
                                 </div>
-                                <div class="item">
-                                    <img src="{{ url('images/frontend/images/blog1.jpg') }}">
-                                </div>
-                                <div class="item">
-                                    <img src="{{ url('images/frontend/images/blog1.jpg') }}">
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -359,36 +355,17 @@
                                 <h2>Form The <br /><span>Blog</span></h2>
                             </div>
                             <div class="owl-carousel work-class2" id="work-class2">
+                                @foreach(\App\Post::orderBy('created_at', 'desc')->get() as $p)
                                 <div class="item">
                                     <div class="blog_txt">
-                                        <h6>May 2,2019</h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry. </p>
-                                        <a href="#">
+                                        <h6>{{ date('M d, Y', strtotime($p->created_at)) }}</h6>
+                                        <p>{{ $p->title }}</p>
+                                        <a href="{{ url('/blog/'.$p->url) }}">
                                             <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
                                         </a>
                                     </div>
                                 </div>
-                                <div class="item">
-                                    <div class="blog_txt">
-                                        <h6>May 2,2019</h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry. </p>
-                                        <a href="#">
-                                            <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="blog_txt">
-                                        <h6>May 2,2019</h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry. </p>
-                                        <a href="#">
-                                            <h5>Read More <i class="icon ion-md-arrow-forward"></i></h5>
-                                        </a>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,14 @@ $('#cat_name').keyup(function(){
   $('#cat_url').val(rservice_url.toLowerCase());
 });
 
+// Creating Post URL
+$('#post_title').keyup(function(){
+  var str = $(this).val();
+  var trims = $.trim(str);
+  var rservice_url = trims.replace(/[^a-z0-9]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+  $('#post_url').val(rservice_url.toLowerCase());
+});
+
 
 // Country, State, City Ajax Fetch
 $('#country').click(function(){

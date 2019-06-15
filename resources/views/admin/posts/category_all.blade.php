@@ -29,7 +29,7 @@
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Slug</th>
-                                    <th>Description</th>
+                                    <th>Parent Cat</th>
                                     <th>Date</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -44,7 +44,7 @@
                                     <td>@if(!empty($cat->cat_image))<img src="{{ url('/images/frontend/post_images/category/large/'.$cat->cat_image) }}" width="60" alt="{{ $cat->name }}">@endif</td>
                                     <td>{{ $cat->name }}</td>
                                     <td>{{ $cat->url }}</td>
-                                    <td>{{ $cat->description }}</td>
+                                    <td>@if($cat->parent_cat != 0) @foreach(\App\PostCategory::where('id', $cat->parent_cat)->get() as $pcat_name) {{ $pcat_name->name }} @endforeach @else Main @endif</td>
                                     <td>{{ date('d M, Y', strtotime($cat->created_at)) }}</td>
                                     <td>
                                         <div id="donate">
@@ -71,7 +71,7 @@
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Slug</th>
-                                    <th>Description</th>
+                                    <th>Parent Cat</th>
                                     <th>Date</th>
                                     <th>Status</th>
                                     <th>Action</th>

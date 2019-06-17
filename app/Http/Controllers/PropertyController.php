@@ -171,6 +171,13 @@ class PropertyController extends Controller
         return view('admin.property.add_property', compact('propertytype', 'countrylist', 'states', 'amenities'));
     }
 
+    // Edit Property and Update Property Information
+    public function editProperty(Request $request, $id=null)
+    {
+
+        return ('Edit Property where id is '.$id);
+    }
+
     // Creating unique Slug
     public function checkSlug(Request $request)
     {

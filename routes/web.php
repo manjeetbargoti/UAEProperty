@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'], function (){
     // Property Routes [Add, View, Delete, Update]
     Route::match(['get', 'post'], '/admin/add-property', 'PropertyController@addProperty');
     Route::get('/admin/properties', 'PropertyController@allProperty');
+    
+    Route::match(['get', 'post'], '/admin/property/{id}/edit', 'PropertyController@editProperty');
     Route::match(['get', 'post'], '/admin/add-property/check_slug', 'PropertyController@checkSlug');
 
     // Amenities (Add, Edit, Delete, View)
@@ -50,6 +52,8 @@ Route::group(['middleware' => 'auth'], function (){
     // Post Module Routes
     Route::match(['get', 'post'], '/admin/new-post', 'PostController@newPost');
     Route::get('/admin/posts', 'PostController@postsAll');
+    Route::match(['get', 'post'], '/admin/post/publish/{id}', 'PostController@publishPost');
+    Route::match(['get', 'post'], '/admin/post/draft/{id}', 'PostController@draftPost');
 
     // Category Module Routes
     Route::match(['get', 'post'], '/admin/new-category', 'PostCategoryController@newCategory');

@@ -30,7 +30,7 @@
                                     <th>Title</th>
                                     <th>Listed For</th>
                                     <th>Price</th>
-                                    <th>Amenities</th>
+                                    <th>Loacation</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -44,10 +44,11 @@
                                     <td><a href="{{ url('/properties/'.$p->url) }}">{{ $p->name}}</a></td>
                                     <td>@if($p->property_for == 1) Buy @else Sale @endif</td>
                                     <td>AED {{ $p->property_price }}</td>
-                                    <td>{{ $p->amenities }}</td>
+                                    <td>@if(!empty($p->city)) @foreach(\App\City::where('id', $p->city)->get() as $cname) {{ $cname->name }} @endforeach @endif</td>
                                     <td>
                                         <div id="donate">
-                                            <a href="#" title="Edit" class="label label-success label-sm">Edit</a>
+                                            <a href="{{ url('/admin/property/'.$p->id.'/edit') }}" title="Edit" class="label label-success label-sm"><i class="fa fa-edit"></i></a>
+                                            <a href="#" title="Delete" class="label label-danger label-sm"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -60,7 +61,7 @@
                                     <th>Title</th>
                                     <th>Listed For</th>
                                     <th>Price</th>
-                                    <th>Amenities</th>
+                                    <th>Location</th>
                                     <th>Status</th>
                                 </tr>
                             </tfoot>

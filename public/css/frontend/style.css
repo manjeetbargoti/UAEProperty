@@ -36,14 +36,26 @@ h6{
     font-size: 18px;
     font-weight: 400;
 }
+
 .custom_nav{
-    background: transparent !important;
+    background: rgba(255, 255, 255, 0.7) !important;
     padding-top: 4px;
     padding-bottom: 4px;
 }
 .custom_nav a{
     font-size: 16px;
     text-transform: uppercase;
+    padding: .5rem 1.05rem !important;
+}
+.listpro_btn {
+    border-radius: 3px;
+    background: #05B3F8;
+    color: #fff;
+    border: none;
+    padding: 5px 15px;
+}
+a.navbar-brand img {
+    width: 150px;
 }
 /*============== Slider ================*/
 section.slider {

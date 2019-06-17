@@ -50,11 +50,11 @@
                                         <div id="donate">
 
                                             @if($p->status == 1)
-                                            <a href="/admin/post_disable/{{ $p->id }}" title="Disable"
-                                                class="label label-success label-sm">Enable</a>
+                                            <a href="{{ url('/admin/post/draft/'.$p->id) }}" title="Publish"
+                                                class="label label-success label-sm">Publish</a>
                                             @else
-                                            <a href="/admin/post_enable/{{ $p->id }}" title="Enable"
-                                                class="label label-danger label-sm">Disable</a>
+                                            <a href="{{ url('/admin/post/publish/'.$p->id) }}" title="Draft"
+                                                class="label label-danger label-sm">Draft</a>
                                             @endif
                                         </div>
                                     </td>

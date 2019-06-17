@@ -106,4 +106,24 @@ class PostController extends Controller
         $posts = Post::where('status', '1')->orderBy('created_at', 'desc')->get();
         return view('frontend.posts.blog_page', compact('posts'));
     }
+
+    // Make a Post Publish
+    public function publishPost(Request $request, $id=null)
+    {
+        if(!empty($id))
+        {
+            Post::where(['id' => $id])->update(['status' => 1]);
+            return redirect()->back()->with('flash_message_success', 'Post Published Successfully!');
+        }
+    }
+
+    // Make a Post Draft
+    public function draftPost(Request $request, $id=null)
+    {
+        if(!empty($id))
+        {
+            Post::where(['id' => $id])->update(['status' => 0]);
+            return redirect()->back()->with('flash_message_success', 'Post Drafted Successfully!');
+        }
+    }
 }

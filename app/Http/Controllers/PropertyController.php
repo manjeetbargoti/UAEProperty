@@ -174,8 +174,29 @@ class PropertyController extends Controller
     // Edit Property and Update Property Information
     public function editProperty(Request $request, $id=null)
     {
+        $property = Property::where('id', $id)->first();
+        $property = json_decode(json_encode($property));
 
-        return ('Edit Property where id is '.$id);
+        // echo "<pre>"; print_r($property); die;
+
+        // City Dropdown
+        $cityname = City::where(['state_id' => $property->state])->get();
+        $city_dropdown = "<option selected value=''>Select City</option>";
+        foreach ($cityname as $city) {
+            if ($city->id == $property->city) {
+                $selected = "selected";
+            } else {
+                $selected = "";
+            }
+            $city_dropdown .= "<option value='" . $city->id . "' " . $selected . ">" . $city->name . "</option>";
+        }
+
+        $countrylist = Country::where('iso2', 'AE')->get();
+        $states = State::where('country', 'AE')->get();
+        $propertytype = PropertyType::where('status', 1)->orderBy('name', 'asc')->get();
+        $amenities = Amenity::where('status', 1)->orderBy('name', 'asc')->get();
+
+        return view('admin.property.edit_property', compact('property', 'countrylist', 'states', 'propertytype', 'amenities', 'city_dropdown'));
     }
 
     // Creating unique Slug

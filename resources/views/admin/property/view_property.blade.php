@@ -42,7 +42,7 @@
                                     <td>{{ $i }}</td>
                                     <td>@if(!empty($p->image_name)) <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}" width="60" alt="{{ $p->name }}"> @endif</td>
                                     <td><a href="{{ url('/properties/'.$p->url) }}">{{ $p->name}}</a></td>
-                                    <td>@if($p->property_for == 1) Buy @else Sale @endif</td>
+                                    <td>@if($p->property_for == 1) Buy @elseif($p->property_for == 2) Sale @else Off Plan @endif</td>
                                     <td>AED {{ $p->property_price }}</td>
                                     <td>@if(!empty($p->city)) @foreach(\App\City::where('id', $p->city)->get() as $cname) {{ $cname->name }} @endforeach @endif</td>
                                     <td>

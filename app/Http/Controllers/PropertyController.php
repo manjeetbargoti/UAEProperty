@@ -174,6 +174,79 @@ class PropertyController extends Controller
     // Edit Property and Update Property Information
     public function editProperty(Request $request, $id=null)
     {
+
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            if (!empty($data['feature'])) {
+                $featured = 1;
+            } else {
+                $featured = 0;
+            }
+
+            if (!empty($data['commercial'])) {
+                $commercial = 1;
+            } else {
+                $commercial = 0;
+            }
+
+            $amenities = $data['amenity'];
+            $amenity = implode(',', $amenities);
+
+            // Upload image
+            if ($request->hasFile('file')) {
+                $image_array = Input::file('file');
+                // if($image_array->isValid()){
+                $array_len = count($image_array);
+                for ($i = 0; $i < $array_len; $i++) {
+                    // $image_name = $image_array[$i]->getClientOriginalName();
+                    $image_size = $image_array[$i]->getClientSize();
+                    $extension = $image_array[$i]->getClientOriginalExtension();
+                    $filename = 'Rapid_Leads_' . rand(1, 99999) . '.' . $extension;
+                    // $watermark = Image::make(public_path('/images/frontend/images/logo.png'));
+                    $large_image_path = public_path('images/frontend/property_images/large/' . $filename);
+                    // Resize image
+                    Image::make($image_array[$i])->resize(700, 578)->save($large_image_path);
+
+                    // Store image in property folder
+                    $propertyimage = PropertyImage::create([
+                        'image_name' => $filename,
+                        'image_size' => $image_size,
+                        'property_id' => $id,
+                    ]);
+
+                    if (!empty($filename)) {
+                        PropertyImage::where(['property_id' => $id])->update(['image_name' => $filename, 'image_size' => $image_size]);
+                    }
+                }
+            } else {
+                $propertyimg_count = PropertyImage::where(['property_id' => $id])->count();
+                if(empty($propertyimg_count)){
+                    $filename = "default.png";
+                    // $property->image = "default.png";
+                    $propertyimage = PropertyImage::create([
+                        'image_name' => $filename,
+                        'image_size' => '7',
+                        'property_id' => $id,
+                    ]);
+                }
+            }
+
+            Property::where('id', $id)->update([
+                'property_for'=>$data['property_for'],'name'=>$data['property_name'],'url'=>$data['slug'],'property_type'=>$data['property_type'],
+                'property_code'=>$data['property_code'],'property_price'=>$data['property_price'],'description'=>$data['description'],'featured'=>$featured,
+                'property_area'=>$data['property_area'],'property_facing'=>$data['property_facing'],'transection_type'=>$data['transection_type'],
+                'construction_status'=>$data['construction_status'],'rooms'=>$data['rooms'],'bedrooms'=>$data['bedrooms'],'bathrooms'=>$data['bathrooms'],
+                'parking'=>$data['parking'],'furnish_type'=>$data['furnish_type'],'p_washrooms'=>$data['p_washroom'],'cafeteria'=>$data['cafeteria'],
+                'property_age'=>$data['property_age'],'commercial'=>$commercial,'amenities'=>$amenity,'unitno'=>$data['unit_no'],'addressline1'=>$data['property_address1'],
+                'addressline2'=>$data['property_address2'],'locality'=>$data['locality'],'country'=>$data['country'],'state'=>$data['state'],'city'=>$data['city'],'postalcode'=>$data['zipcode'],
+            ]);
+
+            return redirect('/admin/properties')->with('flash_message_success', 'Property Updated Successfully!');
+        }
+
         $property = Property::where('id', $id)->first();
         $property = json_decode(json_encode($property));
 
@@ -197,6 +270,16 @@ class PropertyController extends Controller
         $amenities = Amenity::where('status', 1)->orderBy('name', 'asc')->get();
 
         return view('admin.property.edit_property', compact('property', 'countrylist', 'states', 'propertytype', 'amenities', 'city_dropdown'));
+    }
+
+    // Delete Property image on edit page
+    public function deletePropertyImage(Request $request, $id=null)
+    {
+        if(!empty($id))
+        {
+            PropertyImage::where('id', $id)->delete();
+            return redirect()->back()->with('flash_message_success', 'Image Deleted Successfully!');
+        }
     }
 
     // Creating unique Slug
@@ -298,6 +381,12 @@ class PropertyController extends Controller
             echo "<pre>"; print_r($data); die;
         }
         return redirect()->back();
+    }
+
+    // List Your property
+    public function listYourProperty(request $request)
+    {
+        return view('frontend.list_property');
     }
 
 }

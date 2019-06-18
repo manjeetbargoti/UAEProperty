@@ -40,6 +40,9 @@ Route::group(['middleware' => 'auth'], function (){
     Route::match(['get', 'post'], '/admin/property/{id}/edit', 'PropertyController@editProperty');
     Route::match(['get', 'post'], '/admin/add-property/check_slug', 'PropertyController@checkSlug');
 
+    // Delete Property Image
+    Route::match(['get', 'post'], '/admin/property-image/{id}/delete', 'PropertyController@deletePropertyImage');
+
     // Amenities (Add, Edit, Delete, View)
     Route::match(['get', 'post'], '/admin/add-amenities', 'PropertyController@addAmenity');
     Route::get('/admin/amenities', 'PropertyController@allAmenity');
@@ -48,6 +51,7 @@ Route::group(['middleware' => 'auth'], function (){
 
     // Get City List
     Route::get('/admin/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/property/21/edit/get-city-list', 'PropertyController@getCityList');
 
     // Post Module Routes
     Route::match(['get', 'post'], '/admin/new-post', 'PostController@newPost');
@@ -82,5 +86,8 @@ Route::group(['middleware' => 'auth'], function (){
 
     // Single Post Details Page Route
     Route::get('/blog/{url}', 'PostController@singlePost');
+
+    // List Your Property Route
+    Route::match(['get','post'], '/list-your-property', 'PropertyController@listYourProperty');
 
 Route::get('/logout', 'AdminController@logout');

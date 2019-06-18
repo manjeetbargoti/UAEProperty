@@ -43,7 +43,8 @@ $('#country').click(function(){
     });
     // Get City List According to state
     $('#state').on('change',function(){
-    var stateID = $(this).val();    
+    var stateID = $(this).val();
+    var p_id    = $('#p_id').val();
     if(stateID){
         $.ajax({
             type:"GET",
@@ -64,6 +65,32 @@ $('#country').click(function(){
     }else{
         $("#city").empty();
     }   
+});
+
+// On Property Edit Get City List According to state
+$('#state_edit').on('change',function(){
+  var stateID = $(this).val();
+  var p_id    = $('#p_id').val();
+  if(stateID){
+      $.ajax({
+          type:"GET",
+          url:"/admin/property/"+p_id+"/edit/get-city-list?state_id="+stateID,
+          success:function(res){               
+          if(res){
+              $("#city_edit").empty();
+              $("#city_edit").append('<option>Select City</option>');
+              $.each(res,function(key,value){
+                  $("#city_edit").append('<option value="'+key+'">'+value+'</option>');
+              });
+          
+          }else{
+              $("#city_edit").empty();
+          }
+          }
+      });
+  }else{
+      $("#city_edit").empty();
+  }   
 });
 
 

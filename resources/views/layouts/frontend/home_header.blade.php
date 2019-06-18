@@ -30,6 +30,6 @@
             </ul>
         </div>
 
-        <button class="listpro_btn" href="#">List Your Property</button>
+        <a class="btn btn-sm" href="{{ url('/list-your-property') }}" style="color:#fff; background: #05b3f8;">List Your Property</a>
     </nav>
 </header>

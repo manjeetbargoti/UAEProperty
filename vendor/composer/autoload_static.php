@@ -41,6 +41,10 @@ class ComposerStaticInit2b371e3bc9b61cbd2870006a407bc870
             'Webmozart\\Assert\\' => 17,
             'Watson\\Active\\' => 14,
         ),
+        'U' => 
+        array (
+            'UniSharp\\LaravelFilemanager\\' => 28,
+        ),
         'T' => 
         array (
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
@@ -167,6 +171,10 @@ class ComposerStaticInit2b371e3bc9b61cbd2870006a407bc870
         'Watson\\Active\\' => 
         array (
             0 => __DIR__ . '/..' . '/watson/active/src',
+        ),
+        'UniSharp\\LaravelFilemanager\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src',
         ),
         'TijsVerkoyen\\CssToInlineStyles\\' => 
         array (
@@ -420,9 +428,10 @@ class ComposerStaticInit2b371e3bc9b61cbd2870006a407bc870
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
-        'App\\Http\\Controllers\\PostCategory' => __DIR__ . '/../..' . '/app/Http/Controllers/PostCategory.php',
+        'App\\Http\\Controllers\\PostCategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostCategoryController.php',
         'App\\Http\\Controllers\\PostController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostController.php',
         'App\\Http\\Controllers\\PropertyController' => __DIR__ . '/../..' . '/app/Http/Controllers/PropertyController.php',
+        'App\\Http\\Controllers\\TestimonialController' => __DIR__ . '/../..' . '/app/Http/Controllers/TestimonialController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
@@ -4161,6 +4170,35 @@ class ComposerStaticInit2b371e3bc9b61cbd2870006a407bc870
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
+        'UniSharp\\LaravelFilemanager\\Controllers\\Controller' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/Controller.php',
+        'UniSharp\\LaravelFilemanager\\Controllers\\CropController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/CropController.php',
+        'UniSharp\\LaravelFilemanager\\Controllers\\DeleteController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/DeleteController.php',
+        'UniSharp\\LaravelFilemanager\\Controllers\\DemoController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/DemoController.php',
+        'UniSharp\\LaravelFilemanager\\Controllers\\DownloadController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/DownloadController.php',
+        'UniSharp\\LaravelFilemanager\\Controllers\\FolderController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/FolderController.php',
+        'UniSharp\\LaravelFilemanager\\Controllers\\ItemsController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/ItemsController.php',
+        'UniSharp\\LaravelFilemanager\\Controllers\\LfmController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/LfmController.php',
+        'UniSharp\\LaravelFilemanager\\Controllers\\RedirectController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/RedirectController.php',
+        'UniSharp\\LaravelFilemanager\\Controllers\\RenameController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/RenameController.php',
+        'UniSharp\\LaravelFilemanager\\Controllers\\ResizeController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/ResizeController.php',
+        'UniSharp\\LaravelFilemanager\\Controllers\\UploadController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/UploadController.php',
+        'UniSharp\\LaravelFilemanager\\Events\\FolderIsRenaming' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Events/FolderIsRenaming.php',
+        'UniSharp\\LaravelFilemanager\\Events\\FolderWasRenamed' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Events/FolderWasRenamed.php',
+        'UniSharp\\LaravelFilemanager\\Events\\ImageIsCropping' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Events/ImageIsCropping.php',
+        'UniSharp\\LaravelFilemanager\\Events\\ImageIsDeleting' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Events/ImageIsDeleting.php',
+        'UniSharp\\LaravelFilemanager\\Events\\ImageIsRenaming' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Events/ImageIsRenaming.php',
+        'UniSharp\\LaravelFilemanager\\Events\\ImageIsResizing' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Events/ImageIsResizing.php',
+        'UniSharp\\LaravelFilemanager\\Events\\ImageIsUploading' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Events/ImageIsUploading.php',
+        'UniSharp\\LaravelFilemanager\\Events\\ImageWasCropped' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Events/ImageWasCropped.php',
+        'UniSharp\\LaravelFilemanager\\Events\\ImageWasDeleted' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Events/ImageWasDeleted.php',
+        'UniSharp\\LaravelFilemanager\\Events\\ImageWasRenamed' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Events/ImageWasRenamed.php',
+        'UniSharp\\LaravelFilemanager\\Events\\ImageWasResized' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Events/ImageWasResized.php',
+        'UniSharp\\LaravelFilemanager\\Events\\ImageWasUploaded' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Events/ImageWasUploaded.php',
+        'UniSharp\\LaravelFilemanager\\Handlers\\ConfigHandler' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Handlers/ConfigHandler.php',
+        'UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/LaravelFilemanagerServiceProvider.php',
+        'UniSharp\\LaravelFilemanager\\Middlewares\\CreateDefaultFolder' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Middlewares/CreateDefaultFolder.php',
+        'UniSharp\\LaravelFilemanager\\Middlewares\\MultiUser' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Middlewares/MultiUser.php',
+        'UniSharp\\LaravelFilemanager\\Traits\\LfmHelpers' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Traits/LfmHelpers.php',
         'Watson\\Active\\Active' => __DIR__ . '/..' . '/watson/active/src/Active.php',
         'Watson\\Active\\ActiveServiceProvider' => __DIR__ . '/..' . '/watson/active/src/ActiveServiceProvider.php',
         'Watson\\Active\\Facades\\Active' => __DIR__ . '/..' . '/watson/active/src/Facades/Active.php',

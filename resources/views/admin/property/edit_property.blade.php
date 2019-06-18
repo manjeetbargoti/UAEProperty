@@ -388,7 +388,7 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="State">State</label>
                                                 <select class="form-control select2 select2-hidden-accessible"
-                                                    name="state" id="state" style="width: 100%;" tabindex="-1"
+                                                    name="state" id="state_edit" style="width: 100%;" tabindex="-1"
                                                     aria-hidden="true">
                                                     <option value="" selected>Select State</option>
                                                     @foreach($states as $s)
@@ -402,13 +402,14 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="City">City</label>
                                                 <select class="form-control select2 select2-hidden-accessible"
-                                                    name="city" id="city" style="width: 100%;" tabindex="-1"
+                                                    name="city" id="city_edit" style="width: 100%;" tabindex="-1"
                                                     aria-hidden="true">
                                                     <!-- <option value="" selected>Select City</option> -->
                                                     <?php echo $city_dropdown; ?>
                                                 </select>
                                             </div>
                                         </div>
+                                        <input type="hidden" id="p_id" value="{{ $property->id }}">
 
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
@@ -427,7 +428,7 @@ function generate_string($input, $strength = 16) {
                                         @if(!empty($propImages->image_name))
                                         <div class="abcd">
                                             <input type="hidden" name="current_image[]" multiple id="image" value="{{ $propImages->image_name }}">           
-                                            <img src="{{ url('/images/frontend/property_images/large/'.$propImages->image_name)}}"> <a href="{{ url('/admin/delete-property-image/'.$propImages->id) }}"><i id="close" alt="delete" class="fa fa-close"></i></a>
+                                            <img src="{{ url('/images/frontend/property_images/large/'.$propImages->image_name)}}"> <a href="{{ url('/admin/property-image/'.$propImages->id.'/delete') }}"><i id="close" alt="delete" class="fa fa-close"></i></a>
                                         </div>
                                         @endif
                                         @endforeach

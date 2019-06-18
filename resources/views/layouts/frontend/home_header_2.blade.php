@@ -27,7 +27,7 @@
                     <a class="nav-link" href="#">CONTACT US</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-sm" href="#" style="color:#fff; background: #05b3f8;">List Your Property</a>
+                    <a class="btn btn-sm" href="{{ url('/list-your-property') }}" style="color:#fff; background: #05b3f8;">List Your Property</a>
                 </li>
             </ul>
         </div>

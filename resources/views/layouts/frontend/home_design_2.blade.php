@@ -38,6 +38,7 @@
     <script src="{{ asset('js/frontend/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/frontend/lightslider.js') }}"></script>
     <script src="{{ asset('js/frontend/customjs.js') }}"></script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>
         var o2 = $('#work-class2')
         o2.owlCarousel({

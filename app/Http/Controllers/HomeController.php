@@ -71,7 +71,7 @@ class HomeController extends Controller
                 $message->to($email)->subject('A User Send an Enquiry about Property');
             });
 
-            return redirect()->back();
+            return redirect()->back()->with('flash_message_success', 'An Email has been sent to the admin.');
         }
 
         $property = Property::where('url', $url)->get();

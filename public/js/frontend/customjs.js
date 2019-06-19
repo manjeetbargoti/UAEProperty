@@ -58,7 +58,6 @@ $('.testimonial-slider').owlCarousel({
 // TinyMCE Text Editor for Description
 var editor_config = {
   height: 250,
-  width: 780,
   path_absolute : "/",
   selector: "textarea.my-editor",
   branding: false,
@@ -94,4 +93,75 @@ var editor_config = {
 
 tinymce.init(editor_config);
 
+});
+
+// Multiple Property Image upload by admin or user
+var abc = 0; // Declaring and defining global increment variable.
+$(document).ready(function() {
+    $('#add_more').click(function() {
+        $('.add_image').before($("<div/>", {
+            id: 'filediv'
+        }).fadeIn('slow').append($("<input/>", {
+            name: 'file[]',
+            type: 'file',
+            id: 'file'
+        }).trigger('click'),));
+    });
+
+    // Following function will executes on change event of file input to select different file.
+    $('body').on('change', '#file', function() {
+        if (this.files && this.files[0]) {
+            abc += 1; // Incrementing global variable by 1.
+            var z = abc - 1;
+            var x = $(this).parent().find('#previewimg' + z).remove();
+            $(this).before("<div id='abcd" + abc + "' class='abcd'><img id='previewimg" + abc + "' src=''/></div>");
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(this.files[0]);
+            $(this).hide();
+            $("#abcd" + abc).append($("<i></i>", {
+                id: 'close',
+                alt: 'delete',
+                class: 'fa fa-close'
+            }).click(function() {
+                $(this).parent().parent().remove();
+            }));
+        }
+    });
+    // To Preview Image
+    function imageIsLoaded(e) {
+        $('#previewimg' + abc).attr('src', e.target.result);
+    };
+    $('#upload').click(function(e) {
+        var name = $(":file").val();
+        if (!name) {
+            alert("First Image Must Be Selected");
+            e.preventDefault();
+        }
+    });
+});
+
+// Get City List According to state
+$('#state').on('change',function(){
+  var stateID = $(this).val();
+  if(stateID){
+      $.ajax({
+          type:"GET",
+          url:"/list-your-property/get-city-list?state_id="+stateID,
+          success:function(res){               
+          if(res){
+              $("#city").empty();
+              $("#city").append('<option>Select City</option>');
+              $.each(res,function(key,value){
+                  $("#city").append('<option value="'+key+'">'+value+'</option>');
+              });
+          
+          }else{
+              $("#city").empty();
+          }
+          }
+      });
+  }else{
+      $("#city").empty();
+  }   
 });

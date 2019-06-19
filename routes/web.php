@@ -90,4 +90,7 @@ Route::group(['middleware' => 'auth'], function (){
     // List Your Property Route
     Route::match(['get','post'], '/list-your-property', 'PropertyController@listYourProperty');
 
+    // City List according State on List Your Property Page
+    Route::get('/list-your-property/get-city-list', 'PropertyController@getCityList');
+
 Route::get('/logout', 'AdminController@logout');

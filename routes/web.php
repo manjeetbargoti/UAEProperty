@@ -67,6 +67,17 @@ Route::group(['middleware' => 'auth'], function (){
     Route::match(['get', 'post'], '/admin/new-testimonial', 'TestimonialController@addTestimonial');
     Route::get('/admin/testimonials', 'TestimonialController@testimonialAll');
 
+    // Subscribers Route
+    Route::get('/admin/subscribers', 'HomeController@subscriberList');
+
+    // Homepage Banner Routes
+    Route::match(['get','post'], '/admin/new-banners', 'BannerController@addBanner');
+    Route::get('/admin/banners', 'BannerController@banners');
+    Route::match(['get','post'], '/admin/banner/{id}/edit', 'BannerController@editBanner');
+    Route::match(['get','post'], '/admin/banner/{id}/delete', 'BannerController@deleteBanner');
+    Route::match(['get','post'], '/admin/banner/{id}/enable', 'BannerController@enableBanner');
+    Route::match(['get','post'], '/admin/banner/{id}/disable', 'BannerController@disableBanner');
+
 });
 
     // View Single Property
@@ -92,5 +103,9 @@ Route::group(['middleware' => 'auth'], function (){
 
     // City List according State on List Your Property Page
     Route::get('/list-your-property/get-city-list', 'PropertyController@getCityList');
+
+    // Subscribers Route
+    Route::match(['get', 'post'], '/subscribe-now', 'HomeController@subscribe');
+    
 
 Route::get('/logout', 'AdminController@logout');

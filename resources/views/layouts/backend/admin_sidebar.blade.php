@@ -37,6 +37,18 @@
             </li>
 
             <li class="treeview">
+                <a href="#"><i class="fa fa-cog text-green"></i> <span>Setting</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ url('/admin/banners') }}"><i class="fa fa-sliders text-aqua"></i>Banner</a></li>
+                    <li><a href="{{ url('/admin/new-banners') }}"><i class="fa fa-plus text-aqua"></i>Add Banner</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
                 <a href="#"><i class="fa fa-file-text-o text-yellow"></i> <span>Post</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -83,7 +95,7 @@
             </li>
 
             <li class="treeview">
-                <a href="#"><i class="fa fa-commenting-o text-orange"></i> <span>Testimonials</span>
+                <a href="#"><i class="fa fa-commenting-o text-yellow"></i> <span>Testimonials</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -92,6 +104,18 @@
                     <li><a href="{{ url('/admin/testimonials') }}"><i class="fa fa-comments text-aqua"></i>Testimonials</a></li>
                     <li><a href="{{ url('/admin/new-testimonial') }}"><i class="fa fa-plus-square text-aqua"></i>Add
                     Testimonials</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#"><i class="fa fa-handshake-o text-green"></i> <span>Subscribers</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ url('/admin/subscribers') }}"><i class="fa fa-list text-aqua"></i>Subscribers List</a></li>
+                    <li><a href="#"><i class="fa fa-plus-square text-aqua"></i>Add Subscribers</a></li>
                 </ul>
             </li>
         </ul>

@@ -398,20 +398,13 @@ class PropertyController extends Controller
             }else{
                 $amenity = 'None';
             }
-            
-            // $document = $request->file('file');
-            // echo "<pre>"; print_r($document); die;
-
-            // $request->validate([
-            //     'file' => 'required'
-            // ]);
 
             $country = json_encode(Country::where('iso2', $data['country'])->pluck('name'));
             $state = json_encode(State::where('id', $data['state'])->pluck('name'));
             $city = json_encode(City::where('id', $data['city'])->pluck('name'));
 
             // Property data email for List Property by User
-            $to ='manjeet.singh@magicgroupinc.com';
+            $to =['manjeet.singh@magicgroupinc.com','abhishek87@magicgroupinc.com'];
             $email = $to;
             if(!empty($data['file'])){
                 $file_data = $data['file'];

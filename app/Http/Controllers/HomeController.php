@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\City;
 use App\State;
 use App\Property;
+use App\Subscriber;
 use App\PropertyType;
 use App\PropertyImage;
 use Illuminate\Http\Request;
@@ -117,5 +118,26 @@ class HomeController extends Controller
     {
         $properties = Property::where('city', $id)->orderBy('created_at', 'desc')->get();
         return view('frontend.property.property_category', compact('properties'));
+    }
+
+    // Subscribe Now
+    public function subscribe(Request $request)
+    {
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+            Subscriber::create([
+                'email' => $data['email']
+            ]);
+
+            // echo "<pre>"; print_r($data); die;
+            return redirect()->back()->with('subscribe_message','You are added to Subscribers List Successfully!');
+        }
+    }
+
+    // Subscriber List in Admin Panel
+    public function subscriberList()
+    {
+        return view('admin.subscribe.subscriber_list');
     }
 }

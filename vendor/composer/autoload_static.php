@@ -416,6 +416,7 @@ class ComposerStaticInit2b371e3bc9b61cbd2870006a407bc870
 
     public static $classMap = array (
         'App\\Amenity' => __DIR__ . '/../..' . '/app/Amenity.php',
+        'App\\Banner' => __DIR__ . '/../..' . '/app/Banner.php',
         'App\\City' => __DIR__ . '/../..' . '/app/City.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Country' => __DIR__ . '/../..' . '/app/Country.php',
@@ -452,6 +453,7 @@ class ComposerStaticInit2b371e3bc9b61cbd2870006a407bc870
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\State' => __DIR__ . '/../..' . '/app/State.php',
+        'App\\Subscriber' => __DIR__ . '/../..' . '/app/Subscriber.php',
         'App\\Testimonial' => __DIR__ . '/../..' . '/app/Testimonial.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',

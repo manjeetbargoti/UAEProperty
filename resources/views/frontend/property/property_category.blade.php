@@ -22,23 +22,39 @@
                     </ul>
                     <div class="tab-content searchbg" id="myTabContent">
                         <div class="tab-pane fade show active" id="buy" role="tabpanel" aria-labelledby="buy-tab">
-                            <div class="search_input">
-                                <input type="search" placeholder="Search State, City or Area">
-                                <button type="submit"><i class="icon ion-md-search"></i></button>
-                            </div>
+                            <form action="{{ url('/search-result') }}" method="post">
+                                <div class="search_input">
+                                    <input type="hidden" value="1" name="property_type">
+                                    <input type="search" name="search_text" id="search_name" class="search_location"
+                                        placeholder="Type Location or Project/Society or Keyword">
+                                    <button type="submit"><i class="icon ion-md-search"></i></button>
+                                </div>
+                                {{ csrf_field() }}
+                            </form>
                         </div>
                         <div class="tab-pane fade" id="rent" role="tabpanel" aria-labelledby="rent-tab">
-                            <div class="search_input">
-                                <input type="search" placeholder="Search State, City or Area">
-                                <button type="submit"><i class="icon ion-md-search"></i></button>
-                            </div>
+                            <form action="{{ url('/search-result') }}" method="post">
+                                <div class="search_input">
+                                    <input type="hidden" value="2" name="property_type">
+                                    <input type="search" name="search_text" id="search_name" class="search_location"
+                                        placeholder="Type Location or Project/Society or Keyword">
+                                    <button type="submit"><i class="icon ion-md-search"></i></button>
+                                </div>
+                                {{ csrf_field() }}
+                            </form>
                         </div>
                         <div class="tab-pane fade" id="offPlan" role="tabpanel" aria-labelledby="off-plan-tab">
-                            <div class="search_input">
-                                <input type="search" placeholder="Search State, City or Area">
-                                <button type="submit"><i class="icon ion-md-search"></i></button>
-                            </div>
+                            <form action="{{ url('/search-result') }}" method="post">
+                                <div class="search_input">
+                                    <input type="hidden" value="3" name="property_type">
+                                    <input type="search" name="search_text" id="search_name" class="search_location"
+                                        placeholder="Type Location or Project/Society or Keyword">
+                                    <button type="submit"><i class="icon ion-md-search"></i></button>
+                                </div>
+                                {{ csrf_field() }}
+                            </form>
                         </div>
+                        <div id="searchlist"></div>
                     </div>
                 </div>
             </div>
@@ -84,26 +100,34 @@
                         </div>
                         <div class="property_list">
                             @if(count($properties) == 0)
-                                <div class="pro_con p-3">
-                                    <p style="text-align: center;"><img src="{{ url('/images/frontend/images/error.png') }}" alt=""></p>
-                                    <h5 style="text-align: center;">Sorry, no results found!</h5>
-                                    <h6 style="text-align: center;">Oh Snap! Zero Results found for your search.</h6>
-                                </div>
+                            <div class="pro_con p-3">
+                                <p style="text-align: center;"><img src="{{ url('/images/frontend/images/error.png') }}"
+                                        alt=""></p>
+                                <h5 style="text-align: center;">Sorry, no results found!</h5>
+                                <h6 style="text-align: center;">Oh Snap! Zero Results found for your search.</h6>
+                            </div>
                             @endif
 
                             @foreach($properties as $p)
                             <div class="proplist">
                                 <div class="proplist_img">
                                     @if(\App\PropertyImage::where('property_id', $p->id)->count() > 0)
-                                        @foreach(\App\PropertyImage::where('property_id', $p->id)->take(1)->get() as $pim)
-                                            <img src="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}">
-                                        @endforeach
+                                    @foreach(\App\PropertyImage::where('property_id', $p->id)->take(1)->get() as $pim)
+                                    <img src="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}">
+                                    @endforeach
                                     @endif
                                 </div>
                                 <div class="proplist_item">
                                     <div class="pro_con">
-                                    <label class="badge badge-warning">@foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) {{ $ptn->name }} @endforeach</label> <label class="badge badge-success">@if($p->property_for == 1) Buy @elseif($p->property_for == 2) Rent @elseif($p->property_for == 3) Off Plan @endif</label>
-                                        <h5>@foreach(\App\City::where('id', $p->city)->get() as $c) {{ $c->name }}, @endforeach @foreach(\App\State::where('id', $p->state)->get() as $s) {{ $s->name }} @endforeach</h5>
+                                        <label
+                                            class="badge badge-warning">@foreach(\App\PropertyType::where('type_code',
+                                            $p->property_type)->get() as $ptn) {{ $ptn->name }} @endforeach</label>
+                                        <label class="badge badge-success">@if($p->property_for == 1) Buy
+                                            @elseif($p->property_for == 2) Rent @elseif($p->property_for == 3) Off Plan
+                                            @endif</label>
+                                        <h5>@foreach(\App\City::where('id', $p->city)->get() as $c) {{ $c->name }},
+                                            @endforeach @foreach(\App\State::where('id', $p->state)->get() as $s)
+                                            {{ $s->name }} @endforeach</h5>
                                         <p>{{ $p->name }}</p>
                                         <h6>@if($p->property_for == 2)
                                             AED {{ $p->property_price }} <span>/Year</span>
@@ -112,10 +136,12 @@
                                             @endif</h6>
                                         <ul>
                                             <li>
-                                                <img src="{{ url('/images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
+                                                <img
+                                                    src="{{ url('/images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
                                             </li>
                                             <li>
-                                                <img src="{{ url('/images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}
+                                                <img
+                                                    src="{{ url('/images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}
                                             </li>
                                         </ul>
                                     </div>

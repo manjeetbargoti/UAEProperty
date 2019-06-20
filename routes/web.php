@@ -106,6 +106,10 @@ Route::group(['middleware' => 'auth'], function (){
 
     // Subscribers Route
     Route::match(['get', 'post'], '/subscribe-now', 'HomeController@subscribe');
+
+    // Homepage search start
+    Route::get('/search', 'HomeController@search')->name('autocomplete.search');
+    Route::post('/search-result', 'HomeController@searchresult');
     
 
 Route::get('/logout', 'AdminController@logout');

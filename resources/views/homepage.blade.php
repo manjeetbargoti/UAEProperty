@@ -9,38 +9,55 @@
                 <button id="showsearch"><img src="{{ asset('images/frontend/images/searchicon.svg') }}"></button>
             </div>
             <div class="searchbox" style="display: none;">
-                <ul class="nav nav-pills" id="myTab" role="tablist">
+                <ul class="nav d-flex justify-content-center" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="tabnav active" id="buy-tab" data-toggle="tab" href="#buy" role="tab"
                             aria-controls="buy" aria-selected="true">BUY</a>
                     </li>
                     <li class="nav-item">
                         <a class="tabnav" id="rent-tab" data-toggle="tab" href="#rent" role="tab" aria-controls="rent"
-                            aria-selected="false">RENT</a>
+                            aria-selected="false">Rent</a>
                     </li>
                     <li class="nav-item">
-                        <a class="tabnav" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell"
-                            aria-selected="false">OFF PLAN</a>
+                        <a class="tabnav" id="off-plan-tab" data-toggle="tab" href="#offPlan" role="tab"
+                            aria-controls="off-plan" aria-selected="false">OFF PLAN</a>
                     </li>
                 </ul>
                 <div class="tab-content searchbg" id="myTabContent">
                     <div class="tab-pane fade show active" id="buy" role="tabpanel" aria-labelledby="buy-tab">
-                        <div class="search_input">
-                            <input type="search" placeholder="Search State, City or Area">
-                            <button type="submit"><i class="icon ion-md-search"></i></button>
-                        </div>
+                        <form action="{{ url('/search-result') }}" method="post">
+                            <div class="search_input">
+                                <input type="hidden" value="1" name="property_type">
+                                <input type="search" name="search_text" id="search_name" class="search_location"
+                                    placeholder="Type Location or Project/Society or Keyword">
+                                <button type="submit"><i class="icon ion-md-search"></i></button>
+                            </div>
+                            {{ csrf_field() }}
+                        </form>
                     </div>
                     <div class="tab-pane fade" id="rent" role="tabpanel" aria-labelledby="rent-tab">
-                        <div class="search_input">
-                            <input type="search" placeholder="Search State, City or Area">
-                            <button type="submit"><i class="icon ion-md-search"></i></button>
-                        </div>
+                        <form action="{{ url('/search-result') }}" method="post">
+                            <div class="search_input">
+                                <input type="hidden" value="2" name="property_type">
+                                <input type="search" name="search_text" id="search_name" class="search_location"
+                                    placeholder="Type Location or Project/Society or Keyword">
+                                <button type="submit"><i class="icon ion-md-search"></i></button>
+                            </div>
+                            {{ csrf_field() }}
+                        </form>
                     </div>
                     <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
-                        <div class="search_input">
-                            <input type="search" placeholder="Search State, City or Area">
-                            <button type="submit"><i class="icon ion-md-search"></i></button>
-                        </div>
+                        <form action="{{ url('/search-result') }}" method="post">
+                            <div class="search_input">
+                                <input type="hidden" value="3" name="property_type">
+                                <input type="search" name="search_text" id="search_name" class="search_location"
+                                    placeholder="Type Location or Project/Society or Keyword">
+                                <button type="submit"><i class="icon ion-md-search"></i></button>
+                            </div>
+                            {{ csrf_field() }}
+                        </form>
+                    </div>
+                    <div id="searchlist">
                     </div>
                 </div>
                 <button id="hidesearch"><i class="icon ion-md-close"></i></button>

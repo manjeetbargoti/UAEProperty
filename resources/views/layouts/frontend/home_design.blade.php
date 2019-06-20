@@ -2,6 +2,59 @@
 <html lang="{{ app()->getLocale() }}">
 
 <head>
+
+    <style>
+    /* custom search */
+    .search_input {
+        position: relative;
+    }
+
+    div#searchlist {
+        background: #fff;
+        position: absolute;
+        z-index: 9;
+        width: 85%;
+        padding: 0;
+        max-height: 220px;
+        overflow-y: auto;
+        box-shadow: 0 5px 6px rgba(0, 0, 0, 0.5);
+        top: 94px;
+        left: 20px;
+        text-align: left;
+    }
+
+    ul.searchdrop {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul.searchdrop li {
+        padding: 5px 35px 5px 10px;
+        border-top: 1px solid #ddd;
+        position: relative;
+        color: #000;
+    }
+
+    span.flag_name {
+        position: absolute;
+        right: 5px;
+        color: #a9a9a9;
+        text-transform: uppercase;
+        font-size: 11px;
+    }
+
+    ul.searchdrop li:hover {
+        background: #f2f2f2;
+        color: #05B3F8;
+    }
+
+
+    .fade:not(.show) {
+        opacity: 0;
+        visibility: hidden;
+    }
+    </style>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +71,8 @@
     <!-- font icon CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.css">
 
     <title>{{ config('app.name') }}</title>
 </head>
@@ -35,8 +89,10 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    // < script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" >
+    </script>
     <script src="{{ asset('js/frontend/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/frontend/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/frontend/lightslider.js') }}"></script>
@@ -122,6 +178,42 @@
 
     o2.on('click dragged.owl.carousel', '.owl-prev', function() {
         o1.trigger('prev.owl.carousel')
+    });
+    </script>
+
+    <script>
+    $(document).ready(function() {
+        $('.search_location').keyup(function() {
+            var query = $(this).val();
+
+            $.ajax({
+                url: "/search",
+                method: "get",
+                data: {
+                    query: query
+                },
+                success: function(data) {
+                    $('#searchlist').fadeIn();
+                    $('#searchlist').html(data);
+                }
+            });
+            // }
+        });
+
+        $(document).on('click', '#city_search', function() {
+            $('#search_name').val($(this).text());
+            $('#searchlist').fadeOut();
+        });
+
+        $(document).on('click', function() {
+            $('#searchlist').fadeOut();
+        });
+
+        $(document).keyup(function(e) {
+            if (e.key === "Escape") {
+                $('#searchlist').fadeOut();
+            }
+        });
     });
     </script>
 

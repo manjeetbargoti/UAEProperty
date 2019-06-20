@@ -140,4 +140,47 @@ class HomeController extends Controller
     {
         return view('admin.subscribe.subscriber_list');
     }
+
+    // Home Page Search Function Start
+    public function search(Request $request)
+    {
+        if($request->get('query'))
+        {
+            $query = $request->get('query');
+            $data = City::where('name', 'LIKE', "%{$query}%")->get();
+            $output = '<ul class="searchdrop">';
+            foreach($data as $row)
+            {
+                $flag = '<span class="flag_name">'.$row->id.'</span>';
+                $output .= '<li id="city_search">'.$row->name.'</li>';
+            }
+            $output .= '</ul>';
+            echo $output;
+        }
+    }
+
+    // Home Page Search-Result Function Start
+    public function searchresult(Request $request)
+    {
+        $data = $request->all();
+        // echo "<pre>"; print_r($data); die;
+        $scityname = rtrim($data['search_text']);
+        $scityID = $data['property_type'];
+        $scityname = json_decode(json_encode($scityname));
+        $city = City::where(['name'=> rtrim($data['search_text']) ])->get();
+        $city = json_decode(json_encode($city),true);
+
+        if(empty($data['property_type'])){
+            $id = $city[0];
+            $properties = Property::where([ 'city'=> $id['id']])->get();
+        }elseif(empty( $data['search_text'])){
+            $properties = Property::where([ 'property_for'=>$data['property_type']])->get();
+        }elseif(!empty($city[0])){
+            $id = $city[0];
+            $properties = Property::where([[ 'city','=',$id['id']], [ 'property_for', '=', $data['property_type']]])->get();
+        }else{
+            $id = $city[0];
+            $properties = Property::where([ 'city'=> $id['id']])->get();
+        }return view('frontend.property.property_category', compact('properties'));
+    }
 }

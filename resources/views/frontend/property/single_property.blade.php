@@ -24,23 +24,39 @@
                     </ul>
                     <div class="tab-content searchbg" id="myTabContent">
                         <div class="tab-pane fade show active" id="buy" role="tabpanel" aria-labelledby="buy-tab">
-                            <div class="search_input">
-                                <input type="search" placeholder="Search State, City or Area">
-                                <button type="submit"><i class="icon ion-md-search"></i></button>
-                            </div>
+                            <form action="{{ url('/search-result') }}" method="post">
+                                <div class="search_input">
+                                    <input type="hidden" value="1" name="property_type">
+                                    <input type="search" name="search_text" id="search_name" class="search_location"
+                                        placeholder="Type Location or Project/Society or Keyword">
+                                    <button type="submit"><i class="icon ion-md-search"></i></button>
+                                </div>
+                                {{ csrf_field() }}
+                            </form>
                         </div>
                         <div class="tab-pane fade" id="rent" role="tabpanel" aria-labelledby="rent-tab">
-                            <div class="search_input">
-                                <input type="search" placeholder="Search State, City or Area">
-                                <button type="submit"><i class="icon ion-md-search"></i></button>
-                            </div>
+                            <form action="{{ url('/search-result') }}" method="post">
+                                <div class="search_input">
+                                    <input type="hidden" value="2" name="property_type">
+                                    <input type="search" name="search_text" id="search_name" class="search_location"
+                                        placeholder="Type Location or Project/Society or Keyword">
+                                    <button type="submit"><i class="icon ion-md-search"></i></button>
+                                </div>
+                                {{ csrf_field() }}
+                            </form>
                         </div>
                         <div class="tab-pane fade" id="offPlan" role="tabpanel" aria-labelledby="off-plan-tab">
-                            <div class="search_input">
-                                <input type="search" placeholder="Search State, City or Area">
-                                <button type="submit"><i class="icon ion-md-search"></i></button>
-                            </div>
+                            <form action="{{ url('/search-result') }}" method="post">
+                                <div class="search_input">
+                                    <input type="hidden" value="3" name="property_type">
+                                    <input type="search" name="search_text" id="search_name" class="search_location"
+                                        placeholder="Type Location or Project/Society or Keyword">
+                                    <button type="submit"><i class="icon ion-md-search"></i></button>
+                                </div>
+                                {{ csrf_field() }}
+                            </form>
                         </div>
+                        <div id="searchlist"></div>
                     </div>
                 </div>
             </div>
@@ -217,7 +233,9 @@
                                 <h5>@foreach(\App\City::where('id', $prel->city)->get() as $c) {{ $c->name }},
                                     @endforeach @foreach(\App\State::where('id', $prel->state)->get() as $s)
                                     {{ $s->name }} @endforeach</h5>
-                                    @foreach(\App\PropertyType::where('type_code', $prel->property_type)->get() as $ptn) <a class="badge badge-warning badge-sm" href="{{ url('/properties/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
+                                @foreach(\App\PropertyType::where('type_code', $prel->property_type)->get() as $ptn) <a
+                                    class="badge badge-warning badge-sm"
+                                    href="{{ url('/properties/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
                                 <p>{{ $prel->name }}</p>
                                 <h6>@if($prel->property_for == 2)
                                     AED {{ $prel->property_price }} <span>/Year</span>
@@ -255,7 +273,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" class="enquiry_form" id="EnquiryForm" action="{{ url('/properties/'.$p->url) }}">
-                {{ csrf_field() }}
+                    {{ csrf_field() }}
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="Full Name">Full Name</label>
@@ -272,10 +290,12 @@
                         <input type="email" class="form-control" name="email" id="email" placeholder="Email Address">
                     </div>
                     <div class="form-group">
-                        <input type="hidden" class="form-control" name="prop_name" id="prop_name" value="{{ $p->name }}">
+                        <input type="hidden" class="form-control" name="prop_name" id="prop_name"
+                            value="{{ $p->name }}">
                     </div>
                     <div class="form-group">
-                        <input type="hidden" class="form-control" name="prop_url" id="prop_url" value="{{ url('/properties/'.$p->url) }}">
+                        <input type="hidden" class="form-control" name="prop_url" id="prop_url"
+                            value="{{ url('/properties/'.$p->url) }}">
                     </div>
                     <div class="form-group">
                         <label for="Enquiry Details">Enquery Details</label>

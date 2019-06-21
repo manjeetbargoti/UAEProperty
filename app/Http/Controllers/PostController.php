@@ -63,7 +63,7 @@ class PostController extends Controller
             }
             $post_data->save();
 
-            return redirect()->back()->with('flash_message_success', 'Post Published Successfully!');
+            return redirect('/admin/posts')->with('flash_message_success', 'Post Published Successfully!');
         }
 
         $post_category = PostCategory::where(['parent_cat' => 0])->get();
@@ -125,5 +125,24 @@ class PostController extends Controller
             Post::where(['id' => $id])->update(['status' => 0]);
             return redirect()->back()->with('flash_message_success', 'Post Drafted Successfully!');
         }
+    }
+
+    // Delete Post
+    public function deletePost($id=null)
+    {
+        if(!empty($id))
+        {
+            Post::where('id', $id)->delete();
+            return redirect()->back()->with('flash_message_success', 'post Delete Successfully!');
+        }
+    }
+
+    // Edit Post
+    public function editPost($id=null)
+    {
+        $posts = Post::where('id', $id)->first();
+        $posts = json_decode(json_encode($posts));
+
+        return view('admin.posts.edit_posts', compact('posts'));
     }
 }

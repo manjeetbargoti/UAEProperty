@@ -14,12 +14,6 @@ class TestimonialController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
-
-            // Testimonial::create([
-            //     'content' => $data['content'],
-            //     'user_name'     => $data['user_name']
-            // ]);
 
             $testimonial = new Testimonial;
 
@@ -43,7 +37,7 @@ class TestimonialController extends Controller
             }
             $testimonial->save();
 
-            return redirect()->back()->with('flash_message_success', 'Testimonial Added Successfully!');
+            return redirect('/admin/testimonials')->with('flash_message_success', 'Testimonial Added Successfully!');
         }
 
         return view('admin.testimonials.new_testimonial');
@@ -55,5 +49,41 @@ class TestimonialController extends Controller
         $testimonials = Testimonial::orderBy('created_at', 'desc')->get();
 
         return view('admin.testimonials.testimonial_all', compact('testimonials'));
+    }
+
+    // Delete Testimonials
+    public function deleteTestimonials($id=null)
+    {
+        if(!empty($id)){
+            Testimonial::where('id', $id)->delete();
+            return redirect()->back()->with('flash_message_success', 'Testimonial Deleted Successfully!');
+        }
+    }
+
+    // Disable Testimonials
+    public function disableTestimonials($id=null)
+    {
+        if(!empty($id)){
+            Testimonial::where('id', $id)->update(['status' => '0']);
+            return redirect()->back()->with('flash_message_success', 'Testimonial Disabled Successfully!');
+        }
+    }
+
+    // Enable Testimonials
+    public function enableTestimonials($id=null)
+    {
+        if(!empty($id)){
+            Testimonial::where('id', $id)->update(['status' => '1']);
+            return redirect()->back()->with('flash_message_success', 'Testimonial Enabled Successfully!');
+        }
+    }
+
+    // Edit Testimonials
+    public function editTestimonials($id=null)
+    {
+        $testimonial = Testimonial::where('id', $id)->first();
+        $testimonial = json_decode(json_encode($testimonial));
+
+        return view('admin.testimonials.edit_testimonial', compact('testimonial'));
     }
 }

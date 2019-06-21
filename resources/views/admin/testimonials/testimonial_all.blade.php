@@ -46,17 +46,17 @@
                                         <div id="donate">
 
                                             @if($ttm->status == 1)
-                                            <a href="/admin/ttmdisable/{{ $ttm->id }}" title="Disable"
+                                            <a href="{{ url('/admin/testimonial/'.$ttm->id.'/disable') }}" title="Enable"
                                                 class="label label-success label-sm">Enable</a>
                                             @else
-                                            <a href="/admin/ttmenable/{{ $ttm->id }}" title="Enable"
+                                            <a href="{{ url('/admin/testimonial/'.$ttm->id.'/enable') }}" title="Disable"
                                                 class="label label-danger label-sm">Disable</a>
                                             @endif
                                         </div>
                                     </td>
-                                    <td><a href="#" title="Edit"
+                                    <td><a href="{{ url('/admin/testimonial/'.$ttm->id.'/edit') }}" title="Edit"
                                                 class="label label-warning label-sm"><i class="fa fa-edit"></i></a>
-                                        <a href="#" title="Delete"
+                                        <a href="{{ url('/admin/testimonial/'.$ttm->id.'/delete') }}" title="Delete"
                                                 class="label label-danger label-sm"><i class="fa fa-trash"></i></a>
                                             
                                     </td>

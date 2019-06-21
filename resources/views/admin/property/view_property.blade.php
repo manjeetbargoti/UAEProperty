@@ -48,7 +48,7 @@
                                     <td>
                                         <div id="donate">
                                             <a href="{{ url('/admin/property/'.$p->id.'/edit') }}" title="Edit" class="label label-success label-sm"><i class="fa fa-edit"></i></a>
-                                            <a href="#" title="Delete" class="label label-danger label-sm"><i class="fa fa-trash"></i></a>
+                                            <a href="{{ url('/admin/property/'.$p->id.'/delete') }}" title="Delete" class="label label-danger label-sm"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>

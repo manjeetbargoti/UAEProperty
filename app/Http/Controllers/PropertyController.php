@@ -92,8 +92,12 @@ class PropertyController extends Controller
                 $commercial = 0;
             }
 
-            $amenities = $data['amenity'];
-            $amenity = implode(',', $amenities);
+            if(!empty($data['amenity'])){
+                $amenities = $data['amenity'];
+                $amenity = implode(',', $amenities);
+            }else{
+                $amenity = '';
+            }
 
             // dd($amenity);
 
@@ -164,7 +168,7 @@ class PropertyController extends Controller
                 ]);
             }
 
-            return redirect()->back()->with('flash_message_success', 'Property Submited Successfully!');
+            return redirect('/admin/properties')->with('flash_message_success', 'Property Submited Successfully!');
         }
 
         $countrylist = Country::where('iso2', 'AE')->get();
@@ -437,6 +441,16 @@ class PropertyController extends Controller
             return redirect()->back()->with('flash_message_success', 'Property Submitted Successfully!');
         }
         return view('frontend.list_property');
+    }
+
+    // Delete Property
+    public function deleteProperty($id=null)
+    {
+        if(!empty($id))
+        {
+            Property::where('id', $id)->delete();
+            return redirect()->back()->with('flash_message_success', 'Property Deleted Successfully!');
+        }
     }
 
 }

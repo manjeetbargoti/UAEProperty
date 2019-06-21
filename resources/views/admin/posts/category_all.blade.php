@@ -50,17 +50,17 @@
                                         <div id="donate">
 
                                             @if($cat->status == 1)
-                                            <a href="/admin/cat_disable/{{ $cat->id }}" title="Disable"
+                                            <a href="{{ url('/admin/category/'.$cat->id.'/disable') }}" title="Enable"
                                                 class="label label-success label-sm">Enable</a>
                                             @else
-                                            <a href="/admin/cat_enable/{{ $cat->id }}" title="Enable"
+                                            <a href="{{ url('/admin/category/'.$cat->id.'/enable') }}" title="Disable"
                                                 class="label label-danger label-sm">Disable</a>
                                             @endif
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="#" class="label label-warning label-lg"><i class="fa fa-edit"></i></a>
-                                        <a href="#" class="label label-danger label-lg"><i class="fa fa-trash"></i></a>
+                                        <a href="{{ url('/admin/category/'.$cat->id.'/edit') }}" class="label label-warning label-lg"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ url('/admin/category/'.$cat->id.'/delete') }}" class="label label-danger label-lg"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -37,11 +37,9 @@
                                         <div id="donate">
 
                                             @if($subs->status == 1)
-                                            <a title="Disable"
-                                                class="label label-success label-sm">Enable</a>
+                                            <a title="Enable" class="label label-success label-sm">Enable</a>
                                             @else
-                                            <a title="Enable"
-                                                class="label label-danger label-sm">Disable</a>
+                                            <a title="Disable" class="label label-danger label-sm">Disable</a>
                                             @endif
                                         </div>
                                     </td>

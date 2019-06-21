@@ -41,7 +41,7 @@ class PostCategoryController extends Controller
             }
             $category->save();
 
-            return redirect()->back()->with('flash_message_success', 'Category Added Successfully!');
+            return redirect('/admin/categories')->with('flash_message_success', 'Category Added Successfully!');
         }
 
         $post_category = PostCategory::where(['parent_cat'=>0])->get();
@@ -68,4 +68,45 @@ class PostCategoryController extends Controller
         $categories = PostCategory::orderBy('name', 'asc')->get();
         return view('admin.posts.category_all', compact('categories'));
     }
+
+    // Enable Post Category
+    public function enableCategory($id=null)
+    {
+        if(!empty($id))
+        {
+            PostCategory::where('id', $id)->update(['status' => '1']);
+            return redirect()->back()->with('flash_message_success', 'Category Enabled Successfully!');
+        }
+    }
+
+    // Disable Post Category
+    public function disableCategory($id=null)
+    {
+        if(!empty($id))
+        {
+            PostCategory::where('id', $id)->update(['status' => '0']);
+            return redirect()->back()->with('flash_message_success', 'Category Disabled Successfully!');
+        }
+    }
+
+    // Delete Post Category
+    public function deleteCategory($id=null)
+    {
+        if(!empty($id))
+        {
+            PostCategory::where('id', $id)->delete();
+            return redirect()->back()->with('flash_message_success', 'Category Deleted Successfully!');
+        }
+    }
+
+    // Edit Post Category
+    public function editCategory($id=null)
+    {
+        $pcat = PostCategory::where('id', $id)->first();
+        $pcat = json_decode(json_encode($pcat));
+
+        return view('admin.posts.edit_category', compact('pcat'));
+    }
 }
+
+

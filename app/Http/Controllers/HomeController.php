@@ -170,16 +170,13 @@ class HomeController extends Controller
         $city = City::where(['name'=> rtrim($data['search_text']) ])->get();
         $city = json_decode(json_encode($city),true);
 
-        if(empty($data['property_type'])){
-            $id = $city[0];
-            $properties = Property::where([ 'city'=> $id['id']])->get();
-        }elseif(empty( $data['search_text'])){
+        if(empty( $data['search_text'])){
             $properties = Property::where([ 'property_for'=>$data['property_type']])->get();
         }elseif(!empty($city[0])){
             $id = $city[0];
             $properties = Property::where([[ 'city','=',$id['id']], [ 'property_for', '=', $data['property_type']]])->get();
         }else{
-            $id = $city[0];
+            $id = null;
             $properties = Property::where([ 'city'=> $id['id']])->get();
         }return view('frontend.property.property_category', compact('properties'));
     }

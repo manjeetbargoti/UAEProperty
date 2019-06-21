@@ -1,0 +1,1 @@
+<h1>Edit Category {{ $pcat->id }}</h1>

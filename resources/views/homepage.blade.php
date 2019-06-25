@@ -88,17 +88,19 @@
 </div>
 
 <div id="smart_container">
+
+
     <!-- Featured Property Section Starts -->
     <section class="feature_sec">
         <div class="container">
             <div class="headding">
                 <h1>Featured <span>Property</span></h1>
             </div>
-            <!-- Featured Property for Rent Section Starts -->
+            <!-- Featured Property for Buy Section Starts -->
             <div class="row">
                 <?php $counter = 0; ?>
                 @foreach($properties as $p)
-                @if($p->featured == 1 && $p->property_for == 2)
+                @if($p->featured == 1 && $p->property_for == 1)
                 <?php $counter++ ?>
                 @if($counter <= 3) <div class="col-md-4">
                     <div class="probox">
@@ -139,13 +141,12 @@
             @endif
             @endforeach
         </div>
-        <!-- /.Featured Property for Rent Section Ends -->
-
-        <!-- Featured Property for Buy Section Starts -->
+        <!-- /.Featured Property for Buy Section Ends -->
+        <!-- Featured Property for Rent Section Starts -->
         <div class="row">
             <?php $counter = 0; ?>
             @foreach($properties as $p)
-            @if($p->featured == 1 && $p->property_for == 1)
+            @if($p->featured == 1 && $p->property_for == 2)
             <?php $counter++ ?>
             @if($counter <= 3) <div class="col-md-4">
                 <div class="probox">
@@ -186,55 +187,7 @@
         @endif
         @endforeach
 </div>
-<!-- /.Featured Property for Buy Section Ends -->
-
-<!-- Featured Property for Off Plan Section Starts -->
-<div class="row">
-    <?php $counter = 0; ?>
-    @foreach($properties as $p)
-    @if($p->featured == 1 && $p->property_for == 3)
-    <?php $counter++ ?>
-    @if($counter <= 3) <div class="col-md-4">
-        <div class="probox">
-            <a href="{{ url('/properties/'.$p->url) }}">
-                <span
-                    class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @else sell @endif">
-                    @if($p->property_for == 2) Rent @elseif($p->property_for == 1) Buy @else OFF PLAN @endif
-                </span>
-                <div class="pro_img">
-                    @if(!empty($p->image_name))
-                    <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}">
-                    @else
-                    <img src="{{ url('images/frontend/property_images/large/default.png') }}">
-                    @endif
-                </div>
-                <div class="pro_con">
-                    <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
-                    @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a
-                        class="badge badge-warning badge-sm"
-                        href="{{ url('/category/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
-                    <p>{{ $p->name }}</p>
-                    <ul>
-                        <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
-                        </li>
-                        <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}
-                        </li>
-                    </ul>
-                    <h6>@if($p->property_for == 2)
-                        AED {{ $p->property_price }} <span>/Year</span>
-                        @else
-                        AED {{ $p->property_price }}
-                        @endif
-                    </h6>
-                </div>
-            </a>
-        </div>
-</div>
-@endif
-@endif
-@endforeach
-</div>
-<!-- /.Featured Property for Offplan Section Ends -->
+<!-- /.Featured Property for Rent Section Ends -->
 </div>
 </section>
 <!-- /.Featured Property Section Ends -->
@@ -299,7 +252,7 @@
 <!-- /.Property By State Ends -->
 
 <!-- Latest Property Listing Section Starts -->
-<section class="property_sec">
+<!-- <section class="property_sec">
     <div class="container">
         <div class="headding">
             <h1><span>Latest</span> Property <span>Listing</span></h1>
@@ -347,7 +300,7 @@
         @endforeach
     </div>
     </div>
-</section>
+</section> -->
 <!-- /.Latest Property Listing Section Ends -->
 
 <!-- Blog Section Starts -->
@@ -394,7 +347,7 @@
 <!-- /.Blog Section Ends -->
 
 <!-- Testtimonial Section Starts -->
-<section class="testimonials_sec">
+<!-- <section class="testimonials_sec">
     <div class="container">
         <div class="headding">
             <h1>Testimonials</h1>
@@ -419,7 +372,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- /.Testimonial Section Ends -->
 
 <!-- Subscribe Section Starts -->

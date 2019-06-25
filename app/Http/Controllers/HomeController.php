@@ -116,7 +116,7 @@ class HomeController extends Controller
     // Property by State
     public function cityProperty($id=null)
     {
-        $properties = Property::where('city', $id)->orderBy('created_at', 'desc')->get();
+        $properties = Property::where(['city' => $id, 'property_for' => 3])->orderBy('created_at', 'desc')->get();
         return view('frontend.property.property_category', compact('properties'));
     }
 

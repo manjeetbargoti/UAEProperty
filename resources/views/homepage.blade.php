@@ -89,24 +89,25 @@
 
 <div id="smart_container">
 
-
     <!-- Featured Property Section Starts -->
-    <section class="feature_sec">
+    <section class="property_sec">
         <div class="container">
             <div class="headding">
                 <h1>Featured <span>Property</span></h1>
             </div>
+
             <!-- Featured Property for Buy Section Starts -->
-            <div class="row">
+            <div class="product-carousel owl-carousel owl-theme">
                 <?php $counter = 0; ?>
                 @foreach($properties as $p)
                 @if($p->featured == 1 && $p->property_for == 1)
                 <?php $counter++ ?>
-                @if($counter <= 3) <div class="col-md-4">
+                @if($counter <= 8) <div class="item">
                     <div class="probox">
                         <a href="{{ url('/properties/'.$p->url) }}">
-                            <span class="tag_top @if($p->property_for == 2) rent @else buy @endif">
-                                @if($p->property_for == 2) Rent @else Buy @endif
+                            <span
+                                class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @endif">
+                                @if($p->property_for == 2) Rent @elseif($p->property_for == 1) Buy @endif
                             </span>
                             <div class="pro_img">
                                 @if(!empty($p->image_name))
@@ -141,18 +142,18 @@
             @endif
             @endforeach
         </div>
-        <!-- /.Featured Property for Buy Section Ends -->
+
         <!-- Featured Property for Rent Section Starts -->
-        <div class="row">
+        <div class="product-carousel owl-carousel owl-theme">
             <?php $counter = 0; ?>
             @foreach($properties as $p)
             @if($p->featured == 1 && $p->property_for == 2)
             <?php $counter++ ?>
-            @if($counter <= 3) <div class="col-md-4">
+            @if($counter <= 8) <div class="item">
                 <div class="probox">
                     <a href="{{ url('/properties/'.$p->url) }}">
-                        <span class="tag_top @if($p->property_for == 2) rent @else buy @endif">
-                            @if($p->property_for == 2) Rent @else Buy @endif
+                        <span class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @endif">
+                            @if($p->property_for == 2) Rent @elseif($p->property_for == 1) Buy @endif
                         </span>
                         <div class="pro_img">
                             @if(!empty($p->image_name))
@@ -186,17 +187,21 @@
         @endif
         @endif
         @endforeach
+
 </div>
-<!-- /.Featured Property for Rent Section Ends -->
 </div>
 </section>
 <!-- /.Featured Property Section Ends -->
+
 
 <!-- Property By State Starts -->
 <section class="country_sec">
     <div class="d-sm-flex flex-row">
         <div class="flex-fill">
             <div class="countrybox">
+                <span class="tag_top buy">
+                    Off Plan
+                </span>
                 <a href="{{ url('/property/48003/al-quoz') }}">
                     <span class="count_overlay"></span>
                     <img src="{{ url('images/frontend/images/city1.jpg') }}">
@@ -210,6 +215,9 @@
         </div>
         <div class="flex-fill">
             <div class="countrybox">
+                <span class="tag_top buy">
+                    Off Plan
+                </span>
                 <a href="{{ url('/property/47987/dubai-city') }}">
                     <span class="count_overlay"></span>
                     <img src="{{ url('images/frontend/images/city2.jpg') }}">
@@ -223,6 +231,9 @@
         </div>
         <div class="flex-fill">
             <div class="countrybox">
+                <span class="tag_top buy">
+                    Off Plan
+                </span>
                 <a href="{{ url('/property/48008/hatta') }}">
                     <span class="count_overlay"></span>
                     <img src="{{ url('images/frontend/images/city3.jpg') }}">
@@ -236,6 +247,9 @@
         </div>
         <div class="flex-fill">
             <div class="countrybox">
+                <span class="tag_top buy">
+                    Off Plan
+                </span>
                 <a href="{{ url('/property/48064/arjan') }}">
                     <span class="count_overlay"></span>
                     <img src="{{ url('images/frontend/images/city4.jpg') }}">

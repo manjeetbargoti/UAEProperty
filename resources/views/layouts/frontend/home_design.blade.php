@@ -66,7 +66,7 @@
     <link rel="stylesheet" href="{{ asset('css/frontend/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/frontend/lightslider.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/frontend/lightslider.css') }}"> -->
 
     <!-- font icon CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
@@ -89,9 +89,9 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js">
-    // < script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" >
+    < script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" >
     </script>
     <script src="{{ asset('js/frontend/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/frontend/owl.carousel.min.js') }}"></script>

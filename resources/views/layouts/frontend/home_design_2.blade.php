@@ -68,6 +68,7 @@
     <link rel="stylesheet" href="{{ asset('css/frontend/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/lightslider.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend/intlTelInput.css') }}">
 
     <!-- font icon CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
@@ -100,6 +101,8 @@
     <script src="{{ asset('js/frontend/lightslider.js') }}"></script>
     <script src="{{ asset('js/frontend/customjs.js') }}"></script>
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="{{ asset('js/frontend/intlTelInput.js') }}"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>
 
@@ -216,6 +219,19 @@
                 $('#searchlist').fadeOut();
             }
         });
+    });
+    </script>
+
+    <script>
+    var input = document.querySelector("#phone");
+
+    window.intlTelInput(input, {
+        autoPlaceholder: "on",
+        formatOnDisplay: true,
+        initialCountry: "ae",
+        nationalMode: true,
+        separateDialCode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js",
     });
     </script>
 

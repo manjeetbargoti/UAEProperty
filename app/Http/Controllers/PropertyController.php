@@ -391,56 +391,58 @@ class PropertyController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
-            if(!empty($data['commercial'])){
-                $commercial = 'Commercial';
+            if(!empty($data['term_condition'])){
+                $term_condition = 'Accpeted';
             }else{
-                $commercial = 'Non Commercial';
+                $term_condition = 'Non Accpeted';
             }
-            if(!empty($data['amenity'])){
-                $amenities = $data['amenity'];
-                $amenity = implode(', ', $amenities);
+            if(!empty($data['privacy'])){
+                $privacy = 'Accpeted';
             }else{
-                $amenity = 'None';
+                $privacy = 'Not Accpeted';
             }
 
-            $country = json_encode(Country::where('iso2', $data['country'])->pluck('name'));
-            $state = json_encode(State::where('id', $data['state'])->pluck('name'));
-            $city = json_encode(City::where('id', $data['city'])->pluck('name'));
+            // $country = json_encode(Country::where('iso2', $data['country'])->pluck('name'));
+            // $state = json_encode(State::where('id', $data['state'])->pluck('name'));
+            // $city = json_encode(City::where('id', $data['city'])->pluck('name'));
 
             // Property data email for List Property by User
             $to =['manjeet.singh@magicgroupinc.com','abhishek87@magicgroupinc.com'];
             $email = $to;
-            if(!empty($data['file'])){
-                $file_data = $data['file'];
-            }else{
-                $file_data = 0;
-            }
-            $messageData = ['name'=>$data['name'],'email'=>$data['email'],'phone'=>$data['phone'],'title'=>$data['title'],'property_for'=>$data['property_for'],'property_type'=>$data['property_type'],
-            'property_price'=>$data['property_price'],'description'=>$data['description'],'commercial'=>$commercial,'property_area'=>$data['property_area'],'property_facing'=>$data['property_facing'],
-            'furnish_type'=>$data['furnish_type'],'transection_type'=>$data['transection_type'],'construction_status'=>$data['construction_status'],'rooms'=>$data['rooms'],'bedrooms'=>$data['bedrooms'],
-            'bathrooms'=>$data['bathrooms'],'parking'=>$data['parking'],'p_washroom'=>$data['p_washroom'],'cafeteria'=>$data['cafeteria'],'property_age'=>$data['property_age'],'address1'=>$data['address1'],
-            'address2'=>$data['address2'],'country'=>$country,'state'=>$state,'city'=>$city,'unit_no'=>$data['unit_no'],'locality'=>$data['locality'],'zipcode'=>$data['zipcode'],'amenity'=>$amenity];
+            // if(!empty($data['file'])){
+            //     $file_data = $data['file'];
+            // }else{
+            //     $file_data = 0;
+            // }
+            $messageData = ['office_location'=>$data['office'],'prefix'=>$data['prefix'],'fname'=>$data['fname'],'lname'=>$data['lname'],
+                            'phone'=>$data['phone'],'email'=>$data['email'],'building_no'=>$data['building_no'],'building_name'=>$data['building_name'],
+                            'community'=>$data['community'],'emirate'=>$data['emirate'],'property_type'=>$data['property_type'],'bedrooms'=>$data['bedrooms'],
+                            'property_area'=>$data['property_area'],'considering_for'=>$data['considering_for'],'term_condition'=>$term_condition,
+                            'privacy'=>$privacy];
             
                 // echo "<pre>"; print_r($messageData); die;
 
-            Mail::send('emails.list_property', $messageData, function($message) use($file_data, $email){
+            Mail::send('emails.list_property', $messageData, function($message) use($email){
                 $message->to($email)->subject('List User Property | User Send Property Details');
-                if ($file_data != 0) {
-                    $array_len = count($file_data);
-                    for ($i = 0; $i < $array_len; $i++) {
-                        $message->attach($file_data[$i]->getRealPath(),
-                        [
-                            'as' => $file_data[$i]->getClientOriginalName(),
-                            'mime' => $file_data[$i]->getClientMimeType(),
-                        ]);
-                        // echo "<pre>"; print_r($array_len); die;
-                    }
-                }
+                // if ($file_data != 0) {
+                //     $array_len = count($file_data);
+                //     for ($i = 0; $i < $array_len; $i++) {
+                //         $message->attach($file_data[$i]->getRealPath(),
+                //         [
+                //             'as' => $file_data[$i]->getClientOriginalName(),
+                //             'mime' => $file_data[$i]->getClientMimeType(),
+                //         ]);
+                //         // echo "<pre>"; print_r($array_len); die;
+                //     }
+                // }
             });
 
             return redirect()->back()->with('flash_message_success', 'Property Submitted Successfully!');
         }
-        return view('frontend.list_property');
+
+        $property_type = PropertyType::orderBy('name', 'asc')->get();
+
+        return view('frontend.property.list_property', compact('property_type'));
     }
 
     // Delete Property
@@ -451,6 +453,18 @@ class PropertyController extends Controller
             Property::where('id', $id)->delete();
             return redirect()->back()->with('flash_message_success', 'Property Deleted Successfully!');
         }
+    }
+
+    // List Your Property New
+    public function listYourProperty2(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            echo "<pre>"; print_r($data); die;  
+        }
+
+        return view('frontend.property.list_property_2');
     }
 
 }

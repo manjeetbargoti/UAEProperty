@@ -289,6 +289,39 @@ section{
     border-right: none;
 }
 
+.product-carousel .owl-nav {
+    bottom: 0;
+    position: absolute;
+    top: 0;
+    margin: auto;
+    height: 40px;
+    width: 100%;
+}
+
+.product-carousel {
+    position: relative;
+}
+
+.product-carousel .owl-nav button {
+    background: none;
+    margin-right: 0px;
+    width: 15px;
+    height: 40px;
+    color: #000 !important;
+    font-size: 34px !important;
+    line-height: 40px !important;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.product-carousel .owl-next {
+    right: -30px;
+}
+
+.product-carousel .owl-prev {
+    left: -30px;
+}
+
 .pro_img {
     overflow: hidden;
 }

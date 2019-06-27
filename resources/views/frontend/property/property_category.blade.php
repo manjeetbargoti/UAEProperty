@@ -87,7 +87,7 @@
         <section class="property_sec">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <div class="filter_top">
                             <span>Sort By:</span>
                             <select>
@@ -154,7 +154,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="right_sidebar">
                             <div class="popular_searches">
                                 <h4>Popular Searches</h4>
@@ -177,7 +177,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
@@ -194,11 +194,10 @@
                 <div class="col-md-6">
                     <div class="proplistbox nearby_item">
                         <ul>
-                            <li><a href="#">Buy Properties in Dubai</a></li>
-                            <li><a href="#">Buy Properties in Abu Dhabi</a></li>
-                            <li><a href="#">Buy Properties in Sharjah</a></li>
-                            <li><a href="#">Buy Properties in Ras Al Khaimah</a></li>
-                            <li><a href="#">Buy Properties in Ajman</a></li>
+                            <li><a href="{{ url('/property/48003/al-quoz') }}">Buy Properties in Al Quoz</a></li>
+                            <li><a href="{{ url('/property/47987/dubai-city') }}">Buy Properties in Dubai City</a></li>
+                            <li><a href="{{ url('/property/48008/hatta') }}">Buy Properties in Hatta</a></li>
+                            <li><a href="{{ url('/property/48064/arjan') }}">Buy Properties in Arjan</a></li>
                         </ul>
                     </div>
                 </div>

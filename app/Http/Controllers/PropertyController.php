@@ -148,7 +148,7 @@ class PropertyController extends Controller
                     // $watermark = Image::make(public_path('/images/frontend/images/logo.png'));
                     $large_image_path = public_path('images/frontend/property_images/large/' . $filename);
                     // Resize image
-                    Image::make($image_array[$i])->resize(700, 578)->save($large_image_path);
+                    Image::make($image_array[$i])->resize(1599, 618)->save($large_image_path);
 
                     // Store image in property folder
                     $property->image = $filename;

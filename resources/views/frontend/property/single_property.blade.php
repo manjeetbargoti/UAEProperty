@@ -103,36 +103,11 @@
                 <div class="item">
                     <div class="clearfix">
                         <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-                            <li data-thumb="{{ url('/images/frontend/images/s1.jpg') }}">
-                                <img src="{{ url('/images/frontend/images/s1.jpg') }}" />
+                            @foreach(\App\PropertyImage::where('property_id', $p->id)->get() as $pim)
+                            <li data-thumb="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}">
+                                <img src="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}" />
                             </li>
-                            <li data-thumb="{{ url('/images/frontend/images/s2.jpg') }}">
-                                <img src="{{ url('/images/frontend/images/s2.jpg') }}" />
-                            </li>
-                            <li data-thumb="{{ url('/images/frontend/images/s3.jpg') }}">
-                                <img src="{{ url('/images/frontend/images/s3.jpg') }}" />
-                            </li>
-                            <li data-thumb="{{ url('/images/frontend/images/s4.jpg') }}">
-                                <img src="{{ url('/images/frontend/images/s4.jpg') }}" />
-                            </li>
-                            <li data-thumb="{{ url('/images/frontend/images/s5.jpg') }}">
-                                <img src="{{ url('/images/frontend/images/s5.jpg') }}" />
-                            </li>
-                            <li data-thumb="{{ url('/images/frontend/images/s1.jpg') }}">
-                                <img src="{{ url('/images/frontend/images/s1.jpg') }}" />
-                            </li>
-                            <li data-thumb="{{ url('/images/frontend/images/s2.jpg') }}">
-                                <img src="{{ url('/images/frontend/images/s2.jpg') }}" />
-                            </li>
-                            <li data-thumb="{{ url('/images/frontend/images/s3.jpg') }}">
-                                <img src="{{ url('/images/frontend/images/s3.jpg') }}" />
-                            </li>
-                            <li data-thumb="{{ url('/images/frontend/images/s4.jpg') }}">
-                                <img src="{{ url('/images/frontend/images/s4.jpg') }}" />
-                            </li>
-                            <li data-thumb="{{ url('/images/frontend/images/s5.jpg') }}">
-                                <img src="{{ url('/images/frontend/images/s5.jpg') }}" />
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -143,7 +118,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="prop_table">
+                    <div class="prop_table @if($p->property_for == 3) d-none @endif">
                         <h5>FACTS</h5>
                         <table class="table-responsive table table-bordered ">
                             <tbody>
@@ -187,7 +162,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="prop_table">
+                    <div class="prop_table @if($p->property_for == 3) d-none @endif">
                         <h5>AMENITIES</h5>
                         <div class="amenties">
                             <ul>

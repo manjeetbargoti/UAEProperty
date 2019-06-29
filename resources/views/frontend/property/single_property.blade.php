@@ -257,7 +257,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="Phone Number">Contact Number</label>
-                            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Phone no.">
+                            <input type="tel" class="form-control" name="phone" id="phoneno" placeholder="Phone no.">
                         </div>
                     </div>
                     <div class="form-group">

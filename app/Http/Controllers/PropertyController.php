@@ -12,12 +12,15 @@ use App\Country;
 use App\Property;
 use App\PropertyType;
 use App\PropertyImage;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
 
 class PropertyController extends Controller
 {
@@ -465,6 +468,62 @@ class PropertyController extends Controller
         }
 
         return view('frontend.property.list_property_2');
+    }
+
+    // Consume API Data
+    public function apiData(Request $request)
+    {
+        $client = new Client();
+        $prop = $client->request('GET', 'https://api.mycrm.com/properties?filters[offering_type]=sale&per_page=20', [
+            'headers' => [
+                'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
+            ]
+        ]);
+
+        $data = $prop->paginate(20);
+
+        $data = $data->getBody();
+        // $data = $data->paginate(10);
+        $data = json_decode($data, true);
+        $property_data = $data['properties'];
+        $property_data = json_decode(json_encode($property_data));
+        
+        // echo "<pre>"; print_r($property_data); die;
+
+        return view('frontend.api', compact('property_data'));
+    }
+
+    // View Single Api Property
+    public function apiProperty($id=null)
+    {
+        $client = new Client();
+        $prop = $client->request('GET', 'https://api.mycrm.com/properties/'.$id, [
+            'headers' => [
+                'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
+            ]
+        ]);
+
+        $prop_all = $client->request('GET', 'https://api.mycrm.com/properties', [
+            'headers' => [
+                'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
+            ]
+        ]);
+
+        // Single Property
+        $data = $prop->getBody();
+        $data = json_decode($data, true);
+        $property_data = $data['property'];
+        $property_data = json_decode(json_encode($property_data));
+
+        // All Property
+        $data = $prop_all->getBody();
+        $data = json_decode($data, true);
+        $property_all = $data['properties'];
+        $property_all = json_decode(json_encode($property_all));
+        
+        // echo "<pre>"; print_r($property_data); die;
+
+        return view('frontend.property.api_single_property', compact('property_data', 'property_all'));
     }
 
 }

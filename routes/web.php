@@ -121,6 +121,10 @@ Route::group(['middleware' => 'auth'], function (){
     // Homepage search start
     Route::get('/search', 'HomeController@search')->name('autocomplete.search');
     Route::post('/search-result', 'HomeController@searchresult');
+
+    // Consume API Data
+    Route::match(['get','post'], '/api-data', 'PropertyController@apiData');
+    Route::match(['get', 'post'], '/api/properties/{id}', 'PropertyController@apiProperty');
     
 
 Route::get('/logout', 'AdminController@logout');

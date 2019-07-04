@@ -7,9 +7,12 @@ use App\State;
 use App\Property;
 use App\Subscriber;
 use App\PropertyType;
+use GuzzleHttp\Client;
 use App\PropertyImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
 
 class HomeController extends Controller
 {
@@ -32,32 +35,71 @@ class HomeController extends Controller
     // Homepage Controller
     public function index()
     {
+        $client = new Client();
+        $prop = $client->request('GET', 'https://api.mycrm.com/properties?per_page=100', [
+            'headers' => [
+                'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
+            ]
+        ]);
+
+        // $data = $prop->paginate(20);
+
+        $data = $prop->getBody();
+        $data = json_decode($data, true);
+        $property_data = $data['properties'];
+        $property_data = json_decode(json_encode($property_data));
+        // $property_f = $property_data[0]['price']['offering_type'];
+
+        foreach($property_data as $key => $prop_data)
+        {
+            if($prop_data->price->offering_type == 'sale'){
+                $property_data[$key]->property_for = 1;
+            }elseif($prop_data->price->offering_type == 'rent'){
+                $property_data[$key]->property_for = 2;
+            }
+            $property_data[$key]->name = $prop_data->languages[0]->title;
+            $property_data[$key]->property_type = $prop_data->type->name;
+            if(!empty($prop_data->price->prices[0]->value)){
+                $property_data[$key]->property_price = $prop_data->price->prices[0]->value;
+            }
+            $property_data[$key]->city_name = $prop_data->location->community;
+            $property_data[$key]->state_name = $prop_data->location->city;
+        }
+
+
         $properties = Property::orderBy('created_at', 'desc')->get();
         $properties = json_decode(json_encode($properties));
 
-        foreach($properties as $key => $val){
-            $prop_image_count = PropertyImage::where(['property_id' => $val->id])->count();
-            if($prop_image_count > 0){
-                $prop_image = PropertyImage::where(['property_id' => $val->id])->first();
-                $properties[$key]->image_name = $prop_image->image_name;
-            }
-            $city_count = City::where(['id'=> $val->city])->count();
-            if($city_count > 0){
-                $city_name = City::where(['id'=> $val->city])->first();
-                $properties[$key]->city_name = $city_name->name;
-            }
-            $state_count = State::where(['id'=> $val->state])->count();
-            if($state_count > 0){
-                $state_name = State::where(['id'=> $val->state])->first();
-                $properties[$key]->state_name = $state_name->name;
+        foreach($properties as $key => $val)
+        {
+            $prop_type = PropertyType::where(['type_code' => $val->property_type])->first();
+            $properties[$key]->property_type = $prop_type->name;
+
+            $city_name = City::where(['id' => $val->city])->first();
+            $properties[$key]->city_name = $city_name->name;
+
+            $state_name = State::where(['id' => $val->state])->first();
+            $properties[$key]->state_name = $state_name->name;
+
+            $prop_img_count = PropertyImage::where(['property_id' => $val->id])->count();
+            if($prop_img_count > 0)
+            {
+                $prop_img = PropertyImage::where(['property_id' => $val->id])->first();
+                $properties[$key]->image_name = $prop_img->image_name;
             }
         }
+
+        $properties = json_decode(json_encode($properties), true);
+        $properties = array_merge($properties, $property_data);
+        $properties = json_decode(json_encode($properties));
+
+        // echo "<pre>"; print_r($properties); die;
 
         return view('homepage', compact('properties'));
     }
 
     // View Signle Property Detail Page
-    public function singleProperty(Request $request, $url=null)
+    public function singleProperty(Request $request, $id=null)
     {
         if($request->isMethod('post'))
         {
@@ -75,25 +117,73 @@ class HomeController extends Controller
             return redirect()->back()->with('flash_message_success', 'An Email has been sent to the admin.');
         }
 
-        $property = Property::where('url', $url)->get();
-        $property = json_decode(json_encode($property));
+        $property_count = Property::where('id', $id)->count();
 
-        foreach($property as $key => $val){
-            $city_count = City::where(['id'=> $val->city])->count();
-            if($city_count > 0){
-                $city_name = City::where(['id'=> $val->city])->first();
-                $property[$key]->city_name = $city_name->name;
+        if($property_count > 0){
+            $property = Property::where('id', $id)->get();
+            $property = json_decode(json_encode($property));
+
+            foreach($property as $key => $val){
+                $city_count = City::where(['id'=> $val->city])->count();
+                if($city_count > 0){
+                    $city_name = City::where(['id'=> $val->city])->first();
+                    $property[$key]->city_name = $city_name->name;
+                }
+                $state_count = State::where(['id'=> $val->state])->count();
+                if($state_count > 0){
+                    $state_name = State::where(['id'=> $val->state])->first();
+                    $property[$key]->state_name = $state_name->name;
+                }
             }
-            $state_count = State::where(['id'=> $val->state])->count();
-            if($state_count > 0){
-                $state_name = State::where(['id'=> $val->state])->first();
-                $property[$key]->state_name = $state_name->name;
+
+        }else{
+            $client = new Client();
+            $prop = $client->request('GET', 'https://api.mycrm.com/properties/'.$id, [
+                    'headers' => [
+                        'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
+                    ]
+            ]);
+            
+
+            // $prop_all = $client->request('GET', 'https://api.mycrm.com/properties', [
+            //     'headers' => [
+            //         'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
+            //     ]
+            // ]);
+
+            // Single Property
+            $data = $prop->getBody();
+            $data = json_decode($data, true);
+            $property = $data['property'];
+            $property = json_decode(json_encode($property));
+
+            if($property->price->offering_type == 'sale'){
+                $property->property_for = 1;
+            }elseif($property->price->offering_type == 'rent'){
+                $property->property_for = 2;
             }
+            $property->name = $property->languages[0]->title;
+            $property->property_type = $property->type->name;
+            if(!empty($property->price->prices[0]->value)){
+                $property->property_price = $property->price->prices[0]->value;
+            }
+            $property->city_name = $property->location->community;
+            $property->state_name = $property->location->city;
+            $property->property_code = $property->reference;
+            $property->property_area = $property->size;
+            // All Property
+            // $data = $prop_all->getBody();
+            // $data = json_decode($data, true);
+            // $property_all = $data['properties'];
+            // $property = json_decode(json_encode($property), true);
+            
+            // echo "<pre>"; print_r($property); die;
         }
 
-        $property_image = PropertyImage::get();
+        // $property_image = PropertyImage::get();
+        $property = json_decode(json_encode($property), true);
 
-        return view('frontend.property.single_property', compact('property', 'property_image'));
+        return view('frontend.property.single_property', compact('property'));
     }
 
     // Property Category Page Function
@@ -109,7 +199,72 @@ class HomeController extends Controller
     // Property by Buy/Rent/Off Plan function
     public function propertyFor($id=null)
     {
+        if($id == 1){
+            $property_for = 'sale';
+        }elseif($id == 2){
+            $property_for = 'rent';
+        }
+
+        $client = new Client();
+        $prop = $client->request('GET', 'https://api.mycrm.com/properties?filter[[offering_type]]='.$property_for, [
+            'headers' => [
+                'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
+            ]
+        ]);
+
+        // $data = $prop->paginate(20);
+
+        $data = $prop->getBody();
+        $data = json_decode($data, true);
+        $property_data = $data['properties'];
+        $property_data = json_decode(json_encode($property_data));
+        // $property_f = $property_data[0]['price']['offering_type'];
+
+        foreach($property_data as $key => $prop_data)
+        {
+            if($prop_data->price->offering_type == 'sale'){
+                $property_data[$key]->property_for = 1;
+            }elseif($prop_data->price->offering_type == 'rent'){
+                $property_data[$key]->property_for = 2;
+            }
+            $property_data[$key]->name = $prop_data->languages[0]->title;
+            $property_data[$key]->property_type = $prop_data->type->name;
+            if(!empty($prop_data->price->prices[0]->value)){
+                $property_data[$key]->property_price = $prop_data->price->prices[0]->value;
+            }elseif(!empty($prop_data->price->value)){
+                $property_data[$key]->property_price = $prop_data->price->value;
+            }
+            $property_data[$key]->city_name = $prop_data->location->community;
+            $property_data[$key]->state_name = $prop_data->location->city;
+        }
+
         $properties = Property::where('property_for', $id)->orderBy('created_at', 'desc')->get();
+        $properties = json_decode(json_encode($properties));
+
+        foreach($properties as $key => $val)
+        {
+            $prop_type = PropertyType::where(['type_code' => $val->property_type])->first();
+            $properties[$key]->property_type = $prop_type->name;
+
+            $city_name = City::where(['id' => $val->city])->first();
+            $properties[$key]->city_name = $city_name->name;
+
+            $state_name = State::where(['id' => $val->state])->first();
+            $properties[$key]->state_name = $state_name->name;
+
+            $prop_img_count = PropertyImage::where(['property_id' => $val->id])->count();
+            if($prop_img_count > 0)
+            {
+                $prop_img = PropertyImage::where(['property_id' => $val->id])->first();
+                $properties[$key]->image_name = $prop_img->image_name;
+            }
+        }
+
+        // $properties = json_decode(json_encode($properties), true);
+        $properties = array_merge($properties, $property_data);
+
+        // echo "<pre>"; print_r($properties); die;
+
         return view('frontend.property.property_category', compact('properties'));
     }
 

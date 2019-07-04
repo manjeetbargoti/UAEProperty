@@ -100,11 +100,11 @@
             <div class="product-carousel owl-carousel owl-theme">
                 <?php $counter = 0; ?>
                 @foreach($properties as $p)
-                @if($p->featured == 1 && $p->property_for == 1)
+                @if($p->property_for == 1)
                 <?php $counter++ ?>
                 @if($counter <= 8) <div class="item">
                     <div class="probox">
-                        <a href="{{ url('/properties/'.$p->url) }}">
+                        <a href="{{ url('/properties/'.$p->id) }}">
                             <span
                                 class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @endif">
                                 @if($p->property_for == 2) Rent @elseif($p->property_for == 1) Buy @endif
@@ -112,26 +112,28 @@
                             <div class="pro_img">
                                 @if(!empty($p->image_name))
                                 <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}">
+                                @elseif(!empty($p->images[0]->medium->link))
+                                <img height="289" src="{{ $p->images[0]->medium->link }}">
                                 @else
                                 <img src="{{ url('images/frontend/property_images/large/default.png') }}">
                                 @endif
                             </div>
                             <div class="pro_con">
                                 <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
-                                @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a
-                                    class="badge badge-warning badge-sm"
-                                    href="{{ url('/category/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
+                                @if(!empty($p->property_type))
+                                    <a class="badge badge-warning badge-sm" href="#">{{ $p->property_type }}</a>
+                                @endif
                                 <p>{{ $p->name }}</p>
                                 <ul>
-                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
-                                    </li>
-                                    <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}
-                                    </li>
+                                    @if(!empty($p->bedrooms))<li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
+                                    </li>@endif
+                                    @if(!empty($p->bathrooms))<li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}
+                                    </li>@endif
                                 </ul>
                                 <h6>@if($p->property_for == 2)
-                                    AED {{ $p->property_price }} <span>/Year</span>
+                                @if(!empty($p->property_price))AED {{ $p->property_price }} <span>/Year</span>@endif
                                     @else
-                                    AED {{ $p->property_price }}
+                                    @if(!empty($p->property_price))AED {{ $p->property_price }}@endif
                                     @endif
                                 </h6>
                             </div>
@@ -147,26 +149,26 @@
         <div class="product-carousel owl-carousel owl-theme">
             <?php $counter = 0; ?>
             @foreach($properties as $p)
-            @if($p->featured == 1 && $p->property_for == 2)
+            @if($p->property_for == 2)
             <?php $counter++ ?>
             @if($counter <= 8) <div class="item">
                 <div class="probox">
-                    <a href="{{ url('/properties/'.$p->url) }}">
+                    <a href="{{ url('/properties/'.$p->id) }}">
                         <span class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @endif">
                             @if($p->property_for == 2) Rent @elseif($p->property_for == 1) Buy @endif
                         </span>
                         <div class="pro_img">
                             @if(!empty($p->image_name))
                             <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}">
+                            @elseif(!empty($p->images[0]->medium->link))
+                            <img height="289" src="{{ $p->images[0]->medium->link }}">
                             @else
                             <img src="{{ url('images/frontend/property_images/large/default.png') }}">
                             @endif
                         </div>
                         <div class="pro_con">
                             <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
-                            @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a
-                                class="badge badge-warning badge-sm"
-                                href="{{ url('/category/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
+                                <a class="badge badge-warning badge-sm" href="#">{{ $p->property_type }}</a>
                             <p>{{ $p->name }}</p>
                             <ul>
                                 <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
@@ -265,57 +267,7 @@
 </section>
 <!-- /.Property By State Ends -->
 
-<!-- Latest Property Listing Section Starts -->
-<!-- <section class="property_sec">
-    <div class="container">
-        <div class="headding">
-            <h1><span>Latest</span> Property <span>Listing</span></h1>
-        </div>
-        <div class="row">
-            <?php $counter = 0; ?>
-            @foreach($properties as $p)
-            <?php $counter++ ?>
-            @if($counter <= 6) <div class="col-md-4">
-                <div class="probox">
-                    <a href="{{ url('/properties/'.$p->url) }}">
-                        <span
-                            class="tag_top @if($p->property_for == 2) rent @elseif($p->property_for == 1) buy @else sell @endif">
-                            @if($p->property_for == 2) Rent @elseif($p->property_for == 1) Buy @else OFF PLAN @endif
-                        </span>
 
-                        <div class="pro_img">
-                            @if(!empty($p->image_name))
-                            <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}">
-                            @else
-                            <img src="{{ url('images/frontend/property_images/large/default.png') }}">
-                            @endif
-                        </div>
-                        <div class="pro_con">
-                            <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
-                            @foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as $ptn) <a
-                                class="badge badge-warning badge-sm"
-                                href="{{ url('/category/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
-                            <p>{{ $p->name }}</p>
-                            <ul>
-                                <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}</li>
-                                <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}</li>
-                            </ul>
-                            <h6>@if($p->property_for == 2)
-                                AED {{ $p->property_price }} <span>/Year</span>
-                                @else
-                                AED {{ $p->property_price }}
-                                @endif
-                            </h6>
-                        </div>
-                    </a>
-                </div>
-        </div>
-        @endif
-        @endforeach
-    </div>
-    </div>
-</section> -->
-<!-- /.Latest Property Listing Section Ends -->
 
 <!-- Blog Section Starts -->
 <section class="blogsec">

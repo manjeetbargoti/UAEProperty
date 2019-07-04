@@ -1,7 +1,7 @@
 @extends('layouts.frontend.home_design_2')
 @section('content')
 
-@foreach($property as $p)
+@foreach($property as $property)
 
 <section class="search_inside">
     <div class="container">
@@ -72,7 +72,7 @@
                     <ol class="breadcrumb custom_breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ url('/properties') }}">Properties</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ $p->name }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ $property->name }}</li>
                     </ol>
                 </nav>
             </div>
@@ -83,8 +83,8 @@
             <div class="details_headding">
                 <div class="row">
                     <div class="col-md-7">
-                        <h5>{{ $p->name }}</h5>
-                        <p>{{ $p->name }}</p>
+                        <h5>{{ $property->name }}</h5>
+                        <p>{{ $property->name }}</p>
                     </div>
                     <div class="col-md-5">
                         <div class="share_query">
@@ -103,11 +103,19 @@
                 <div class="item">
                     <div class="clearfix">
                         <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                            @if(!empty($property->images[0]->thumb->link))
+                            @foreach($property->images as $pim)
+                            <li style="text-align: center;background:#f8f8f8;" height="100" width="200" data-thumb="{{ $pim->medium->link }}">
+                                <img height="450" src="{{ $pim->full->link }}" />
+                            </li>
+                            @endforeach
+                            @else
                             @foreach(\App\PropertyImage::where('property_id', $p->id)->get() as $pim)
-                            <li data-thumb="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}">
+                            <li style="text-align: center;background: #f8f8f8;" data-thumb="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}">
                                 <img src="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}" />
                             </li>
                             @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -118,121 +126,62 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="prop_table @if($p->property_for == 3) d-none @endif">
+                    <div class="prop_table @if($property->property_for == 3) d-none @endif">
                         <h5>FACTS</h5>
                         <table class="table-responsive table table-bordered ">
                             <tbody>
                                 <tr>
                                     <td scope="row">Price</td>
-                                    <td>@if($p->property_for == 2)
-                                        AED {{ $p->property_price }} <span>/Year</span>
-                                        @else
-                                        AED {{ $p->property_price }}
-                                        @endif</td>
+                                    <td>@if($property->price->offering_type == 'rent')AED
+                                        {{ $property->price->prices[0]->value }}
+                                        <span>/{{ $property->price->prices[0]->period }}</span>@elseif($property->price->offering_type
+                                        == 'sale') AED {{ $property->price->value }} @endif</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Type</td>
-                                    <td>@foreach(\App\PropertyType::where('type_code', $p->property_type)->get() as
-                                        $ptype) {{ $ptype->name }} @endforeach</td>
+                                    <td>{{ $property->property_type }}</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Property Code</td>
-                                    <td>{{ $p->property_code }}</td>
+                                    <td>{{ $property->property_code }}</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Bedrooms</td>
-                                    <td>{{ $p->bedrooms }} @foreach(explode(',', $p->amenities) as $am) @if($am ==
-                                        'AM9561') + Maids Room @endif @endforeach</td>
+                                    <td>{{ $property->bedrooms }}</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Bathrooms</td>
-                                    <td>{{ $p->bathrooms }}</td>
+                                    <td>{{ $property->bathrooms }}</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Furnishings</td>
-                                    <td>@if($p->furnish_type == 'U') Unfurnished @elseif($p->furnish_type == 'S') Semi
-                                        Furnished @elseif($p->furnish_type == 'F') Fully Furnished @endif</td>
+                                    <td>{{ $property->furnished }}</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Area</td>
-                                    <td>{{ $p->property_area }} sqft.</td>
+                                    <td>{{ $property->property_area }} sqft.</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="prop_table @if($p->property_for == 3) d-none @endif">
+                    <div class="prop_table @if($property->property_for == 3) d-none @endif">
                         <h5>AMENITIES</h5>
                         <div class="amenties">
                             <ul>
-                                @foreach(explode(',', $p->amenities) as $am)
-                                @foreach(\App\Amenity::where('amenity_code', $am)->get() as $amenity)
-                                <li><a>{{ $amenity->name }}</a></li>
-                                @endforeach
+                                @foreach($property->amenities as $am)
+                                <li>{{ $am->name }}</li>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <p>{!! $p->description !!}</p>
+            <p>{!! $property->languages[0]->description !!}</p>
         </div>
     </section>
-    <section class="property_sec">
-        <div class="container">
-            <h3 class="mb-3">More available in the same area</h3>
-            <div class="row">
-                <?php $counter = 0; ?>
-                @foreach(\App\property::where('city', $p->city)->orWhere('state', $p->state)->inRandomOrder()->get() as
-                $prel)
-                <?php $counter++; ?>
-                @if($counter <= 4) <div class="col-md-3">
-                    <div class="probox">
-                        <a href="{{ url('/properties/'.$prel->url) }}">
-                            <span
-                                class="tag_top @if($prel->property_for == 2) rent @elseif($prel->property_for == 1) buy @else sell @endif">
-                                @if($prel->property_for == 2) Rent @elseif($prel->property_for == 1) Buy @else OFF PLAN
-                                @endif</span>
-                            <div class="pro_img">
-                                @if(\App\PropertyImage::where('property_id', $prel->id)->count() > 0)
-                                @foreach(\App\PropertyImage::where('property_id', $prel->id)->get()->take(1) as
-                                $pim_rel)
-                                <img src="{{ url('images/frontend/property_images/large/'.$pim_rel->image_name) }}">
-                                @endforeach
-                                @else
-                                <img src="{{ url('images/frontend/property_images/large/default.png') }}">
-                                @endif
-                            </div>
-                            <div class="pro_con">
-                                <h5>@foreach(\App\City::where('id', $prel->city)->get() as $c) {{ $c->name }},
-                                    @endforeach @foreach(\App\State::where('id', $prel->state)->get() as $s)
-                                    {{ $s->name }} @endforeach</h5>
-                                @foreach(\App\PropertyType::where('type_code', $prel->property_type)->get() as $ptn) <a
-                                    class="badge badge-warning badge-sm"
-                                    href="{{ url('/properties/'.$ptn->url) }}">{{ $ptn->name }}</a> @endforeach
-                                <p>{{ $prel->name }}</p>
-                                <h6>@if($prel->property_for == 2)
-                                    AED {{ $prel->property_price }} <span>/Year</span>
-                                    @else
-                                    AED {{ $prel->property_price }}
-                                    @endif</h6>
-                                <ul>
-                                    <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $prel->bedrooms }}
-                                    </li>
-                                    <li><img
-                                            src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $prel->bathrooms }}
-                                    </li>
-                                </ul>
-                            </div>
-                        </a>
-                    </div>
-            </div>
-            @endif
-            @endforeach
-        </div>
-</div>
-</section>
+
 </div>
 
 <!-- Modal Enquire -->
@@ -247,7 +196,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" class="enquiry_form" id="EnquiryForm" action="{{ url('/properties/'.$p->url) }}">
+                <form method="post" class="enquiry_form" id="EnquiryForm" action="{{ url('/properties/'.$property->id) }}">
                     {{ csrf_field() }}
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -266,11 +215,11 @@
                     </div>
                     <div class="form-group">
                         <input type="hidden" class="form-control" name="prop_name" id="prop_name"
-                            value="{{ $p->name }}">
+                            value="{{ $property->name }}">
                     </div>
                     <div class="form-group">
                         <input type="hidden" class="form-control" name="prop_url" id="prop_url"
-                            value="{{ url('/properties/'.$p->url) }}">
+                            value="{{ url('/properties/'.$property->id) }}">
                     </div>
                     <div class="form-group">
                         <label for="Enquiry Details">Enquery Details</label>

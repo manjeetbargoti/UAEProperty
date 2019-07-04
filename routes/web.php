@@ -91,7 +91,7 @@ Route::group(['middleware' => 'auth'], function (){
 });
 
     // View Single Property
-    Route::match(['get', 'post'], '/properties/{url}', 'HomeController@singleProperty');
+    // Route::match(['get', 'post'], '/properties/{url}', 'HomeController@singleProperty');
 
     // Property Category Page
     Route::get('/category/{url}', 'HomeController@propertyCategory')->name('property.category');
@@ -124,7 +124,7 @@ Route::group(['middleware' => 'auth'], function (){
 
     // Consume API Data
     Route::match(['get','post'], '/api-data', 'PropertyController@apiData');
-    Route::match(['get', 'post'], '/api/properties/{id}', 'PropertyController@apiProperty');
+    Route::match(['get', 'post'], '/properties/{id}', 'HomeController@singleProperty');
     
 
 Route::get('/logout', 'AdminController@logout');

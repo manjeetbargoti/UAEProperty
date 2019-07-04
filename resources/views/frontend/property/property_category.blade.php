@@ -110,45 +110,44 @@
 
                             @foreach($properties as $p)
                             <div class="proplist">
-                                <div class="proplist_img">
-                                    @if(\App\PropertyImage::where('property_id', $p->id)->count() > 0)
-                                    @foreach(\App\PropertyImage::where('property_id', $p->id)->take(1)->get() as $pim)
-                                    <img src="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}">
-                                    @endforeach
+                                <div class="proplist_img" style="text-align: center;">
+                                    @if(!empty($p->image_name))
+                                    <img src="{{ url('/images/frontend/property_images/large/'.$p->image_name) }}">
+                                    @elseif(!empty($p->images[0]->medium->link))
+                                    <img height="200" src="{{ $p->images[0]->medium->link }}">
+                                    @else
+                                    <img src="{{ url('images/frontend/property_images/large/default.png') }}">
                                     @endif
                                 </div>
                                 <div class="proplist_item">
                                     <div class="pro_con">
                                         <label
-                                            class="badge badge-warning">@foreach(\App\PropertyType::where('type_code',
-                                            $p->property_type)->get() as $ptn) {{ $ptn->name }} @endforeach</label>
+                                            class="badge badge-warning">{{ $p->property_type }}</label>
                                         <label class="badge badge-success">@if($p->property_for == 1) Buy
                                             @elseif($p->property_for == 2) Rent @elseif($p->property_for == 3) Off Plan
                                             @endif</label>
-                                        <h5>@foreach(\App\City::where('id', $p->city)->get() as $c) {{ $c->name }},
-                                            @endforeach @foreach(\App\State::where('id', $p->state)->get() as $s)
-                                            {{ $s->name }} @endforeach</h5>
+                                        <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
                                         <p>{{ $p->name }}</p>
                                         <h6>@if($p->property_for == 2)
-                                            AED {{ $p->property_price }} <span>/Year</span>
+                                            @if(!empty($p->property_price))AED {{ $p->property_price }} <span>/Year</span>@endif
                                             @else
-                                            AED {{ $p->property_price }}
+                                            @if(!empty($p->property_price))AED {{ $p->property_price }}@endif
                                             @endif</h6>
                                         <ul>
-                                            <li>
+                                            @if(!empty($p->bedrooms))<li>
                                                 <img
                                                     src="{{ url('/images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
-                                            </li>
-                                            <li>
+                                            </li>@endif
+                                            @if(!empty($p->bedrooms))<li>
                                                 <img
                                                     src="{{ url('/images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}
-                                            </li>
+                                            </li>@endif
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="callquiery">
                                     <p>Posted on {{ date('M d, Y', strtotime($p->created_at)) }}</p>
-                                    <a href="{{ url('/properties/'.$p->url) }}" class="readmore_btn">Read More</a>
+                                    <a href="{{ url('/properties/'.$p->id) }}" class="readmore_btn">Read More</a>
                                 </div>
                             </div>
                             @endforeach

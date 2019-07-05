@@ -1,8 +1,6 @@
 @extends('layouts.frontend.home_design_2')
 @section('content')
 
-@foreach($property as $property)
-
 <section class="search_inside">
     <div class="container">
         <div class="row">
@@ -105,13 +103,15 @@
                         <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
                             @if(!empty($property->images[0]->thumb->link))
                             @foreach($property->images as $pim)
-                            <li style="text-align: center;background:#f8f8f8;" height="100" width="200" data-thumb="{{ $pim->medium->link }}">
+                            <li style="text-align: center;background:#f8f8f8;" height="100" width="200"
+                                data-thumb="{{ $pim->medium->link }}">
                                 <img height="450" src="{{ $pim->full->link }}" />
                             </li>
                             @endforeach
                             @else
-                            @foreach(\App\PropertyImage::where('property_id', $p->id)->get() as $pim)
-                            <li style="text-align: center;background: #f8f8f8;" data-thumb="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}">
+                            @foreach(\App\PropertyImage::where('property_id', $property->id)->get() as $pim)
+                            <li style="text-align: center;background: #f8f8f8;"
+                                data-thumb="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}">
                                 <img src="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}" />
                             </li>
                             @endforeach
@@ -132,34 +132,39 @@
                             <tbody>
                                 <tr>
                                     <td scope="row">Price</td>
-                                    <td>@if($property->price->offering_type == 'rent')AED
-                                        {{ $property->price->prices[0]->value }}
-                                        <span>/{{ $property->price->prices[0]->period }}</span>@elseif($property->price->offering_type
-                                        == 'sale') AED {{ $property->price->value }} @endif</td>
+                                    <td>@if($property->property_for == 2)
+                                        AED {{ $property->property_price }}
+                                        @elseif($property->property_for == 1) 
+                                        AED {{ $property->property_price }} 
+                                        @endif</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Type</td>
-                                    <td>{{ $property->property_type }}</td>
+                                    <td>@if(!empty($property->property_type)){{ $property->property_type }}@endif</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Property Code</td>
-                                    <td>{{ $property->property_code }}</td>
+                                    <td>@if(!empty($property->property_code)){{ $property->property_code }}@endif</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Bedrooms</td>
-                                    <td>{{ $property->bedrooms }}</td>
+                                    <td>@if(!empty($property->bedrooms)){{ $property->bedrooms }}@endif</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Bathrooms</td>
-                                    <td>{{ $property->bathrooms }}</td>
+                                    <td>@if(!empty($property->bathrooms)){{ $property->bathrooms }}@endif</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">Parkings</td>
+                                    <td>@if(!empty($property->parking)){{ $property->parking }}@endif</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Furnishings</td>
-                                    <td>{{ $property->furnished }}</td>
+                                    <td>@if($property->furnish_type == 'F') Full Furnished @elseif($property->furnish_type == 'U') Unfurnished @elseif($property->furnish_type == 'S') Semi-Furnished @endif</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Area</td>
-                                    <td>{{ $property->property_area }} sqft.</td>
+                                    <td>@if(!empty($property->property_area)){{ $property->property_area }} sqft. @endif</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -170,17 +175,68 @@
                         <h5>AMENITIES</h5>
                         <div class="amenties">
                             <ul>
-                                @foreach($property->amenities as $am)
+                            @if(!empty($property->am))
+                                @foreach($property->am as $am)
                                 <li>{{ $am->name }}</li>
                                 @endforeach
+                            @else
+                            @foreach(explode(',', $property->amenities) as $am)
+                                @foreach(\App\Amenity::where('amenity_code', $am)->get() as $amn)
+                                <li>{{ $amn->name }}</li>
+                                @endforeach
+                            @endforeach
+                            @endif
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <p>{!! $property->languages[0]->description !!}</p>
+            <p>{!! $property->description !!}</p>
         </div>
     </section>
+
+    <section class="property_sec">
+        <div class="container">
+            <h3 class="mb-3">More available in {{ $property->state_name }} </h3>
+            <div class="row">
+                <?php $counter = 0; ?>
+                @foreach($property_all as $prel)
+                @if($prel->location->city == $property->state_name)
+                <?php $counter++; ?>
+                @if($counter <= 4)
+                <div class="col-md-3">
+                    <div class="probox">
+                        <a href="{{ url('/properties/'.$prel->id) }}">
+                            <span
+                                class="tag_top @if($prel->price->offering_type == 'rent') rent @elseif($prel->price->offering_type == 'sale') sell @endif">
+                                {{ $prel->price->offering_type }}</span>
+                            <div class="pro_img">
+                                <img height="190" src="{{ $prel->images[0]->medium->link }}">
+                            </div>
+                            <div class="pro_con">
+                                <h5>{{ str_limit($prel->location->community, $limit=13) }}, {{ $prel->location->city }}</h5> 
+                                <a class="badge badge-warning badge-sm" href="{{ url('/properties/'.$prel->type->name) }}">
+                                    {{ $prel->type->name }}
+                                </a>
+                                <p>{{ $prel->languages[0]->title }}</p>
+                                <h6>@if($prel->price->offering_type == 'rent')AED {{ $prel->price->prices[0]->value }} <span>/{{ $prel->price->prices[0]->period }}</span>@elseif($prel->price->offering_type == 'sale') AED {{ $prel->price->value }} @endif</h6>
+                                <ul>
+                                    @if(!empty($prel->bedrooms))<li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $prel->bedrooms }}
+                                    </li>@endif
+                                    @if(!empty($prel->bathrooms))<li><img
+                                            src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $prel->bathrooms }}
+                                    </li>@endif
+                                </ul>
+                            </div>
+                        </a>
+                    </div>
+            </div>
+            @endif
+            @endif
+            @endforeach
+        </div>
+</div>
+</section>
 
 </div>
 
@@ -196,7 +252,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" class="enquiry_form" id="EnquiryForm" action="{{ url('/properties/'.$property->id) }}">
+                <form method="post" class="enquiry_form" id="EnquiryForm"
+                    action="{{ url('/properties/'.$property->id) }}">
                     {{ csrf_field() }}
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -234,7 +291,5 @@
     </div>
 </div>
 <!-- Modal Enquire End -->
-
-@endforeach
 
 @endsection

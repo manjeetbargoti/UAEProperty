@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\State;
+use App\Amenity;
 use App\Property;
 use App\Subscriber;
 use App\PropertyType;
@@ -36,7 +37,7 @@ class HomeController extends Controller
     public function index()
     {
         $client = new Client();
-        $prop = $client->request('GET', 'https://api.mycrm.com/properties?per_page=100', [
+        $prop = $client->request('GET', 'https://api.mycrm.com/properties?per_page=50', [
             'headers' => [
                 'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
             ]
@@ -65,7 +66,6 @@ class HomeController extends Controller
             $property_data[$key]->city_name = $prop_data->location->community;
             $property_data[$key]->state_name = $prop_data->location->city;
         }
-
 
         $properties = Property::orderBy('created_at', 'desc')->get();
         $properties = json_decode(json_encode($properties));
@@ -122,6 +122,7 @@ class HomeController extends Controller
         if($property_count > 0){
             $property = Property::where('id', $id)->get();
             $property = json_decode(json_encode($property));
+            // echo "<pre>"; print_r($property); die;
 
             foreach($property as $key => $val){
                 $city_count = City::where(['id'=> $val->city])->count();
@@ -136,6 +137,8 @@ class HomeController extends Controller
                 }
             }
 
+            $property = json_decode(json_encode($property[0]));
+
         }else{
             $client = new Client();
             $prop = $client->request('GET', 'https://api.mycrm.com/properties/'.$id, [
@@ -143,13 +146,6 @@ class HomeController extends Controller
                         'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
                     ]
             ]);
-            
-
-            // $prop_all = $client->request('GET', 'https://api.mycrm.com/properties', [
-            //     'headers' => [
-            //         'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
-            //     ]
-            // ]);
 
             // Single Property
             $data = $prop->getBody();
@@ -165,25 +161,46 @@ class HomeController extends Controller
             $property->name = $property->languages[0]->title;
             $property->property_type = $property->type->name;
             if(!empty($property->price->prices[0]->value)){
-                $property->property_price = $property->price->prices[0]->value;
+                $property->property_price = $property->price->prices[0]->value.' /'.$property->price->prices[0]->period;
+            }elseif(!empty($property->price->value)){
+                $property->property_price = $property->price->value;
             }
             $property->city_name = $property->location->community;
             $property->state_name = $property->location->city;
             $property->property_code = $property->reference;
             $property->property_area = $property->size;
-            // All Property
-            // $data = $prop_all->getBody();
-            // $data = json_decode($data, true);
-            // $property_all = $data['properties'];
-            // $property = json_decode(json_encode($property), true);
-            
-            // echo "<pre>"; print_r($property); die;
+            if($property->furnished == "furnished"){
+                $property->furnish_type = 'F';
+            }elseif(!empty($property->furnished == "unfurnished")){
+                $property->furnish_type = 'U';
+            }elseif(!empty($property->furnished == "semi-furnished")){
+                $property->furnish_type = 'S';
+            }
+            $property->description = $property->languages[0]->description;
+            $property->city = $property->location->city;
+            $property->am = $property->amenities;
         }
 
-        // $property_image = PropertyImage::get();
-        $property = json_decode(json_encode($property), true);
+        $property = json_decode(json_encode($property));
 
-        return view('frontend.property.single_property', compact('property'));
+        $client = new Client();
+        $prop_all = $client->request('GET', 'https://api.mycrm.com/properties', [
+            'headers' => [
+                'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
+            ]
+        ]);
+
+        // All Property
+        $data = $prop_all->getBody();
+        $data = json_decode($data, true);
+        $property_all = $data['properties'];
+        $property_all = json_decode(json_encode($property_all));
+
+        // $property->city = $property_all->location->city;
+
+        // echo "<pre>"; print_r($property); die;
+
+        return view('frontend.property.single_property', compact('property', 'property_all'));
     }
 
     // Property Category Page Function
@@ -191,6 +208,26 @@ class HomeController extends Controller
     {
         $property_type_code = PropertyType::where('url', $url)->get();
         $properties = Property::where('property_type', $property_type_code[0]->type_code)->orderBy('created_at', 'desc')->get();
+        $properties = json_decode(json_encode($properties));
+
+        foreach($properties as $key => $val)
+        {
+            $prop_type = PropertyType::where(['type_code' => $val->property_type])->first();
+            $properties[$key]->property_type = $prop_type->name;
+
+            $city_name = City::where(['id' => $val->city])->first();
+            $properties[$key]->city_name = $city_name->name;
+
+            $state_name = State::where(['id' => $val->state])->first();
+            $properties[$key]->state_name = $state_name->name;
+
+            $prop_img_count = PropertyImage::where(['property_id' => $val->id])->count();
+            if($prop_img_count > 0)
+            {
+                $prop_img = PropertyImage::where(['property_id' => $val->id])->first();
+                $properties[$key]->image_name = $prop_img->image_name;
+            }
+        }
         // echo "<pre>"; print_r($properties); die;
 
         return view('frontend.property.property_category', compact('properties'));
@@ -203,10 +240,12 @@ class HomeController extends Controller
             $property_for = 'sale';
         }elseif($id == 2){
             $property_for = 'rent';
+        }elseif($id == 3) {
+            $property_for = 'off-plan';
         }
 
         $client = new Client();
-        $prop = $client->request('GET', 'https://api.mycrm.com/properties?filter[[offering_type]]='.$property_for, [
+        $prop = $client->request('GET', 'https://api.mycrm.com/properties?filter[offering_type]='.$property_for.'&per_page=50', [
             'headers' => [
                 'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
             ]
@@ -271,7 +310,67 @@ class HomeController extends Controller
     // Property by State
     public function cityProperty($id=null)
     {
+        if($id=47987){
+            $city = 'Dubai';
+        }
+
+        $client = new Client();
+        $prop = $client->request('GET', 'https://api.mycrm.com/properties?filter[offering_type]='.$city.'&per_page=50', [
+            'headers' => [
+                'Authorization' => 'Bearer 6ad4485a523c28cf90e5cbe9d185dfbd11fc422f',
+            ]
+        ]);
+
+        // $data = $prop->paginate(20);
+
+        $data = $prop->getBody();
+        $data = json_decode($data, true);
+        $property_data = $data['properties'];
+        $property_data = json_decode(json_encode($property_data));
+        // $property_f = $property_data[0]['price']['offering_type'];
+
+        foreach($property_data as $key => $prop_data)
+        {
+            if($prop_data->price->offering_type == 'sale'){
+                $property_data[$key]->property_for = 1;
+            }elseif($prop_data->price->offering_type == 'rent'){
+                $property_data[$key]->property_for = 2;
+            }
+            $property_data[$key]->name = $prop_data->languages[0]->title;
+            $property_data[$key]->property_type = $prop_data->type->name;
+            if(!empty($prop_data->price->prices[0]->value)){
+                $property_data[$key]->property_price = $prop_data->price->prices[0]->value;
+            }elseif(!empty($prop_data->price->value)){
+                $property_data[$key]->property_price = $prop_data->price->value;
+            }
+            $property_data[$key]->city_name = $prop_data->location->community;
+            $property_data[$key]->state_name = $prop_data->location->city;
+        }
+
         $properties = Property::where(['city' => $id, 'property_for' => 3])->orderBy('created_at', 'desc')->get();
+        $properties = json_decode(json_encode($properties));
+
+        foreach($properties as $key => $val)
+        {
+            $prop_type = PropertyType::where(['type_code' => $val->property_type])->first();
+            $properties[$key]->property_type = $prop_type->name;
+
+            $city_name = City::where(['id' => $val->city])->first();
+            $properties[$key]->city_name = $city_name->name;
+
+            $state_name = State::where(['id' => $val->state])->first();
+            $properties[$key]->state_name = $state_name->name;
+
+            $prop_img_count = PropertyImage::where(['property_id' => $val->id])->count();
+            if($prop_img_count > 0)
+            {
+                $prop_img = PropertyImage::where(['property_id' => $val->id])->first();
+                $properties[$key]->image_name = $prop_img->image_name;
+            }
+        }
+
+        $properties = array_merge($properties, $property_data);
+
         return view('frontend.property.property_category', compact('properties'));
     }
 

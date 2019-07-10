@@ -31,6 +31,7 @@
                                     <th>Description</th>
                                     <th>Date</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,19 +56,14 @@
                                             @endif
                                         </div>
                                     </td>
+
+                                    <td>
+                                        <!-- <a href="{{ url('/admin/amenity/'.$am->id.'/edit') }}" class="label label-warning label-sm"><i class="fa fa-edit"></i></a> -->
+                                        <a href="{{ url('/admin/amenity/'.$am->id.'/delete') }}" class="label label-danger label-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Name</th>
-                                    <th>Amenity Code</th>
-                                    <th>Description</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                     <!-- /.box-body -->

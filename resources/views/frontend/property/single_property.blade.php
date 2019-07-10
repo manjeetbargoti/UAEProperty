@@ -87,9 +87,9 @@
                     <div class="col-md-5">
                         <div class="share_query">
                             <div class="callquery">
-                                <a href="#"><img src="{{ url('/images/frontend/images/mail.svg') }}"></a>
+                                <a href="mailto:manjeet.singh@magicgroupinc.com"><img src="{{ url('/images/frontend/images/mail.svg') }}"></a>
                                 <a href="#"><img src="{{ url('/images/frontend/images/wp.svg') }}"></a>
-                                <a href="#"><img src="{{ url('/images/frontend/images/call.svg') }}"></a>
+                                <a href="tel:+97101234567"><img src="{{ url('/images/frontend/images/call.svg') }}"></a>
                             </div>
                             <a href="#" class="enquirebtn" data-toggle="modal" data-target="#getQuerymodal"><i
                                     class="fa fa-info"></i>Enquire Now</a>
@@ -260,15 +260,18 @@
                             <label for="Full Name">Full Name</label>
                             <input type="text" class="form-control" name="full_name" id="full_name"
                                 placeholder="Full Name">
+                                <span id="error_name"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="Phone Number">Contact Number</label>
-                            <input type="tel" class="form-control" name="phone" id="phoneno" placeholder="Phone no.">
+                            <input type="tel" class="form-control" name="phone" id="enq_phoneno" placeholder="Phone no.">
+                            <span id="error_phone"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Email Address">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Email Address">
+                        <input type="email" class="form-control" name="email" id="enq_email" placeholder="Email Address">
+                        <span id="error_email"></span>
                     </div>
                     <div class="form-group">
                         <input type="hidden" class="form-control" name="prop_name" id="prop_name"
@@ -283,7 +286,7 @@
                         <textarea class="form-control" id="enquiry_message" name="enquiry_message" rows="3"></textarea>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" id="EnquiryForm" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>

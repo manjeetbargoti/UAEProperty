@@ -46,15 +46,6 @@
                                 </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                     <!-- /.box-body -->

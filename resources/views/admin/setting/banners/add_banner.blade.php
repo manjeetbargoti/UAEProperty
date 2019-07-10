@@ -27,14 +27,15 @@
                                     <div class="form-group">
                                         <label>Banner Image</label> <span class="badge label-success badge-sm">image
                                             size: 1920 x 975</span>
+                                            <span id="error_img" class="pull-right"></span>
                                         <input type="file" name="banner_image" id="banner_image" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
-                                        <label>Title Text</label> <span class="badge label-success badge-sm">it can be
-                                            your category..</span>
-                                        <input type="text" name="title" id="title" class="form-control">
+                                        <label>Title Text</label> <span class="badge label-success badge-sm">Max 100 words</span>
+                                        <span id="error_msg" class="pull-right"></span>
+                                        <input type="text" name="title" id="bannerTitle" maxlength="100" class="form-control">
                                     </div>
                                 </div>
 
@@ -48,7 +49,7 @@
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <label>Description</label> <span class="badge label-success badge-sm">Max. 150 words</span>
-                                        <textarea name="description" id="description" rows="2" class="form-control"></textarea>
+                                        <textarea name="description" maxlength="150" id="description" rows="2" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +57,7 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-info pull-right">Add Banner</button>
+                            <button type="submit" id="AddBanner" class="btn btn-info pull-right">Add Banner</button>
                         </div>
                     </form>
                 </div>

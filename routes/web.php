@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/admin/amenities', 'PropertyController@allAmenity');
     Route::match(['get','post'], '/admin/amenable/{id}', 'PropertyController@enableAmenity');
     Route::match(['get','post'], '/admin/amdisable/{id}', 'PropertyController@disableAmenity');
+    Route::match(['get','post'], '/admin/amenity/{id}/edit', 'PropertyController@editAmenity');
+    Route::match(['get','post'], '/admin/amenity/{id}/delete', 'PropertyController@deleteAmenity');
 
     // Get City List
     Route::get('/admin/get-city-list', 'PropertyController@getCityList');
@@ -97,7 +99,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/category/{url}', 'HomeController@propertyCategory')->name('property.category');
 
     // Property for Route (Buy/Rent/OFF Plan)
-    Route::get('/property-for/{id}/{url}', 'HomeController@propertyFor');
+    // Route::get('/property-for/{id}/{url}', 'HomeController@propertyFor');
+    Route::match(['get','post'],'/property-for/{id}/{url}/{page}', 'HomeController@propertyFor');
 
     // Property Based on City
     Route::get('/property/{id}/{city}', 'HomeController@cityProperty');

@@ -26,6 +26,7 @@
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <label>User Name</label>
+                                        <span id="error_name" class="pull-right"></span>
                                         <input type="text" name="user_name" id="user_name" class="form-control"
                                             placeholder="User Name">
                                     </div>
@@ -33,6 +34,7 @@
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <label>Testimonial Content</label>
+                                        <span id="error_msg" class="pull-right"></span>
                                         <textarea name="content" id="testimonial_content" class="form-control" cols="30" rows="5"></textarea>
                                     </div>
                                 </div>
@@ -48,7 +50,7 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-info pull-right">Submit</button>
+                            <button type="submit" id="AddTestimonial" class="btn btn-info pull-right">Submit</button>
                         </div>
                     </form>
                 </div>

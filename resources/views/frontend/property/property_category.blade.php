@@ -153,6 +153,22 @@
                             @endforeach
                         </div>
                     </div>
+                    @if(isset($current_page))
+                    <?php $prev = $current_page - 1; ?>
+                    <?php $next_page = $current_page + 1; ?>
+                    
+                    @if(($has_next_page == true) && ($has_previous_page == false))    
+
+                    <li style="float:right;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a href="{{url('/property-for/'.$type.'/'.$url.'/'.$next_page)}}" class="btn btn-sm btn-info">Next</a></li>   
+                    @elseif(($has_next_page == false) && ($has_previous_page == true))            
+                    <li style="float:left;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a href="{{url('/property-for/'.$type.'/'.$url.'/'.$prev)}}" class="btn btn-sm btn-info">Previous</a></li>
+                        
+                    @elseif(($has_next_page == true) && ($has_previous_page == true))            
+                    <li style="float:left;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a href="{{url('/property-for/'.$type.'/'.$url.'/'.$prev)}}" class="btn btn-sm btn-info">Previous</a></li>
+                    <li style="float:right;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a href="{{url('/property-for/'.$type.'/'.$url.'/'.$next_page)}}" class="btn btn-sm btn-info">Next</a></li>
+                        
+                    @endif
+                    @endif
                     <!-- <div class="col-md-3">
                         <div class="right_sidebar">
                             <div class="popular_searches">

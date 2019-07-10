@@ -5,10 +5,10 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Add Amenities</h1>
+        <h1>Add Amenity</h1>
         <ol class="breadcrumb">
             <li><a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Add Amenities</li>
+            <li class="active">Add Amenity</li>
         </ol>
     </section>
 
@@ -26,6 +26,7 @@
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <label>Amenity Name</label>
+                                        <span id="error_msg" class="pull-right"></span>
                                         <input type="text" name="amenity_name" id="amenity_name" class="form-control"
                                             placeholder="Amenity Name">
                                     </div>
@@ -55,7 +56,7 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-success pull-right">Add Amenity</button>
+                            <button id="AddAmenity" type="submit" class="btn btn-success pull-right">Add Amenity</button>
                         </div>
                     </form>
                 </div>

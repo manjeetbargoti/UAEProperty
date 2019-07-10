@@ -219,7 +219,7 @@ button#hidesearch i {
 }
 
 .headding h1:before {
-    background: url(../../images/frontend/images/waveblack.svg);
+    /* background: url(../../images/frontend/images/waveblack.svg); */
     width: 69px;
     height: 19px;
     position: absolute;
@@ -353,7 +353,7 @@ section{
     padding-top: 26px;
 }
 .count_txt h2:before {
-    background: url(../../images/frontend/images/waveyallow.svg);
+    /* background: url(../../images/frontend/images/waveyallow.svg); */
     width: 69px;
     height: 19px;
     position: absolute;
@@ -435,7 +435,7 @@ span.tag_top {
     font-weight: 400;
 }
 .blog_headding h2:before {
-    background: url(../../images/frontend/images/waveblack.svg);
+    /* background: url(../../images/frontend/images/waveblack.svg); */
     width: 69px;
     height: 19px;
     position: absolute;
@@ -503,7 +503,7 @@ div#work-class2 {
 }
 
 .subscribe_text h1:before {
-    background: url(../../images/frontend/images/waveblack.png);
+    /* background: url(../../images/frontend/images/waveblack.png); */
     width: 69px;
     height: 19px;
     position: absolute;

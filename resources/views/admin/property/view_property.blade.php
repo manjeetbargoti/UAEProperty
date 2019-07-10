@@ -41,7 +41,7 @@
                                     <?php $i++ ?>
                                     <td>{{ $i }}</td>
                                     <td>@if(!empty($p->image_name)) <img src="{{ url('images/frontend/property_images/large/'.$p->image_name) }}" width="60" alt="{{ $p->name }}"> @endif</td>
-                                    <td><a href="{{ url('/properties/'.$p->url) }}">{{ $p->name}}</a></td>
+                                    <td><a href="{{ url('/properties/'.$p->id) }}">{{ $p->name}}</a></td>
                                     <td>@if($p->property_for == 1) Buy @elseif($p->property_for == 2) Sale @else Off Plan @endif</td>
                                     <td>AED {{ $p->property_price }}</td>
                                     <td>@if(!empty($p->city)) @foreach(\App\City::where('id', $p->city)->get() as $cname) {{ $cname->name }} @endforeach @endif</td>
@@ -54,17 +54,6 @@
                                 </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Image</th>
-                                    <th>Title</th>
-                                    <th>Listed For</th>
-                                    <th>Price</th>
-                                    <th>Location</th>
-                                    <th>Status</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                     <!-- /.box-body -->

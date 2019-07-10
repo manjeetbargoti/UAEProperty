@@ -188,4 +188,109 @@ $('.product-carousel').owlCarousel({
           loop:false
       }
   }
-})
+});
+
+$(document).ready(function() {
+  $('#EnquiryForm').click(function(e) {
+      var isValid = true;
+      $('#full_name').each(function() {
+          if ($.trim($(this).val()) == '') {
+              isValid = false;
+              $(this).css({
+                  "border": "1px solid red",
+                  "background": "#FFCECE"
+              });
+              $('#error_name').html(
+                  '<label class="text-danger">Name can\'t be empty!</label>');
+          } else {
+              $(this).css({
+                  "border": "",
+                  "background": ""
+              });
+          }
+      });
+      if(isValid == false)
+      {
+        e.preventDefault();
+      }  
+  });
+});
+
+$(document).ready(function() {
+  $('#EnquiryForm').click(function(e) {
+      var isValid = true;
+      $('#enq_phoneno').each(function() {
+          if ($.trim($(this).val()) == '') {
+              isValid = false;
+              $(this).css({
+                  "border": "1px solid red",
+                  "background": "#FFCECE"
+              });
+              $('#error_phone').html(
+                  '<label class="text-danger">Phone can\'t be empty!</label>');
+          } else {
+              $(this).css({
+                  "border": "",
+                  "background": ""
+              });
+          }
+      });
+      if(isValid == false)
+      {
+        e.preventDefault();
+      }  
+  });
+});
+
+$(document).ready(function() {
+  $('#EnquiryForm').click(function(e) {
+      var isValid = true;
+      $('#enq_email').each(function() {
+          if ($.trim($(this).val()) == '') {
+              isValid = false;
+              $(this).css({
+                  "border": "1px solid red",
+                  "background": "#FFCECE"
+              });
+              $('#error_email').html(
+                  '<label class="text-danger">Email can\'t be empty!</label>');
+          } else {
+              $(this).css({
+                  "border": "",
+                  "background": ""
+              });
+          }
+      });
+      if(isValid == false)
+      {
+        e.preventDefault();
+      }  
+  });
+});
+
+$(document).ready(function() {
+    $('#SubscribeForm').click(function(e) {
+        var isValid = true;
+        $('#subs_email').each(function() {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+                $('#error_subs_email').html(
+                    '<label class="text-danger">Email can\'t be empty!</label>');
+            } else {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+        });
+        if(isValid == false)
+        {
+          e.preventDefault();
+        }  
+    });
+  });
+

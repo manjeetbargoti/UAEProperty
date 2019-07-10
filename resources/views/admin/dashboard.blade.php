@@ -56,7 +56,7 @@
                                     @endforeach
                                 </div>
                                 <div class="product-info">
-                                    <a href="{{ url('/properties/'.$p->url) }}" target="_blank" class="product-title">{{ str_limit($p->name, $limit=150) }}
+                                    <a href="{{ url('/properties/'.$p->id) }}" target="_blank" class="product-title">{{ str_limit($p->name, $limit=150) }}
                                         <span class="label label-success pull-right">@if($p->property_for == 2)
                                             AED {{ $p->property_price }} <span>/Year</span>
                                             @else
@@ -72,7 +72,7 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer text-center">
-                        <a href="javascript:void(0)" class="uppercase">View All Proerty</a>
+                        <a href="{{ url('/admin/properties') }}" class="uppercase">View All Properties</a>
                     </div>
                     <!-- /.box-footer -->
                 </div>

@@ -48,7 +48,7 @@
         </div>
         @endif
         <div class="login-logo">
-            <a><b>Repid</b> Leads</a>
+            <a><b>Rapid</b> Leads</a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">

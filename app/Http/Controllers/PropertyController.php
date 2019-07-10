@@ -326,7 +326,7 @@ class PropertyController extends Controller
                 'status'        => $status
             ]);
 
-            return redirect()->back()->with('flash_message_success', 'Amenity Added Successfully!');
+            return redirect('/admin/amenities')->with('flash_message_success', 'Amenity Added Successfully!');
         }
         return view('admin.property.add_amenities');
     }
@@ -334,7 +334,7 @@ class PropertyController extends Controller
     // View All Amenities in List
     public function allAmenity()
     {
-        $amenities = Amenity::orderBy('name', 'asc')->get();
+        $amenities = Amenity::orderBy('created_at', 'desc')->get();
 
         return view('admin.property.amenities', compact('amenities'));
     }
@@ -349,11 +349,20 @@ class PropertyController extends Controller
     }
 
     // Disable Amenity
-    public function disableAmenity($id)
+    public function disableAmenity($id=null)
     {
         if(!empty($id)){
             Amenity::where('id', $id)->update(['status'=> '0']);
             return redirect()->back()->with('flash_message_success', 'Amenity Disabled Successfully!');
+        }
+    }
+
+    // Delete Amenity
+    public function deleteAmenity($id=null)
+    {
+        if(!empty($id)){
+            Amenity::where('id', $id)->delete();
+            return redirect()->back()->with('flash_message_success', 'Amenity Deleted Successfully!');
         }
     }
 

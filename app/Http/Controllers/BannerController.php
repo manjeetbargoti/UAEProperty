@@ -30,10 +30,13 @@ class BannerController extends Controller
             }
 
             Banner::create([
-                'image'     => $filename,
-                'title'     => $data['title'],
-                'link'      => $data['banner_link']
+                'image'             => $filename,
+                'title'             => $data['title'],
+                'description'       => $data['description'],
+                'link'              => $data['banner_link']
             ]);
+
+            return redirect('/admin/banners')->with('flash_message_success', 'Banner Added Successfully!');
         }
         return view('admin.setting.banners.add_banner');
     }

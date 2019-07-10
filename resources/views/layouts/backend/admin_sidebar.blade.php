@@ -37,7 +37,7 @@
             </li>
 
             <li class="treeview">
-                <a href="#"><i class="fa fa-cog text-green"></i> <span>Setting</span>
+                <a href="#"><i class="fa fa-cog text-green"></i> <span>Settings</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -90,11 +90,11 @@
                             Property</a></li>
                     <li><a href="{{ url('/admin/amenities') }}"><i class="fa fa-s15 text-yellow"></i>Amenities</a></li>
                     <li><a href="{{ url('/admin/add-amenities') }}"><i class="fa fa-plus text-yellow"></i>Add
-                            Amenities</a></li>
+                            Amenity</a></li>
                 </ul>
             </li>
 
-            <li class="treeview">
+            <!-- <li class="treeview">
                 <a href="#"><i class="fa fa-commenting-o text-yellow"></i> <span>Testimonials</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -103,9 +103,9 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ url('/admin/testimonials') }}"><i class="fa fa-comments text-aqua"></i>Testimonials</a></li>
                     <li><a href="{{ url('/admin/new-testimonial') }}"><i class="fa fa-plus-square text-aqua"></i>Add
-                    Testimonials</a></li>
+                    Testimonial</a></li>
                 </ul>
-            </li>
+            </li> -->
 
             <li class="treeview">
                 <a href="#"><i class="fa fa-handshake-o text-green"></i> <span>Subscribers</span>
@@ -115,7 +115,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ url('/admin/subscribers') }}"><i class="fa fa-list text-aqua"></i>Subscribers List</a></li>
-                    <li><a href="#"><i class="fa fa-plus-square text-aqua"></i>Add Subscribers</a></li>
+                    <li><a href="#"><i class="fa fa-plus-square text-aqua"></i>Add Subscriber</a></li>
                 </ul>
             </li>
         </ul>

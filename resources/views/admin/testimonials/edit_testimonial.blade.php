@@ -1,1 +1,1 @@
-<h1>Edit Property {{ $testimonial->id }}</h1>
+<h1>Edit Testimonial {{ $testimonial->id }}</h1>

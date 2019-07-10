@@ -316,4 +316,135 @@ var editor_config = {
     }     
   };
 
+  $(document).ready(function() {
+    $('#AddAmenity').click(function(e) {
+        var isValid = true;
+        $('#amenity_name').each(function() {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+                $('#error_msg').html(
+                    '<label class="text-danger">This field can\'t be empty!</label>');
+            } else {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+        });
+        if(isValid == false)
+        {
+          e.preventDefault();
+        }  
+    });
+});
+
+$(document).ready(function() {
+  $('#AddBanner').click(function(e) {
+      var isValid = true;
+      $('#banner_image').each(function() {
+          if ($.trim($(this).val()) == '') {
+              isValid = false;
+              $(this).css({
+                  "border": "1px solid red",
+                  "background": "#FFCECE"
+              });
+              $('#error_img').html(
+                  '<label class="text-danger">Image can\'t be empty!</label>');
+          } else {
+              $(this).css({
+                  "border": "",
+                  "background": ""
+              });
+          }
+      });
+      if(isValid == false)
+      {
+        e.preventDefault();
+      }  
+  });
+});
+
+$(document).ready(function() {
+  $('#AddBanner').click(function(e) {
+      var isValid = true;
+      $('#bannerTitle').each(function() {
+          if ($.trim($(this).val()) == '') {
+              isValid = false;
+              $(this).css({
+                  "border": "1px solid red",
+                  "background": "#FFCECE"
+              });
+              $('#error_msg').html(
+                  '<label class="text-danger">This field can\'t be empty!</label>');
+          } else {
+              $(this).css({
+                  "border": "",
+                  "background": ""
+              });
+          }
+      });
+      if(isValid == false)
+      {
+        e.preventDefault();
+      }  
+  });
+});
+
+$(document).ready(function() {
+  $('#AddTestimonial').click(function(e) {
+      var isValid = true;
+      $('#user_name').each(function() {
+          if ($.trim($(this).val()) == '') {
+              isValid = false;
+              $(this).css({
+                  "border": "1px solid red",
+                  "background": "#FFCECE"
+              });
+              $('#error_name').html(
+                  '<label class="text-danger">User name can\'t be empty!</label>');
+          } else {
+              $(this).css({
+                  "border": "",
+                  "background": ""
+              });
+          }
+      });
+      if(isValid == false)
+      {
+        e.preventDefault();
+      }  
+  });
+});
+
+$(document).ready(function() {
+  $('#AddTestimonial').click(function(e) {
+      var isValid = true;
+      $('#testimonial_content').each(function() {
+          if ($.trim($(this).val()) == '') {
+              isValid = false;
+              $(this).css({
+                  "border": "1px solid red",
+                  "background": "#FFCECE"
+              });
+              $('#error_msg').html(
+                  '<label class="text-danger">This Field can\'t be empty!</label>');
+          } else {
+              $(this).css({
+                  "border": "",
+                  "background": ""
+              });
+          }
+      });
+      if(isValid == false)
+      {
+        e.preventDefault();
+      }  
+  });
+});
+
+
   

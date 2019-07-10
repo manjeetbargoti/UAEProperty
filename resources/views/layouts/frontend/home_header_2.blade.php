@@ -15,13 +15,13 @@
                     <a class="nav-link" href="#">ABOUT US</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/property-for/1/buy') }}">BUY</a>
+                    <a class="nav-link" href="{{ url('/property-for/1/buy/1') }}">BUY</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/property-for/2/rent') }}">RENT</a>
+                    <a class="nav-link" href="{{ url('/property-for/2/rent/1') }}">RENT</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/property-for/3/off-plan') }}">OFF PLAN</a>
+                    <a class="nav-link" href="{{ url('/property-for/3/off-plan/1') }}">OFF PLAN</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">CONTACT US</a>

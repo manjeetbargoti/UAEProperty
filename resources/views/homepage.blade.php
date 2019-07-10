@@ -5,7 +5,7 @@
     <div class="search_sec">
         <div class="search_inn">
             <div class="search_header">
-                <p>Click here to search property for buy,sell and rent.</p>
+                <p>Click here to search property for buy, sell and rent.</p>
                 <button id="showsearch"><img src="{{ asset('images/frontend/images/searchicon.svg') }}"></button>
             </div>
             <div class="searchbox" style="display: none;">
@@ -171,10 +171,10 @@
                                 <a class="badge badge-warning badge-sm" href="#">{{ $p->property_type }}</a>
                             <p>{{ $p->name }}</p>
                             <ul>
-                                <li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
-                                </li>
-                                <li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}
-                                </li>
+                                @if(!empty($p->bedrooms))<li><img src="{{ url('images/frontend/images/bedroom.svg') }}">{{ $p->bedrooms }}
+                                </li>@endif
+                                @if(!empty($p->bathrooms))<li><img src="{{ url('images/frontend/images/bathroom.svg') }}">{{ $p->bathrooms }}
+                                </li>@endif
                             </ul>
                             <h6>@if($p->property_for == 2)
                                 AED {{ $p->property_price }} <span>/Year</span>
@@ -361,11 +361,12 @@
                     <strong>{!! session('subscribe_message') !!}</strong>
                 </div>
                 @endif
+                <span id="error_subs_email"></span>
                 <div class="subscribe_form">
                     <form method="post" name="subscribe_form" id="SubscribeForm" action="{{ url('/subscribe-now') }}">
                         {{ csrf_field() }}
-                        <input type="email" name="email" placeholder="enter your email">
-                        <button type="submit">Subscribe</button>
+                        <input type="email" name="email" id="subs_email" placeholder="enter your email">
+                        <button type="submit" id="SubscribeForm">Subscribe</button>
                     </form>
                 </div>
             </div>

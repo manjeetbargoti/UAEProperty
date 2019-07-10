@@ -58,21 +58,10 @@
                                                 class="label label-warning label-sm"><i class="fa fa-edit"></i></a>
                                         <a href="{{ url('/admin/testimonial/'.$ttm->id.'/delete') }}" title="Delete"
                                                 class="label label-danger label-sm"><i class="fa fa-trash"></i></a>
-                                            
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Name</th>
-                                    <th>Content</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                     <!-- /.box-body -->
